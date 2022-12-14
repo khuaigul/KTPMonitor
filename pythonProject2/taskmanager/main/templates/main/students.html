@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'main/css/ktpmonitor.css' %}" >
+	<script type="text/javascript" src="{% static 'main/js/students.js' %}"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Студенты</title>
+</head>
+<body>
+	<div class="header_empty">
+		<h1>
+			Списки школьников
+		</h1>
+	</div>
+	<div class = "block">
+	<div id = "students_list">
+		<script type="module">
+			show_students_list();
+		</script>
+	</div>
+	<p>
+		<button class="usual_button" onclick="save_division_update()">
+			Сохранить изменения
+		</button>
+	</p>
+	</div>
+</body>
+</html>
