@@ -1,14 +1,33 @@
 function show_student_page(nickname)
 {
+	console.log("NICK", nickname);
+//	document.location="student_profile";
 	localStorage.setItem('nicknameToShow', nickname);
-	console.log(nickname);
 	document.location="student_profile";
+
 }
 
-function getJson_profile(nickname)
+function getJson_profile()
 {
-	var profile_info = '{"nickname" : "abcd", "surname" : "Иванов", "name" : "Иван", "secondname" : "Иванович", "div" : "A", "datebirth" : "12.05.2005", "school" : "Школа № 99", "form" : 10, "lastActivity" : "2 days ago"}';
-	return profile_info;
+//	var profile_info = '{"nickname" : "abcd", "surname" : "Иванов", "name" : "Иван", "secondname" : "Иванович", "div" : "A", "datebirth" : "12.05.2005", "school" : "Школа № 99", "form" : 10, "lastActivity" : "2 days ago"}';
+	var nickname = localStorage.getItem('nicknameToShow');
+	var params = 'nickname=' + encodeURIComponent(nickname);
+//	return profile_info;
+
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function(){
+		if (xhr.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		} 
+		else
+		{
+//			alert(xhr.responseText);
+			show_student(xhr.responseText);
+		}
+	}
+	xhr.open("POST", 'http://127.0.0.1:8000/studentProfile?', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send(params);
 }
 
 function make_info_element(value, position)
@@ -19,7 +38,46 @@ function make_info_element(value, position)
 	block[0].appendChild(p);
 }
 
-function show_student()
+function getJson_students_divs()
+{
+	var xhr = new XMLHttpRequest();
+	// var params = 'status=OK';
+	
+
+	xhr.onload = function(){
+		if (xhr.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			getJson = xhr.responseText;
+
+			var xhr_d = new XMLHttpRequest();
+
+			xhr_d.onload = function(){
+				if (xhr_d.status != 200){
+					alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+				}
+				else 
+				{
+					get_div_Json = xhr_d.responseText;
+					localStorage.setItem('studentList', getJson);
+					localStorage.setItem('divList', get_div_Json);
+					return show_students_list();
+				}
+			}
+			xhr_d.open("POST", 'http://127.0.0.1:8000/divisionsRe?', true);
+			xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr_d.send(null);
+		}
+	}
+	xhr.open("POST", 'http://127.0.0.1:8000/studentData?', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send(null);
+}
+
+
+function show_student(student_info)
 {
 	console.log("show");
 	let dv = document.querySelectorAll(".header_empty");
@@ -28,7 +86,6 @@ function show_student()
 	header.innerHTML = "Профиль школьника: " + nickName;
 	dv[0].appendChild(header);
 
-	const student_info = getJson_profile(nickName);
 	console.log(student_info);
 	const info = JSON.parse(student_info);
 
@@ -42,15 +99,46 @@ function show_student()
 	make_info_element(info["form"], "Класс");
 }
 
+function set_new_div(name, div)
+{
+	var params = 'nickname=' + encodeURIComponent(name) + '&div=' + encodeURIComponent(div);
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function(){
+		if (xhr.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		} 
+		else
+		{
+			console.log(xhr.responseText)
+		}
+	}
+	xhr.open("POST", 'http://127.0.0.1:8000/сhangeDiv?', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send(params);
+}
+
 function save_division_update()
 {
-
+	var students_list = localStorage.getItem('studentList');
+	var div_list = localStorage.getItem('divList');
+	const students = JSON.parse(students_list);
+	for (var i = 0; i < students["students"].length; i++)
+	{
+		var nickname = students["students"][i]["nickname"];
+		var sel = document.getElementById('nickname_' + nickname);
+		if (sel.value != students["students"][i]["div"])	
+			set_new_div(nickname, sel.value);
+	}
+	document.location="students";
 }
+
+
 
 function show_students_list()
 {
-	const students_list = '{"students" : [	{"nickname" : "abcd", "surname" : "Иванов", "name" : "Иван", "secondname" : "Иванович", "div" : "не выбрано"},{"nickname" : "qwer","surname" : "Петров", "name" : "Пётр", "secondname" : "Петрович", "div" : "A"},{"nickname" : "wertyui","surname" : "Смирнов", "name" : "Валерий", "secondname" : "Михайлович", "div" : "B"},	{"nickname" : "aaaanbvc","surname" : "Иванова", "name" : "Мария", "secondname" : "Ивановна", "div" : "A"},{"nickname" : "elele","surname" : "Крылова", "name" : "Анна", "secondname" : "Александровна", "div" : "не выбрано"}]}';
-	const div_list = '{"divisions" : ["A", "B", "C", "не выбрано"]}';
+	var students_list = localStorage.getItem('studentList');
+	var div_list = localStorage.getItem('divList');
+	console.log("third", students_list);
 	const obj = JSON.parse(students_list);
 	const div = JSON.parse(div_list);
 
@@ -87,6 +175,7 @@ function show_students_list()
 		nickName.setAttribute("class", "link");
 		nickName.addEventListener('click', function(){
 			show_student_page(nickName.innerHTML)});
+		console.log("MADE");
 		name.innerHTML = ": " + obj["students"][i]["surname"] + " " + obj["students"][i]["name"] + " " + obj["students"][i]["secondname"]
 		let div_change = document.createElement("select");
 		for (var j = 0; j < div["divisions"].length; j++)
@@ -107,6 +196,9 @@ function show_students_list()
 		}
 		par.appendChild(nickName);
 		par.appendChild(name);
+		var id = "nickname_" + obj["students"][i]["nickname"];
+//		alert(id);
+		div_change.setAttribute('id', id);
 		par.appendChild(div_change);
 		let dv = document.querySelectorAll("#students_list");
 		dv[0].appendChild(par);
