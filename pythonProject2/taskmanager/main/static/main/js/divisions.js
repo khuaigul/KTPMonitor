@@ -1,12 +1,42 @@
 function getJson_divs()
 {
-	const str = '{"divisions" : ["A", "B", "C"]}';
-	return str;
+	var xhr_d = new XMLHttpRequest();
+
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_div_Json = xhr_d.responseText;
+			localStorage.setItem('divList', get_div_Json);
+			return show_divisions(get_div_Json);
+		}
+	}
+	xhr_d.open("POST", 'http://127.0.0.1:8000/divisionsRe?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(null);
 }
 
 function make_new_division(name)
 {
-	console.log(name);
+	var xhr_d = new XMLHttpRequest();
+	var params = "name=" + encodeURIComponent(name);
+
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_div_Json = xhr_d.responseText;
+			console.log(get_div_Json);
+		}
+	}
+	xhr_d.open("POST", 'http://127.0.0.1:8000/newDivisionRe?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(params);
+
 }
 
 function show_div_page(div)
@@ -15,10 +45,24 @@ function show_div_page(div)
 	document.location="div_info";
 }
 
-function getJson_students_by_div(div)
+function getJson_students_by_div()
 {
-	const students_list = '{"students" : [	{"nickname" : "abcd", "surname" : "Иванов", "name" : "Иван", "secondname" : "Иванович", "div" : "не выбрано"},{"nickname" : "qwer","surname" : "Петров", "name" : "Пётр", "secondname" : "Петрович", "div" : "A"},{"nickname" : "wertyui","surname" : "Смирнов", "name" : "Валерий", "secondname" : "Михайлович", "div" : "B"},	{"nickname" : "aaaanbvc","surname" : "Иванова", "name" : "Мария", "secondname" : "Ивановна", "div" : "A"},{"nickname" : "elele","surname" : "Крылова", "name" : "Анна", "secondname" : "Александровна", "div" : "не выбрано"}]}';
-	return students_list;
+	div = localStorage.getItem('divToShow')
+	var xhr = new XMLHttpRequest();
+	var params = 'div=' + encodeURIComponent(div);
+	xhr.onload = function(){
+		if (xhr.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_Json = xhr.responseText;
+			return show_div(get_Json);
+		}
+	}
+	xhr.open("POST", 'http://127.0.0.1:8000/students_by_div?');
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send(params);
 }
 
 function make_info_element(nickname, lastname, name, secondname)
@@ -29,7 +73,7 @@ function make_info_element(nickname, lastname, name, secondname)
 	block[0].appendChild(p);
 }
 
-function show_div()
+function show_div(students_list)
 {
 	let dv = document.querySelectorAll(".header_empty");
 	let header = document.createElement("h1");
@@ -42,15 +86,12 @@ function show_div()
 	h2_st.innerHTML = "Ученики";
 	block[0].appendChild(h2_st);
 
-	const students_list = getJson_students_by_div(divName);
 	const students = JSON.parse(students_list);
 
 	for (var i = 0; i <  students["students"].length; i++)
 	{
-		make_info_element(students["students"][i]["nickname"], students["students"][i]["lastname"], students["students"][i]["name"], students["students"][i]["secondname"]);
+		make_info_element(students["students"][i]["nickname"], students["students"][i]["surname"], students["students"][i]["name"], students["students"][i]["secondname"]);
 	}
-
-
 }
 
 function add_division()
@@ -59,6 +100,9 @@ function add_division()
 	if (document.getElementById("errortext") != null)
 		block[0].removeChild(document.getElementById("errortext"));
 	let name = document.querySelectorAll("#name > input");
+	var divs_list = localStorage.getItem("divList");
+	var divs = JSON.parse(divs_list);
+	var newName = name[0].value;
 	if (name[0].value == "")
 	{
 		let text = document.createElement("p");
@@ -74,9 +118,8 @@ function add_division()
 	}
 }
 
-function show_divisions() 
+function show_divisions(div_json) 
 {
-	const div_json = getJson_divs();
 	const divs = JSON.parse(div_json);
 
 	let block = document.querySelectorAll(".block");
