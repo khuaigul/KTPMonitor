@@ -63,7 +63,7 @@ function getJson_students_divs()
 					get_div_Json = xhr_d.responseText;
 					localStorage.setItem('studentList', getJson);
 					localStorage.setItem('divList', get_div_Json);
-					return show_students_list();
+					return show_students_list(getJson, get_div_Json);
 				}
 			}
 			xhr_d.open("POST", 'http://127.0.0.1:8000/divisionsRe?', true);
@@ -103,6 +103,7 @@ function set_new_div(name, div)
 {
 	var params = 'nickname=' + encodeURIComponent(name) + '&div=' + encodeURIComponent(div);
 	var xhr = new XMLHttpRequest();
+	alert(name, div);
 	xhr.onload = function(){
 		if (xhr.status != 200){
 			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
@@ -126,8 +127,11 @@ function save_division_update()
 	{
 		var nickname = students["students"][i]["nickname"];
 		var sel = document.getElementById('nickname_' + nickname);
-		if (sel.value != students["students"][i]["div"])	
-			set_new_div(nickname, sel.value);
+		if (sel.value != students["students"][i]["div"])
+		{
+		    alert(nickname, sel.value);
+		    set_new_div(nickname, sel.value);
+		}
 	}
 	document.location="students";
 }
