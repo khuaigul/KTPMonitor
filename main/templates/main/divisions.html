@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'main/css/ktpmonitor.css' %}" >
+	<script type="text/javascript" src="{% static 'main/js/divisions.js' %}"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Управление дивизионами</title>
+</head>
+<body>
+	<div class="header_empty">
+		<h1>
+			Управление дивизионами
+		</h1>
+	</div>
+	<div class="block">
+		<p>
+			<button class="usual_button" onclick="document.location='new_division'">
+				Создать дивизион
+			</button>
+		</p>
+		<script type="module">
+			getJson_divs()
+		</script>
+	</div>
+</body>
+</html>
