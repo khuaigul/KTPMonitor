@@ -1,0 +1,42 @@
+	<!DOCTYPE html>
+	<html>
+	<head>
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'main/css/ktpmonitor.css' %}" >
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Регистрация</title>
+		<script type="text/javascript" src="{% static 'main/js/registration.js' %}"></script>
+	</head>
+	<body>
+		<h1 class="header">
+			Регистрация
+		</h1>
+		<div class="block">
+		<p>
+			Почта 
+		</p>
+			<p id="email">
+			<input type="" name="email">
+		</p>
+		<p>
+			Пароль
+		</p>
+		<p id="password">
+			<input type="password" name="password">
+		</p>
+		<p>
+			Подтвердите пароль
+		</p>
+		<p id="password2">
+			<input type="password" name="password2">
+		</p>
+		<p>
+			<button class="usual_button" onclick="register()">
+				Зарегестрироваться
+			</button>
+		</p>
+	</div>
+	</body>
+	
+	</html>
