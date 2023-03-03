@@ -21,7 +21,6 @@ urlpatterns = [
     path('сhangeDiv', views.сhangeDiv, name='сhangeDiv'),
     path('students_by_div', views.students_by_div, name='students_by_div'),
     path('newDivisionRe', views.newDivisionRe, name='newDivisionRe'),
-    path('activate/<uidb64>/<token>', views.activate, name='activate'),
 
 ]
  
