@@ -20,6 +20,7 @@ function getJson_divs()
 
 function make_new_division(name)
 {
+	// alert("make new divison")
 	var xhr_d = new XMLHttpRequest();
 	var params = "name=" + encodeURIComponent(name);
 
@@ -30,12 +31,18 @@ function make_new_division(name)
 		else 
 		{
 			get_div_Json = xhr_d.responseText;
-			console.log(get_div_Json);
+			// alert(get_div_Json);
+			// console.log(get_div_Json);
+			document.location='divisions';
 		}
 	}
+	// alert("a");
 	xhr_d.open("POST", 'http://127.0.0.1:8000/newDivisionRe?', true);
+	// alert("b");
 	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	// alert("c");
 	xhr_d.send(params);
+	// alert("d");
 
 }
 
@@ -96,6 +103,7 @@ function show_div(students_list)
 
 function add_division()
 {
+	// alert("add division");
 	let block = document.querySelectorAll(".block");
 	if (document.getElementById("errortext") != null)
 		block[0].removeChild(document.getElementById("errortext"));
@@ -110,11 +118,10 @@ function add_division()
 		text.setAttribute("id", "errortext")
 		text.setAttribute("class", "note")
 		block[0].appendChild(text);
-	}
+	} 
 	else
 	{
 		make_new_division(name[0].value);
-		document.location='divisions';
 	}
 }
 
