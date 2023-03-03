@@ -1,81 +1,100 @@
-# KTPMonitor4, Linux
-
-## Установка git
-
-Установка git, создание ключа
-
-    sudo apt install git
-    ssh-keygen -t ed25519 -C "your_email@example.com"
-
-после этого надо вставить ключ в своем аккаунте на git
-
-    git clone git@github.com:khuaigul/KTPMonitor4.git
-
-## Установка python
-
-    sudo apt-get update
-    sudo apt-get install software-properties-common
-    sudo add-apt-repository ppa:deadsnakes/ppa
-    sudo apt install python3.9
-    sudo apt install python3-pip
-    
-## Установка mysql
-
-ВАЖНО: пароль надо либо сделать как в проекте, либо переписать проект
-
-    sudo apt update
-    sudo apt install mysql-server
-    sudo mysql_secure_installation
-
-если вылезет такая ошибка:
-
-    Error: SET PASSWORD has no significance for user 'root'@'localhost' as the authentication method used doesn't store authentication data in the MySQL server. Please consider using ALTER USER instead if you want to change authentication parameters.
-    
-то надо сделать вот так:
-Open the terminal application. 
-1. Terminate the mysql_secure_installation from another terminal using the killall command:
-sudo killall -9 mysql_secure_installation 
-2. Start the mysql client:
-sudo mysql 
-3. Run the following SQL query: 
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'SetRootPasswordHere';
-exit
-5. Then run the following command to secure it:
-sudo mysql_secure_installation 
-6. When promoted for the password enter the SetRootPasswordHere (or whatever you set when you ran the above SQL query) 
-7. That is all. 
-
-## установка Visual studio code
-
-
-
-## Установка библиотек Python
-
-    pip install mysql-connector-python
-    pip install django
-    pip install djangorestframework
-    pip install markdown       # Markdown support for the browsable API.
-    pip install django-filter
-
-
-# Запуск
-## один раз надо:
-
-    sudo mysql
-    create database KTP_Monitor;
-
-далее скриптом создаем таблицы
-
-    python3 add_new_tables.py
-
-далее мигрируем
-  
-    python manage.py migrate
-
-
-теперь можно запускать 
-
-    python manage.py runserver
-
---------------
-CREATE DATABASE KTP_Monitor;
+Инструкция по git
+=================
+-----------------
+### Развертывание репозитория
+Сделайте папку, где вы хотите создать локальный репозиторий.
+Выполните там команды в следующем порядке:
+```sh
+git init # Инициализировать локальный репозиторий в папке
+# Скопировать репозиторий
+git clone https://github.com/khuaigul/KTPMonitor.git 
+# Указать, что вы будете работать с заданным удаленным репозиторием
+git remote add origin https://github.com/khuaigul/KTPMonitor.git 
+git fetch origin # Обновить информацию про ветки
+```
+Теперь у вас локально есть копия заданного репозитория под именем origin.
+### Аутентификация
+Когда вы попробуйте отправить какие то изменения в удаленный репозиторий, то будет предложено залогиниться через браузер.
+Так же необходимо указать некоторую информацию о себе:
+```sh
+git config user.email "someemail@mail"
+git config user.name "PussyDestroyer69"
+```
+### Работа с ветками
+Репозиторий можно представить как граф, где вершинами являются коммиты (посылки с изменениями). Для создания незавесимого рабочего пространства, можно создать новую ветку, которая изначально будет копией ветки, от которой создается. Дальнейшие ее изменения (коммиты) не влияют на изначальную ветку, но в какой то момент их можно попробовать слить.
+Между ветками можно переключаться, тогда будет выполнен переход на последнюю ее версию.
+Ветки бывают **удаленными** и **локальными**.
+Удаленные находятся в удаленном репозитории, если на них переключиться появляются их локальные копии.
+Локальные это ветки, которые редактируются на устройстве, их потом можно коммитить и сливать с удаленными.
+Чтобы обновить список веток выполните:
+```sh
+git fetch origin
+```
+Чтобы посмотреть список веток используйте следующие команды:
+```sh
+git branch -r # удаленные ветки
+git branch # локальные ветки
+git branch -a # все ветки
+```
+Текущую ветку можно посмотреть в:
+```sh
+git status
+```
+Для переключения между ветками используйте checkout:
+```sh
+git checkout develop
+git checkout main -- # Если есть файл с названием как у ветки
+```
+Создание новой ветки (туда копируется текущая):
+```sh
+git branch new_branch_name # Новая ветка создается от текущей
+git push origin new_branch_name # Залить ее в удаленный репозиторий
+```
+### Коммиты
+После того как вы изменяли файлы, их необходимо добавить в коммит:
+```sh
+git add file_name # Добавить отдельный файл
+git add directory_name # Добавить файлы в каталоге
+git add . # Добавить все файлы в этом каталоге
+git rm file_name # Удалить отдельный файл
+```
+Создание коммита:
+```sh
+git commit -m "Название коммита"
+```
+Отправить коммит в удаленный репозиторий:
+```sh
+git push origin branch_name
+git push # Если установлена ветка по умолчанию
+git push --set-upstream origin branch_name # Установка ветки по умолчанию 
+```
+### Загрузка из удаленного репозитория
+Загрузить содержимое из репозитория:
+```sh
+git pull origin branch_name
+git pull # Если установлена ветка по умолчанию
+git push --set-upstream origin branch_name # Установка ветки по умолчанию 
+```
+Если вы хотите слить две ветки (текущую и branch2), то используйте:
+```sh
+git merge branch2
+```
+Могут возникнуть конфликты, их необходимо решить мануально, отредактировав файлы (там описываются все изменения). Потом сделайте add и commit 
+### Откат изменений
+Чтобы посмотреть изменения, используйте:
+```sh
+git log --oneline
+```
+На экран будут выведены код коммита и его описание.
+Для того, чтобы посмотреть без изменений какую то версию, сделайте checkout на код коммита:
+```sh
+git checkout a1e8fb5
+git checkout main # на последнюю версию
+```
+Оттуда можно создать новую ветку.
+Если необходимо откатить к какой то версии:
+```sh
+git reset --hard a1e8fb5 # Осторожно!
+```
+### Игнорирование файлов
+Вы можете создать файл .gitignore и прописать там список файлов, которые не требуется коммитить. Они будут игнорироваться при попытки их добавить.
