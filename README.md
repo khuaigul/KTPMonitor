@@ -5,8 +5,8 @@
 Выполните команды в следующем порядке:
 ```sh
 git init
-git clone https://github.com/khuaigul/KTPMonitor4.git
-git remote add origin https://github.com/khuaigul/KTPMonitor4.git
+git clone https://github.com/khuaigul/KTPMonitor.git
+git remote add origin https://github.com/khuaigul/KTPMonitor.git
 git fetch origin
 ```
 Теперь у вас локально есть копия заданного репозитория под именем origin.
