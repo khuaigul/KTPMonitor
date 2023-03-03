@@ -66,7 +66,7 @@ sudo mysql_secure_installation
 
 далее скриптом создаем таблицы
 
-  python3 add_new_tables.py
+    python3 add_new_tables.py
 
 далее мигрируем
   
