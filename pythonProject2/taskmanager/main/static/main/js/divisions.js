@@ -20,7 +20,6 @@ function getJson_divs()
 
 function make_new_division(name)
 {
-	// alert("make new divison")
 	var xhr_d = new XMLHttpRequest();
 	var params = "name=" + encodeURIComponent(name);
 
@@ -31,18 +30,12 @@ function make_new_division(name)
 		else 
 		{
 			get_div_Json = xhr_d.responseText;
-			// alert(get_div_Json);
-			// console.log(get_div_Json);
 			document.location='divisions';
 		}
 	}
-	// alert("a");
 	xhr_d.open("POST", 'http://127.0.0.1:8000/newDivisionRe?', true);
-	// alert("b");
 	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// alert("c");
 	xhr_d.send(params);
-	// alert("d");
 
 }
 
