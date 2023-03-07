@@ -78,6 +78,11 @@ sudo mysql_secure_installation
 --------------
 
 # KTPMonitor, windows 
+
+## Установка git 
+1. [Скачать](https://git-scm.com/download/win)
+2. Добавить в PATH
+3. Развернуть репозиторий по инструкции
 ## Установка и настройка локальной базы данных
 
 1. Для загрузки и установки MySQL Server следуйте инструкциям по [ссылке](https://wiki.merionet.ru/servernye-resheniya/12/ustanovka-mysql-servera-na-windows-10/?ysclid=lee4gqyolw814370891)
