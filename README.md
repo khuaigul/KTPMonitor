@@ -8,7 +8,7 @@
     sudo apt install git
     ssh-keygen -t ed25519 -C "your_email@example.com"
 
-после этого надо вставить ключ в своем аккаунте на git
+После этого надо вставить ключ в своем аккаунте на git
 
     git clone git@github.com:khuaigul/KTPMonitor.git
 
@@ -79,10 +79,10 @@ sudo mysql_secure_installation
 
 # KTPMonitor, windows 
 
-## Установка git 
+## Установка git и репозитория
 1. [Скачать](https://git-scm.com/download/win)
 2. Добавить в PATH
-3. Развернуть репозиторий по инструкции
+3. Развернуть репозиторий по инструкции ниже
 ## Установка и настройка локальной базы данных
 
 1. Для загрузки и установки MySQL Server следуйте инструкциям по [ссылке](https://wiki.merionet.ru/servernye-resheniya/12/ustanovka-mysql-servera-na-windows-10/?ysclid=lee4gqyolw814370891)
