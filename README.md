@@ -1,5 +1,121 @@
-Инструкция по git
-=================
+
+# KTPMonitor, Linux
+
+## Установка git
+
+Установка git, создание ключа
+
+    sudo apt install git
+    ssh-keygen -t ed25519 -C "your_email@example.com"
+
+после этого надо вставить ключ в своем аккаунте на git
+
+    git clone git@github.com:khuaigul/KTPMonitor.git
+
+## Установка python
+
+    sudo apt-get update
+    sudo apt-get install software-properties-common
+    sudo add-apt-repository ppa:deadsnakes/ppa
+    sudo apt install python3.9
+    sudo apt install python3-pip
+    
+## Установка mysql
+
+ВАЖНО: пароль надо либо сделать как в проекте, либо переписать проект
+
+    sudo apt update
+    sudo apt install mysql-server
+    sudo mysql_secure_installation
+
+если вылезет такая ошибка:
+
+    Error: SET PASSWORD has no significance for user 'root'@'localhost' as the authentication method used doesn't store authentication data in the MySQL server. Please consider using ALTER USER instead if you want to change authentication parameters.
+    
+то надо сделать вот так:
+Open the terminal application. 
+1. Terminate the mysql_secure_installation from another terminal using the killall command:
+sudo killall -9 mysql_secure_installation 
+2. Start the mysql client:
+sudo mysql 
+3. Run the following SQL query: 
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'SetRootPasswordHere';
+exit
+5. Then run the following command to secure it:
+sudo mysql_secure_installation 
+6. When promoted for the password enter the SetRootPasswordHere (or whatever you set when you ran the above SQL query) 
+7. That is all. 
+
+
+## Установка библиотек Python
+
+    pip install mysql-connector-python
+    pip install django
+    pip install djangorestframework
+    pip install markdown       # Markdown support for the browsable API.
+    pip install django-filter
+
+
+# Запуск
+## Один раз надо:
+
+    sudo mysql
+    create database KTP_Monitor;
+
+далее скриптом создаем таблицы
+
+    python3 add_new_tables.py
+
+далее мигрируем
+  
+    python manage.py migrate
+
+
+теперь можно запускать 
+
+    python manage.py runserver
+
+--------------
+
+# KTPMonitor, windows 
+## Установка и настройка локальной базы данных
+
+1. Для загрузки и установки MySQL Server следуйте инструкциям по [ссылке](https://wiki.merionet.ru/servernye-resheniya/12/ustanovka-mysql-servera-na-windows-10/?ysclid=lee4gqyolw814370891)
+2. При установке MySQL Server на этапе установки нужно поставить пароль ```DB_for_tppo123```
+3. Необходимо открыть MySQL Workbench и прописать команды (можно через консоль)
+    1. ```create database KTP_Monitor```
+4. После этого в консоли необходимо выполнить скрипт ```pythonProject2/taskmanager/main/server/create_tables.py``` (возможно там нужно раскомментить вызов функции)
+5. Необходимо установить компилятор для языка Python по [ссылке](https://www.python.org/downloads/)
+## Установка и настройка сервера
+1. Для установки необходимых компонентов и библиотек выполните в консоли следующие команды
+    1. ```pip install mysql-connector-python```
+    2. ```pip install django```
+## Запуск 
+  1. Чтобы запустить сервер необходимо перейти в каталог ```pythonProject2\taskmanager```
+  2. В текущем каталоге выполнить команду: 
+      1. ```.\manage.py runserver```
+      
+  При успешных установке и запуске всех необходимых компонентов в консоли появится ссылка на Local-host, при переходе откроется разработанное приложение.
+![Alt-текст](https://raw.githubusercontent.com/khuaigul/KTPMonitor4/DanRo23-testbd/run.jpg)
+## Superuser
+  1. Чтобы создать Superuser
+      1. Необходимо перейти в каталог ```KTPMonitor-main\pythonProject2\taskmanager```
+      2. Выполнить команду ```python manage.py createsuperuser```
+      3. Ввести нужные данные : 
+  
+        ```Username (leave blank to use 'admin'): admin
+        Email address: admin@xyz.com
+        Password: ********
+        Password (again): ********
+        Superuser created successfully.```
+  2. Пользование 
+      1. Зайти по ссылке ```http://127.0.0.1:8000/admin/```
+## Вход
+  1. Чтобы войти надо создать  Superuser
+  2. Зайти по ссылке ```http://127.0.0.1:8000```
+  3. По логину и паролю который вводили в Superuser зайти на сайт
+ 
+# Инструкция по git
 -----------------
 ### Развертывание репозитория
 Сделайте папку, где вы хотите создать локальный репозиторий.
@@ -121,3 +237,4 @@ git reset --hard a1e8fb5
 
 ### Игнорирование файлов
 Вы можете создать файл .gitignore и прописать там список файлов, которые не требуется коммитить. Они будут игнорироваться при попытки их добавить.
+
