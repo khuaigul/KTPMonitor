@@ -1,0 +1,3 @@
+SELECT Pupils_Info.pupil_name, Pupils_Info.pupil_CF, Div_Info.div_name, Pupils_Info.pupil_id, Pupils_Info.div_id FROM Pupils_Info JOIN Div_Info ON Pupils_Info.div_id = Div_Info.div_id ORDER BY pupil_name
+show pupils
+test_pupil TEST_CF NULL 1 1
