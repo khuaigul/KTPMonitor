@@ -175,6 +175,13 @@ git push origin new_branch_name # Залить ее в удаленный реп
 git branch -d branch_name # Удалить локальную ветку
 git branch -D branch_name # Удалилить локальную ветку, даже если запрещает
 git push origin --delete branch_name # Удалить удаленную ветку
+git remote prune origin # Удалить все локальные ветки, которых нет на удаленном репозитории
+```
+Переименовать ветку:
+```sh
+git branch -m "new_name" # Переименовать текущую ветку
+git push -u origin new_name # Отправить ее в удаленный
+git push origin --delete old_name # Удалить старую из удаленного
 ```
 ### Коммиты
 Коммит - это пакет изменений, который был внесен в ветку. Без объединения изменений в коммит они никак не учитываются.
