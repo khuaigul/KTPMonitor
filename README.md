@@ -21,17 +21,17 @@
     
 ## Установка mysql
 
-важно: пароль надо либо сделать как в проекте, либо переписать проект
+Важно: пароль надо либо сделать как в проекте, либо переписать проект
 
     sudo apt update
     sudo apt install mysql-server
     sudo mysql_secure_installation
 
-если вылезет такая ошибка:
+Если вылезет такая ошибка:
 
     Error: SET PASSWORD has no significance for user 'root'@'localhost' as the authentication method used doesn't store authentication data in the MySQL server. Please consider using ALTER USER instead if you want to change authentication parameters.
     
-то надо сделать вот так:
+То надо сделать вот так:
 Open the terminal application. 
 1. Завершите mysql_secure_installation из другого терминала с помощью команды killall:
 sudo killall -9 mysql_secure_installation 
@@ -61,11 +61,11 @@ sudo mysql_secure_installation
     sudo mysql
     create database KTP_Monitor;
 
-далее скриптом создаем таблицы
+Далее скриптом создаем таблицы
 
     python3 add_new_tables.py
 
-теперь можно запускать 
+Теперь можно запускать 
 
     python manage.py runserver
 
@@ -101,7 +101,7 @@ Django version 4.1.7, using settings 'taskmanager.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CTRL-BREAK.
 ```
-## Superuser(администротор)
+## Superuser(администратор)
   1. Чтобы создать Superuser
       1. Необходимо перейти в каталог ```KTP\taskmanager```
       2. Выполнить команду ```python manage.py createsuperuser```
