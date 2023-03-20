@@ -31,8 +31,7 @@
 
     Error: SET PASSWORD has no significance for user 'root'@'localhost' as the authentication method used doesn't store authentication data in the MySQL server. Please consider using ALTER USER instead if you want to change authentication parameters.
     
-То надо сделать вот так:
-Open the terminal application. 
+В терминале нужно сделать:
 1. Завершите mysql_secure_installation из другого терминала с помощью команды killall:
 sudo killall -9 mysql_secure_installation 
 2. Запустите клиент mysql:
@@ -42,8 +41,7 @@ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'SetRootP
 exit
 4. Затем выполните следующую команду:
 sudo mysql_secure_installation 
-5. When promoted for the password enter the SetRootPasswordHere (или любой другой, который вы установили при выполнении приведенного выше SQL-запроса) 
-6. Вот и все. 
+5. Как пароль используйте установленный выше
 
 
 ## Установка библиотек Python
