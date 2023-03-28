@@ -1,4 +1,3 @@
-
 # KTPMonitor, Linux
 
 ## Установка git
@@ -22,29 +21,27 @@
     
 ## Установка mysql
 
-ВАЖНО: пароль надо либо сделать как в проекте, либо переписать проект
+Важно: пароль надо либо сделать как в проекте, либо переписать проект
 
     sudo apt update
     sudo apt install mysql-server
     sudo mysql_secure_installation
 
-если вылезет такая ошибка:
+Если вылезет такая ошибка:
 
     Error: SET PASSWORD has no significance for user 'root'@'localhost' as the authentication method used doesn't store authentication data in the MySQL server. Please consider using ALTER USER instead if you want to change authentication parameters.
     
-то надо сделать вот так:
-Open the terminal application. 
-1. Terminate the mysql_secure_installation from another terminal using the killall command:
+В терминале нужно сделать:
+1. Завершите mysql_secure_installation из другого терминала с помощью команды killall:
 sudo killall -9 mysql_secure_installation 
-2. Start the mysql client:
+2. Запустите клиент mysql:
 sudo mysql 
-3. Run the following SQL query: 
+3. Выполните следующий SQL-запрос:
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'SetRootPasswordHere';
 exit
-5. Then run the following command to secure it:
+4. Затем выполните следующую команду:
 sudo mysql_secure_installation 
-6. When promoted for the password enter the SetRootPasswordHere (or whatever you set when you ran the above SQL query) 
-7. That is all. 
+5. Как пароль используйте установленный выше
 
 
 ## Установка библиотек Python
@@ -62,16 +59,11 @@ sudo mysql_secure_installation
     sudo mysql
     create database KTP_Monitor;
 
-далее скриптом создаем таблицы
+Далее скриптом создаем таблицы
 
     python3 add_new_tables.py
 
-далее мигрируем
-  
-    python manage.py migrate
-
-
-теперь можно запускать 
+Теперь можно запускать 
 
     python manage.py runserver
 
@@ -89,22 +81,27 @@ sudo mysql_secure_installation
 2. При установке MySQL Server на этапе установки нужно поставить пароль ```DB_for_tppo123```
 3. Необходимо открыть MySQL Workbench и прописать команды (можно через консоль)
     1. ```create database KTP_Monitor```
-4. После этого в консоли необходимо выполнить скрипт ```pythonProject2/taskmanager/main/server/create_tables.py``` (возможно там нужно раскомментить вызов функции)
+4. После этого в консоли необходимо выполнить скрипт ```KTP/taskmanager/main/server/create_tables.py``` (возможно там нужно раскомментить вызов функции)
 5. Необходимо установить компилятор для языка Python по [ссылке](https://www.python.org/downloads/)
 ## Установка и настройка сервера
 1. Для установки необходимых компонентов и библиотек выполните в консоли следующие команды
     1. ```pip install mysql-connector-python```
     2. ```pip install django```
 ## Запуск 
-  1. Чтобы запустить сервер необходимо перейти в каталог ```pythonProject2\taskmanager```
+  1. Чтобы запустить сервер необходимо перейти в каталог ```KTP\taskmanager```
   2. В текущем каталоге выполнить команду: 
       1. ```.\manage.py runserver```
       
   При успешных установке и запуске всех необходимых компонентов в консоли появится ссылка на Local-host, при переходе откроется разработанное приложение.
-![Alt-текст](https://raw.githubusercontent.com/khuaigul/KTPMonitor4/DanRo23-testbd/run.jpg)
-## Superuser
+  ```
+  March 20, 2023 - 11:04:20
+Django version 4.1.7, using settings 'taskmanager.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+```
+## Superuser(администратор)
   1. Чтобы создать Superuser
-      1. Необходимо перейти в каталог ```KTPMonitor-main\pythonProject2\taskmanager```
+      1. Необходимо перейти в каталог ```KTP\taskmanager```
       2. Выполнить команду ```python manage.py createsuperuser```
       3. Ввести нужные данные : 
   
@@ -178,6 +175,13 @@ git push origin new_branch_name # Залить ее в удаленный реп
 git branch -d branch_name # Удалить локальную ветку
 git branch -D branch_name # Удалилить локальную ветку, даже если запрещает
 git push origin --delete branch_name # Удалить удаленную ветку
+git remote prune origin # Удалить все локальные ветки, которых нет на удаленном репозитории
+```
+Переименовать ветку:
+```sh
+git branch -m "new_name" # Переименовать текущую ветку
+git push -u origin new_name # Отправить ее в удаленный
+git push origin --delete old_name # Удалить старую из удаленного
 ```
 ### Коммиты
 Коммит - это пакет изменений, который был внесен в ветку. Без объединения изменений в коммит они никак не учитываются.
@@ -242,4 +246,3 @@ git reset --hard a1e8fb5
 
 ### Игнорирование файлов
 Вы можете создать файл .gitignore и прописать там список файлов, которые не требуется коммитить. Они будут игнорироваться при попытки их добавить.
-

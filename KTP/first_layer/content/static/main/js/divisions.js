@@ -30,7 +30,7 @@ function make_new_division(name)
 		else 
 		{
 			get_div_Json = xhr_d.responseText;
-			console.log(get_div_Json);
+			document.location='divisions';
 		}
 	}
 	xhr_d.open("POST", 'http://127.0.0.1:8000/newDivisionRe?', true);
@@ -96,6 +96,7 @@ function show_div(students_list)
 
 function add_division()
 {
+	// alert("add division");
 	let block = document.querySelectorAll(".block");
 	if (document.getElementById("errortext") != null)
 		block[0].removeChild(document.getElementById("errortext"));
@@ -110,11 +111,10 @@ function add_division()
 		text.setAttribute("id", "errortext")
 		text.setAttribute("class", "note")
 		block[0].appendChild(text);
-	}
+	} 
 	else
 	{
 		make_new_division(name[0].value);
-		document.location='divisions';
 	}
 }
 
