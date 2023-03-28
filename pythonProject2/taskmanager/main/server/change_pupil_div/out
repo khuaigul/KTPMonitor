@@ -1,2 +1,0 @@
-UPDATE Pupils_Info SET div_id = 2 WHERE pupil_id = 1;
-pupil div changed
