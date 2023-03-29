@@ -19,6 +19,7 @@ function authorisation(login, password)
 				document.location = "menu";
 			}
 			alert(xhr.responseText);
+			return true;
 		}
 	}
 	return false;
@@ -37,7 +38,7 @@ function enter()
 	{
 		console.log("else");
 		if (authorisation(login[0].value, password[0].value) == true)
-		{
+		{			
 			console.log("auth");
 			document.location = "menu";
 		}

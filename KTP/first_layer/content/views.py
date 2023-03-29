@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login as dan_pidor, logout
 from django.core.mail import EmailMessage, send_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -34,7 +34,11 @@ def div_info(request):
 
 
 def divisions(request):
-    return render(request, 'main/divisions.html')
+    print(request.user.is_authenticated)
+    if request.user.is_authenticated:
+        return render(request, 'main/divisions.html')
+    else:
+        return render(request, 'main/main.html')
 
 
 def menu(request):
@@ -61,8 +65,11 @@ def signin(request):# Вернуть True, если авторизация пр�
     if(request.method=='POST'):
         login = request.POST['login']
         password = request.POST['password']
-        user = authenticate(username=login, password=password)
+        print(request.user.is_authenticated)
+        user = authenticate(request, username=login, password=password)                
         if user is not None:
+            dan_pidor(request, user)
+            print(request.user.is_authenticated)
             return JsonResponse({'status': True})
         else:
             return JsonResponse({'status': False})
@@ -73,8 +80,7 @@ def registrationRe(request):
     print('reg')
     if (request.method == 'POST'):
         email = request.POST['email']
-        password = request.POST['password']
-
+        password = request.POST['password']        
         myuser = User.objects.create_user(email, email, password)
         myuser.is_active = False
         myuser.save()
