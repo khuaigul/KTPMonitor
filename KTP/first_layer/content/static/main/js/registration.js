@@ -28,9 +28,6 @@ function enter()
 	let login = document.querySelectorAll("#login_input > input");
 	let password = document.querySelectorAll("#password_input > input");
 
-//	console.log(login[0].value, password);
-
-
 	if (login[0].value == "" || password[0].value == "")
 		document.location="main";
 	else
@@ -73,24 +70,28 @@ function send_registration_data(email, password)
 
 function send_profile_data()
 {
-	var lastname = document.querySelectorAll("#lastname > input");
-	var firstname = document.querySelectorAll("#firstname > input");
-	var secondname = document.querySelectorAll("#secondname > input");
-	var nickname = document.querySelectorAll("#nickname > input");
-	var datebirth = document.querySelectorAll("#birthdate > input");
-    var school = document.querySelectorAll("#school > input");
-	var form = document.querySelectorAll("#form > input");
+	let role = document.querySelectorAll("#role_selector > select")[0].value;
 	
-	lastname = lastname[0].value;
-	firstname = firstname[0].value;
-	secondname = secondname[0].value;
-	nickname = nickname[0].value;
-	datebirth = datebirth[0].value;
-	school = school[0].value;
-	form = form[0].value;
+	var lastname = document.querySelectorAll("#lastname input");
+	var firstname = document.querySelectorAll("#firstname input");
+	var secondname = document.querySelectorAll("#secondname input");
+	var nickname = document.querySelectorAll("#nickname input");
+
+	var params;
+
+	if (role == "student")
+	{	
+		var datebirth = document.querySelectorAll("#birthdate input");
+	    var school = document.querySelectorAll("#school input");
+		var form = document.querySelectorAll("#form input");
+		params = 'role' + encodeURIComponent(role) + 'nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&school=" + encodeURIComponent(school) + "&form=" + encodeURIComponent(form) + "&datebirth=" + encodeURIComponent(datebirth);
+	}
+	else
+	{
+		params = 'role' + encodeURIComponent(role) + 'nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname);
+	}
 
 	var xhr = new XMLHttpRequest();
-	var params = 'nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&school=" + encodeURIComponent(school) + "&form=" + encodeURIComponent(form) + "&datebirth=" + encodeURIComponent(datebirth);
 
 
 	xhr.open("POST", 'http://127.0.0.1:8000/profileData?', true);
@@ -151,29 +152,49 @@ function register()
 
 function register_save()
 {
-//	console.log("reg_save");
 	if (document.getElementById("errortext") != null)
 	{
-		document.body.removeChild(document.getElementById("errortext"));
+		let cur_div = document.querySelectorAll(".block")
+		cur_div[0].removeChild(document.getElementById("errortext"));
 	}
-//	console.log("reg continue");
-	let fields = document.querySelectorAll("input");
+	let fields = document.querySelectorAll(".all_users input");
 	var flag = new Boolean(true);
 	for (var i = 0; i < fields.length; i++)
 		if (fields[i].value == "")
 			flag = false;
-//	console.log(flag);
+	let role = document.querySelectorAll("#role_selector > select")[0].value;
+	if (role == "student")
+	{
+		let st_fields = document.querySelectorAll(".student input");
+		for (var i = 0; i < st_fields.length; i++)
+			if (st_fields[i].value == "")
+				flag = false;
+	}
 	if (!flag)
 	{
 		let text = document.createElement("p");
 		text.innerHTML = "Заполните все поля ввода";
 		text.setAttribute("id", "errortext");
 		text.setAttribute("class", "note");
-
-		document.body.appendChild(text);
+		let cur_div = document.querySelectorAll(".block")
+		cur_div[0].appendChild(text);
 	}
 	else
 	{
 		send_profile_data();
+	}
+}
+
+function change_role()
+{
+	let sel = document.querySelectorAll("#role_selector > select");
+	let forms = document.querySelectorAll(".student");
+	for (var i = 0; i < forms.length; i++)
+	{
+		console.log(forms[i]);
+		if (sel[0].value == "student")
+			forms[i].removeAttribute("hidden");
+		else
+			forms[i].setAttribute("hidden", "hidden");
 	}
 }
