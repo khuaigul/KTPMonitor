@@ -52,7 +52,7 @@ def student_profile(request):
     return render(request, 'main/student_profile.html')
 
 
-def students(request):
+def students(request): 
     return render(request, 'main/students.html')
 
 @csrf_exempt 
@@ -94,7 +94,7 @@ def profileData(request):#
     if (request.method == 'POST'):
         print(request.POST["name"])
         print("tytytytyytytytyyt")
-        people.people_add(request)
+        # people.people_add(request)
         return JsonResponse({'status' : True})
     return JsonResponse({"status": False})
 

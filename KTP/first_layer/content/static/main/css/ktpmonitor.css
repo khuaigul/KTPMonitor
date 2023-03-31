@@ -8,13 +8,24 @@ h1{
 
 p {
 	font-size: 20px;
-	padding: 5px;
+/*	padding: 5px;*/
 }
 
 select{
-	margin-left: 20px;
-	text-align: right;
+/*	margin-left: 20px;*/
+	padding: 5px;
+	text-align: left;
+	font-size: 18px;
+	height: 30px;
+	background-color: #E2B9FF;
+
 }
+input{
+	width: 40%;
+	height: 30px;
+	font-size: 20px;
+}
+
 
 .header_empty h1{
 	margin: 0px;
@@ -23,11 +34,10 @@ select{
 }
 
 .block{
-	margin-left: 30%;
-	margin-right: 30%;
-	margin-top: 20px;
+	margin: 0px;
+	padding-left: 30px;
+	padding-right: 30px;
 }
-
 
 .menu p{
 	text-align: center;
@@ -47,15 +57,15 @@ select{
 	padding: 5px;
 }
 
-.reg button{
+/*.reg button{
 	text-align: center;
 	background-color: #D8F6A8;
 	border: 2px solid black;
 	border-radius: 15px;
-}
+}*/
 
 p{
-	margin: 5px;
+/*	margin: 5px;*/
 }
 
 h2{
@@ -67,20 +77,21 @@ h2{
 
 .header
 {
-	background-color: #F3FF96;
-	padding: 30px;
+	background-color: #C9E9FF;
+	padding: 15px;
 	margin-top: 0px;
 }
 
 body{
-	margin: 0px;
-	padding: 5px;
+	/*margin: 0px;
+	padding: 20px;*/
 }
 
 .usual_button{
-	background-color: #D8F6A8;
-	border: 2px solid black;
-	border-radius: 15px;
+	background-color: #E2B9FF;
+	border: 1px solid black;
+	border-radius: 30px;
+	padding: 5px;
 }
 
 .note{
@@ -96,4 +107,11 @@ body{
 .link{
 	color: #21618C ;
 	text-decoration: underline;
+}
+
+.all_users{
+	font-size: 12px;
+}
+.student{
+/*	display: block;*/
 }
