@@ -33,13 +33,8 @@ def div_info(request):
     return render(request, 'main/div_info.html')
 
 
-def divisions(request):
-    print(request.user.is_authenticated)
-    if request.user.is_authenticated:
-        return render(request, 'main/divisions.html')
-    else:
-        return render(request, 'main/main.html')
-
+def divisions(request):    
+    return render(request, 'main/divisions.html')    
 
 def menu(request):
     return render(request, 'main/menu.html')
@@ -84,13 +79,13 @@ def registrationRe(request):
         myuser = User.objects.create_user(email, email, password)
         myuser.is_active = False
         myuser.save()
-        # send_mail(
-        #     'письмо от КТП',
-        #     "ссылка на доп регу",
-        #     'settings.EMAIL.EMAIL_HOST_USER',
-        #     [email],
-        #     fail_silently=False
-        # )
+        send_mail(
+            'письмо от КТП',
+            "ссылка на доп регу",
+            'settings.EMAIL.EMAIL_HOST_USER',
+            [email],
+            fail_silently=False
+        )
         return JsonResponse({'status': True})
     return JsonResponse({"status": False})
 

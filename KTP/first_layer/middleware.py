@@ -8,6 +8,8 @@ class SimpleMiddleware:
         # the view (and later middleware) are called.
 
         response = self.get_response(request)
+        if request.path == "/registration":            
+            return response
         # if request.user.has_perm(request.path):
         if request.user.is_authenticated:
             return response 

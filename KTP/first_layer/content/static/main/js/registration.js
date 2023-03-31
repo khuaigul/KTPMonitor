@@ -100,7 +100,7 @@ function send_profile_data()
 
 	xhr.onload = function(){
 		if (xhr.status != 200){
-			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+			alert('Ошибка {xhr.status} : {xhr.statusText}');
 		}
 		else {
 			getJson = xhr.responseText;

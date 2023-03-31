@@ -30,7 +30,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'derevodominatorov@gmail.com'
 EMAIL_HOST_PASSWORD = 'ayxihtvfzhzgjwny'
@@ -47,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'content',
 ]
+
+SESSION_COOKIE_AGE = 10000
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
