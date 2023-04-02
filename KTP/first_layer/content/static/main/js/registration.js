@@ -14,11 +14,21 @@ function authorisation(login, password)
 		else {
 			getJson = xhr.responseText;
 			const obj = JSON.parse(getJson);
-			console.log(obj["status"]);
 			if (obj["status"] == true){
-				document.location = "menu";
+				// if (obj["role"] == "student")
+				// 	document.location = "studentProfile";
+				// else if (obj["role"] == "teacher")
+				document.location = "teacherProfile";
+				// else
+				// 	document.location = "admin";
 			}
-			alert(xhr.responseText);
+			else
+			{
+				alert(document.querySelectorAll(".note").length);
+				document.querySelectorAll(".note")[0].innerHTML = "Некорректные логин или пароль";
+				document.getElementById("login_input").value = "";
+				document.getElementById("password_input").value = "";				
+			}
 		}
 	}
 	return false;
@@ -27,6 +37,8 @@ function enter()
 {
 	let login = document.querySelectorAll("#login_input > input");
 	let password = document.querySelectorAll("#password_input > input");
+
+	var input = document.querySelectorAll("#password_input > input");
 
 	if (login[0].value == "" || password[0].value == "")
 		document.location="main";
@@ -43,7 +55,7 @@ function enter()
 
 function send_registration_data(email, password)
 {
-	alert("send" + email + " " + password);
+	// alert("send" + email + " " + password);
 	var xhr = new XMLHttpRequest();
 	var params = 'email=' + encodeURIComponent(email) +'&password=' + encodeURIComponent(password);
 
@@ -84,11 +96,11 @@ function send_profile_data()
 		var datebirth = document.querySelectorAll("#birthdate input");
 	    var school = document.querySelectorAll("#school input");
 		var form = document.querySelectorAll("#form input");
-		params = 'role' + encodeURIComponent(role) + 'nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&school=" + encodeURIComponent(school) + "&form=" + encodeURIComponent(form) + "&datebirth=" + encodeURIComponent(datebirth);
+		params = 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&school=" + encodeURIComponent(school) + "&form=" + encodeURIComponent(form) + "&datebirth=" + encodeURIComponent(datebirth);
 	}
 	else
 	{
-		params = 'role' + encodeURIComponent(role) + 'nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname);
+		params = 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname);
 	}
 
 	var xhr = new XMLHttpRequest();
@@ -113,22 +125,56 @@ function send_profile_data()
 	}
 }
 
+function checkEmail(email)
+{
+	var re = /^[^\s()<>@,;:\/]+@\w[\w\.-]+\.[a-z]{2,}$/i;
+	return re.test(email);
+}
+
+function checkPassword(password)
+{
+	const withoutSpecialChars = /^[^-() /]*$/;
+	const containsLetters = /^.*[a-zA-Z]+.*$/;
+	const minimum8Chars = /^.{8,}$/;
+	const withoutSpaces = /^[\S]$/;
+
+	if (withoutSpaces.test(password))
+	{
+		return "withoutSpaces";
+	}
+	if (!withoutSpecialChars.test(password))
+	{
+		return "withoutSpecialChars";
+	}
+	if (!containsLetters.test(password))
+	{
+		return "containsLetters";
+	}
+	if (!minimum8Chars.test(password))
+	{
+		return "minimum8Chars";
+	}
+	return "correct";
+}
+
 function register()
 {
+	let block = document.querySelectorAll(".block")[0];
 	if (document.getElementById("errortext") != null)
-		document.body.removeChild(document.getElementById("errortext"));
+		block.removeChild(document.getElementById("errortext"));
 	if (document.getElementById("errortext2") != null)
-		document.body.removeChild(document.getElementById("errortext2"));
+		block.removeChild(document.getElementById("errortext2"));
 	let email = document.querySelectorAll("#email > input")
 	let password = document.querySelectorAll("#password > input")
 	let password2 = document.querySelectorAll("#password2 > input")
 	if (email[0].value == "" || password[0].value == "" || password2[0].value == "")
 	{
 		let text1 = document.createElement("p");
-		text1.innerHTML = "Незаполненные поля";
+		text1.innerHTML = "Заполните поля";
 		text1.setAttribute("id", "errortext")
 		text1.setAttribute("class", "note")
-		document.body.appendChild(text1);
+
+		block.appendChild(text1);
 	}
 	else if (password[0].value != password2[0].value)
 	{
@@ -137,7 +183,34 @@ function register()
 		text1.setAttribute("id", "errortext2")
 		text1.setAttribute("class", "note")
 
-		document.body.appendChild(text1);
+		block.appendChild(text1);
+	}
+	else if (!checkEmail(email[0].value))
+	{
+		let text1 = document.createElement("p");
+		text1.innerHTML = "Неверный формат почты";
+		text1.setAttribute("id", "errortext2")
+		text1.setAttribute("class", "note")
+
+		block.appendChild(text1);
+	}
+	else if(checkPassword(password[0].value) != "correct")
+	{
+		let text1 = document.createElement("p");
+		text1.innerHTML = "";
+		text1.setAttribute("id", "errortext2")
+		text1.setAttribute("class", "note")
+
+		var error = checkPassword(password[0].value);
+		if (error == "minimum8Chars")
+			text1.innerHTML = "Пароль должен содержать не менее 8-ми символов";
+		else if (error == "withoutSpaces")
+			text1.innerHTML = "Пароль не должен содержать символы пробела";
+		else if (error == "withoutSpecialChars")
+			text1.innerHTML = "Пароль не должен содержать специальных символов \"^-() /\"";
+		else if (error == "containsLetters")
+			text1.innerHTML = "Пароль должен содержать символы латинского алфавита";
+		block.appendChild(text1);
 	}
 	else if (document.getElementById("infotext") == null)
 	{
@@ -162,6 +235,16 @@ function register_save()
 	for (var i = 0; i < fields.length; i++)
 		if (fields[i].value == "")
 			flag = false;
+	var now = new Date();
+	var today = now.getFullYear() + '-';
+	if (now.getMonth() < 10)
+		today = today + '0';
+	today = today + now.getMonth() + '-';
+	if(now.getDate() < 10)
+		today = today + '0';
+	today = today + now.getDate();
+	alert(document.querySelectorAll("#birthdate input")[0].value);
+	alert(today);
 	let role = document.querySelectorAll("#role_selector > select")[0].value;
 	if (role == "student")
 	{
@@ -172,12 +255,16 @@ function register_save()
 	}
 	if (!flag)
 	{
-		let text = document.createElement("p");
+		console.log(document.querySelectorAll(".note").length);
+		var text = document.querySelectorAll(".note")[1];
 		text.innerHTML = "Заполните все поля ввода";
-		text.setAttribute("id", "errortext");
-		text.setAttribute("class", "note");
-		let cur_div = document.querySelectorAll(".block")
-		cur_div[0].appendChild(text);
+		// let cur_div = document.querySelectorAll(".block")
+		// cur_div[0].appendChild(text);
+	}
+	else if (role == "student" && document.querySelectorAll("#birthdate input")[0].value > today)
+	{
+		var text = document.querySelectorAll(".note")[1];
+		text.innerHTML = "Неверно введённая дата рождения";
 	}
 	else
 	{
@@ -198,3 +285,11 @@ function change_role()
 			forms[i].setAttribute("hidden", "hidden");
 	}
 }
+
+// var input = document.querySelectorAll("#password_input > input");
+// input[0].addEventListener("keyup", function(event) {
+//   if (event.keyCode === 13) {
+//     event.preventDefault();
+//     document.getElementById("enterButton").click();
+//   }
+// });

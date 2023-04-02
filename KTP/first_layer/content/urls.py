@@ -21,6 +21,8 @@ urlpatterns = [
     path('сhangeDiv', views.сhangeDiv, name='сhangeDiv'),
     path('students_by_div', views.students_by_div, name='students_by_div'),
     path('newDivisionRe', views.newDivisionRe, name='newDivisionRe'),
+    path('teacherProfile', views.teacherProfile, name='teacherProfile'),
+    path('editTeacherProfile', views.editTeacherProfile, name='editTeacherProfile')
 
 ]
  

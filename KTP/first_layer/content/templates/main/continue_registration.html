@@ -17,7 +17,7 @@
 			<p>
 				Выберете роль
 			</p>
-			<select onchange="change_role()">
+			<select class="role_selector" onchange="change_role()">
 				<option value="student" selected="selected">
 					Ученик
 				</option>
@@ -59,7 +59,7 @@
 			</p>
 			<p class="note">
 				Введите ник, используемый вами в системе Codeforces. <br>
-				Если у вас нет профиля на Codeforces, зарегестрируйтесь на codeforces.com
+				Если у вас нет профиля на Codeforces, зарегестрируйтесь на <a href="https://codeforces.com/" target="_blank">codeforces.com</a>
 			</p>
 		</div>
 		<div id = "phone" class="all_users">
@@ -91,9 +91,11 @@
 				Класс
 			</p>
 			<p>
-				<input type="number" name="">
+				<input min="5" max="11" type="number" value="5" name="">
 			</p>
 		</div>
+		<p class="note">
+		</p>
 		<p>
 			<button class="all_users usual_button" onclick="register_save()">
 				Сохранить

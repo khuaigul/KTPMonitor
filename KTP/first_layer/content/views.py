@@ -24,6 +24,9 @@ def main(request):
     # request.GET['signin']
     return render(request, 'main/main.html')
 
+def teacherProfile(request):
+    return render(request, 'main/teacherProfile.html')
+
 
 def continue_registration(request):
     return render(request, 'main/continue_registration.html')
@@ -56,6 +59,9 @@ def student_profile(request):
 def students(request): 
     return render(request, 'main/students.html')
 
+def editTeacherProfile(request):
+    return render(request, 'main/editTeacherProfile.html')
+
 @csrf_exempt 
 def signin(request):# Вернуть True, если авторизация прошла успешно
     if(request.method=='POST'):
@@ -75,9 +81,9 @@ def registrationRe(request):
         email = request.POST['email']
         password = request.POST['password']
 
-        myuser = User.objects.create_user(email, email, password)
-        myuser.is_active = False
-        myuser.save()
+        # myuser = User.objects.create_user(email, email, password)
+        # myuser.is_active = False
+        # myuser.save()
         # send_mail(
         #     'письмо от КТП',
         #     "ссылка на доп регу",
