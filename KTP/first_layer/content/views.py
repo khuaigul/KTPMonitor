@@ -18,8 +18,6 @@ from .server import people
 from django.views.decorators.csrf import csrf_exempt
 
 
-
-
 def main(request): 
     # request.GET['signin']
     return render(request, 'main/main.html')
@@ -116,9 +114,9 @@ def studentProfile(request): #
     return JsonResponse({"status": False})
 
 @csrf_exempt
-def сhangeDiv(request): #
+def сhangeDiv(request):
     if (request.method == 'POST'):
-        div.change_people_div(request)
+        div.change_people_div(request.POST)
         return JsonResponse({"status" : True})
     return JsonResponse({"status": False})
 

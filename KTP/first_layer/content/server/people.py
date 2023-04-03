@@ -1,13 +1,13 @@
 from datetime import datetime
-# from main_DB_modul import *
-from .DB.add_contest import add_contest
-from .DB.add_new_div import add_new_div
-from .DB.add_new_pupil import add_new_pupil
-from .DB.change_pupil_div import change_pupil_div
-from .DB.delete_div import delete_div
-from .DB.get_all_contests import get_all_contests
-from .DB.get_all_divs import get_all_divs
-from .DB.get_all_pupils import get_all_pupils
+from .DB.add_contest.add_contest import add_contest
+from .DB.add_new_div.add_new_div import add_new_div
+from .DB.add_new_pupil.add_new_pupil import add_new_pupil
+from .DB.change_pupil_div.change_pupil_div import change_pupil_div
+from .DB.delete_div.delete_div import delete_div
+from .DB.get_all_contests.get_all_contests import get_all_contests
+from .DB.get_all_divs.get_all_divs import get_all_divs
+from .DB.get_all_pupils.get_all_pupils import get_all_pupils
+
 
 class New_div:
 	def __init__(self, name, year):
@@ -55,42 +55,40 @@ def people_add(info):
 	if info.POST["name"] == "":
 		return {"status": False}
 	pupil = New_pupil(info.POST["name"], info.POST["surname"], info.POST["secondname"], info.POST["school"], "10", info.POST["nickname"], info.POST["datebirth"])
-	add_new_pupil.add_new_pupil(pupil)
+	add_new_pupil(pupil)
 
 
 def people_write_one(info):
 	if info == "":
 		return {"status": False}
-	pupils = get_all_pupils.get_all_pupils()
-	write_people = {}
+	pupils = get_all_pupils()
+	write_people = dict()
 	write_people["nickname"] = info
-	# write_people = {"nickname": "abcd", "surname": "Иванов", "name": "Иван", "secondname": "Иванович",
-    #                 "div": "A",
-    #        "datebirth": "12.05.2005", "school": "Школа № 99", "form": 10}
 	for [surname, name, patronymic, cf, div_name, pupil_id, div_id] in pupils:
 		if info == cf:
 			write_people["surname"] = surname
 			write_people["name"] = name
 			write_people["secondname"] = patronymic
-			if div_name=="NULL":
+			if div_name == "NULL":
 				write_people["div"] = "не выбрано"
 			else:
 				write_people["div"] = div_name
 	return write_people
 
+
 def people_write_div():
-	pupils = get_all_pupils.get_all_pupils()
+	pupils = get_all_pupils()
 	write_people = {}
 	name_people = []
 	for [surname, name, patronymic, cf, div_name, pupil_id, div_id] in pupils:
-		info_people = {}
-		info_people["nickname" ] = cf
+		info_people = dict()
+		info_people["nickname"] = cf
 		info_people["surname"] = surname
-		info_people["name" ] = name
-		info_people["secondname" ] = patronymic
+		info_people["name"] = name
+		info_people["secondname"] = patronymic
 		if div_name == "NULL":
 			info_people["div"] = "не выбрано"
-		else :
+		else:
 			info_people["div"] = div_name
 		name_people.append(info_people)
 	write_people["students"] = name_people
@@ -100,18 +98,17 @@ def people_write_div():
 def people_write_div_onle(info):
 	if info == "":
 		return {"status": False}
-	pupils = get_all_pupils.get_all_pupils()
+	pupils = get_all_pupils()
 	write_people = {}
-
 	name_people = []
 	for [surname, name, patronymic, cf, div_name, pupil_id, div_id] in pupils:
-		if div_name == info:
-			info_people = {}
-			info_people["nickname" ] = cf
+		if div_name == info or info == "не выбрано" and div_name == "NULL":
+			info_people = dict()
+			info_people["nickname"] = cf
 			info_people["surname"] = surname
-			info_people["name" ] = name
-			info_people["secondname" ] = patronymic
-			info_people["div" ] = div_name
+			info_people["name"] = name
+			info_people["secondname"] = patronymic
+			info_people["div"] = div_name
 			name_people.append(info_people)
 	write_people["students"] = name_people
 	return write_people

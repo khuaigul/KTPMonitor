@@ -1,13 +1,13 @@
 from datetime import datetime
 # from main_DB_modul import *
-from .DB.add_contest import add_contest
-from .DB.add_new_div import add_new_div
-from .DB.add_new_pupil import add_new_pupil
-from .DB.change_pupil_div import change_pupil_div
-from .DB.delete_div import delete_div
-from .DB.get_all_contests import get_all_contests
-from .DB.get_all_divs import get_all_divs
-from .DB.get_all_pupils import get_all_pupils
+from .DB.add_contest.add_contest import add_contest
+from .DB.add_new_div.add_new_div import add_new_div
+from .DB.add_new_pupil.add_new_pupil import add_new_pupil
+from .DB.change_pupil_div.change_pupil_div import change_pupil_div
+from .DB.delete_div.delete_div import delete_div
+from .DB.get_all_contests.get_all_contests import get_all_contests
+from .DB.get_all_divs.get_all_divs import get_all_divs
+from .DB.get_all_pupils.get_all_pupils import get_all_pupils
 
 class New_div:
 	def __init__(self, name, year):
@@ -51,54 +51,54 @@ class pupil_task:
 		self.result = result
 
 
-
-def add_div(info):
+def add_div(info):  # добавление дивизиона
 	if info == "":
 		return {"status": False}
 	current_date = str(datetime.today())
 	div = New_div(info, "2022")
-	add_new_div.add_new_div(div)
+	add_new_div(div)
 
 
 def remove_div(info):
 	if info == "":
 		return {"status": False}
-	divs = get_all_divs.get_all_divs()
-	id_dalete = None
+	divs = get_all_divs()
+	id_remove = None
 	for [name, _id] in divs:
 		if name == info:
-			id_dalete = _id
-	if id_dalete == None:
+			id_remove = _id
+	if id_remove is None:
 		return
-	delete_div.delete_div(id_dalete)
+	delete_div(id_remove)
 
 
 def change_people_div(info):
-	if info['div'] == '' or info['nickname'] == "":
+	if info["div"] == "" or info["nickname"] == "":
 		return {"status": False}
-	divs = get_all_divs.get_all_divs()
+	divs = get_all_divs()
 	dive_id = None
 	for [name, _id] in divs:
-		if name == info['div']:
+		if name == info['div'] or info['div'] == "не выбрано" and name == "NULL":
 			dive_id = _id
 
 	people_id = None
-	pupils = get_all_pupils.get_all_pupils()
+	pupils = get_all_pupils()
 	for [surname, name, patronymic, cf, div_name, pupil_id, div_id] in pupils:
 		if info['nickname'] == cf:
 			people_id = pupil_id
-
 	ch = pupil_div(people_id, dive_id)
-	change_pupil_div.change_pupil_div(ch)
+	change_pupil_div(ch)
 	return
-#
+
+
 def write_div():
-	divs = []
-	divs = get_all_divs.get_all_divs()
-	write_div = {}
-	div_name=[]
+	divs = get_all_divs()
+	div_write = dict()
+	div_name = []
 	for [name, _id] in divs:
+		if name == "NULL":
+			continue
 		div_name.append(name)
 	div_name.append("не выбрано")
-	write_div["divisions"] = div_name
-	return write_div
+	div_write["divisions"] = div_name
+	return div_write
