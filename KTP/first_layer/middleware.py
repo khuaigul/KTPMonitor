@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import Permission
 class SimpleMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response        
@@ -8,13 +9,15 @@ class SimpleMiddleware:
         # the view (and later middleware) are called.
 
         response = self.get_response(request)
-        if request.path == "/registration":            
-            return response
-        # if request.user.has_perm(request.path):
-        if request.user.is_authenticated:
-            return response 
+        print(request.path)
+        if "registration" in request.path or "profileData" in request.path:
+            return response        
+        if request.user.has_perm('content.' + request.path):
+           print('jkl')
+           return response
         else:
-            return render(request, 'main/main.html')
+           print('hjk')
+           return render(request, 'main/main.html')
 
         # Code to be executed for each request/response after
         # the view is called.

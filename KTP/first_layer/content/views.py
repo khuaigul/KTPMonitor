@@ -7,7 +7,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes
-
+from django.contrib.auth.models import Permission
 from django.utils.encoding import force_str
 from django.http import JsonResponse
 from django.utils.encoding import force_str
@@ -16,6 +16,9 @@ from .server import div
 from .server import API_CF
 from .server import people
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.contenttypes.models import ContentType
+from . import tokens
+from django.utils.encoding import force_bytes, force_str
 
 
 
@@ -59,12 +62,10 @@ def students(request):
 def signin(request):# Вернуть True, если авторизация прошла успешно
     if(request.method=='POST'):
         login = request.POST['login']
-        password = request.POST['password']
-        print(request.user.is_authenticated)
-        user = authenticate(request, username=login, password=password)                
+        password = request.POST['password']        
+        user = authenticate(request, username=login, password=password) 
         if user is not None:
-            dan_pidor(request, user)
-            print(request.user.is_authenticated)
+            dan_pidor(request, user)            
             return JsonResponse({'status': True})
         else:
             return JsonResponse({'status': False})
@@ -74,32 +75,43 @@ def signin(request):# Вернуть True, если авторизация пр�
 def registrationRe(request):
     print('reg')
     if (request.method == 'POST'):
-        email = request.POST['email']
+        to_email = request.POST['email']
         password = request.POST['password']        
-        myuser = User.objects.create_user(email, email, password)
+        myuser = User.objects.create_user(to_email, to_email, password)
         myuser.is_active = False
-        myuser.save()
-        send_mail(
-            'письмо от КТП',
-            "ссылка на доп регу",
-            'settings.EMAIL.EMAIL_HOST_USER',
-            [email],
-            fail_silently=False
-        )
+        myuser.save()       
+        current_site = get_current_site(request)         
+        message = render_to_string('acc_active_email.html', {
+                'user':myuser, 
+                'domain':current_site.domain,
+                'uid':urlsafe_base64_encode(force_bytes(myuser.pk)),
+                'token':tokens.account_activation_token.make_token(myuser),
+            })
+        print(message)
+        mail_subject = 'Activate your blog account.'        
+        email = EmailMessage(mail_subject, message, to=[to_email])
+        email.send()
         return JsonResponse({'status': True})
     return JsonResponse({"status": False})
 
 @csrf_exempt
-def profileData(request):#
-    if (request.method == 'POST'):
-        print(request.POST["name"])
-        print("tytytytyytytytyyt")
-        # people.people_add(request)
-        return JsonResponse({'status' : True})
+def profileData(request, uidb64, token):    
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and tokens.account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.user_permissions.add(Permission.objects.get(codename="/signin"))
+        user.user_permissions.add(Permission.objects.get(codename="/menu"))
+        user.save()
+        dan_pidor(request, user)
+        return continue_registration(request)
     return JsonResponse({"status": False})
 
 @csrf_exempt
-def studentData(request): #
+def studentData(request):
     if (request.method == 'POST'):
         return JsonResponse(people.people_write_div())
     return JsonResponse({"status": False})

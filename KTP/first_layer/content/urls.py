@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
@@ -21,6 +21,8 @@ urlpatterns = [
     path('сhangeDiv', views.сhangeDiv, name='сhangeDiv'),
     path('students_by_div', views.students_by_div, name='students_by_div'),
     path('newDivisionRe', views.newDivisionRe, name='newDivisionRe'),
+    path('profileData/<slug:uidb64>/<slug:token>/',
+        views.profileData, name='profileData'),
 
 ]
  
