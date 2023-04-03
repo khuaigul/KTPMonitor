@@ -17,7 +17,7 @@ function getJson_divs()
 	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr_d.send(null);
 }
-
+ 
 function make_new_division(name)
 {
 	var xhr_d = new XMLHttpRequest();
@@ -133,4 +133,5 @@ function show_divisions(div_json)
 			show_div_page(p.innerHTML)});
 		block[0].appendChild(p);
 	}
+	
 }

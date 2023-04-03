@@ -13,57 +13,94 @@
 		Продолжение регистрации
 	</h1>
 	<div class="block">
-	<p>
-		Фамилия
-	</p>
-	<p id="lastname">
-		<input type="" name="">
-	</p>
-	<p>
-		Имя
-	</p>
-	<p id="firstname">
-		<input type="" name="">
-	</p>
-	<p>
-		Отчество
-	</p>
-	<p id="secondname">
-		<input type="" name="">
-	</p>
-	<p>
-		Дата рождения
-	</p>
-	<p id = "birthdate">
-		<input type="date" name="">
-	</p>
-	<p>
-		Школа
-	</p>
-	<p id="school">
-		<input type="" name="">
-	</p>
-	<p>
-		Класс
-	</p>
-	<p id="form">
-		<input type="number" name="">
-	</p>
-	<p>
-		Ник на Codeforces
-	</p>
-	<p id="nickname">
-		<input type="" name="">
-	</p>
-	<p class="note">
-		Введите ник, используемый вами в системе Codeforces. <br>
-		Если у вас нет профиля на Codeforces, зарегестрируйтесь на codeforces.com
-	</p>
-	<p>
-		<button class="usual_button" onclick="register_save()">
-			Сохранить
-		</button>
-	</p>
-</div>
+		<div id="role_selector">
+			<p>
+				Выберете роль
+			</p>
+			<select class="role_selector" onchange="change_role()">
+				<option value="student" selected="selected">
+					Ученик
+				</option>
+				<option value="teacher">
+					Преподаватель
+				</option>
+			</select>
+		</div>
+		<div id = "lastname" class="all_users">
+			<p>
+				Фамилия
+			</p>
+			<p>
+				<input type="" name="">
+			</p>
+		</div>
+		<div id = "firstname" class="all_users">
+			<p>
+				Имя
+			</p>
+			<p>
+				<input type="" name="">
+			</p>
+		</div>
+		<div id = "secondname" class="all_users">
+			<p>
+				Отчество
+			</p>
+			<p>
+				<input type="" name="">
+			</p>
+		</div>
+		<div id = "nickname" class="all_users">
+			<p>
+				Ник на Codeforces
+			</p>
+			<p>
+				<input type="" name="">
+			</p>
+			<p class="note">
+				Введите ник, используемый вами в системе Codeforces. <br>
+				Если у вас нет профиля на Codeforces, зарегестрируйтесь на <a href="https://codeforces.com/" target="_blank">codeforces.com</a>
+			</p>
+		</div>
+		<div id = "phone" class="all_users">
+			<p>
+				Номер телефона
+			</p>
+			<p>
+				<input type="" name="">
+			</p>
+		</div>
+		<div id = "birthdate" class="student">
+			<p>
+				Дата рождения
+			</p>
+			<p>
+				<input type="date" name="">
+			</p>
+		</div>
+		<div id = "school" class="student">
+			<p>
+				Школа
+			</p>
+			<p>
+				<input type="" name="">
+			</p>
+		</div>
+		<div id = "form" class="student">
+			<p>
+				Класс
+			</p>
+			<p>
+				<input min="5" max="11" type="number" value="5" name="">
+			</p>
+		</div>
+		<p class="note">
+		</p>
+		<p>
+			<button class="all_users usual_button" onclick="register_save()">
+				Сохранить
+			</button>
+		</p>
+	</div>
 </body>
 </html>

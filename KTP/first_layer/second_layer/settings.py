@@ -30,10 +30,11 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.mail.yahoo.com'
-EMAIL_HOST_USER = 'dan_kek_test_123@yahoo.com'
-EMAIL_HOST_PASSWORD = 'dankektest123'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'derevodominatorov@gmail.com'
+EMAIL_HOST_PASSWORD = 'ayxihtvfzhzgjwny'
 EMAIL_PORT = 465
 
 # Application definition
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
     'content',
 ]
 
+SESSION_COOKIE_AGE = 10000
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -56,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'middleware.SimpleMiddleware'
 ]
 
 ROOT_URLCONF = 'second_layer.urls'
