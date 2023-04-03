@@ -10,7 +10,7 @@ class SimpleMiddleware:
 
         response = self.get_response(request)
         print(request.path)
-        if "registration" in request.path or "profileData" in request.path:
+        if "registration" in request.path or "profileData" in request.path or "signin" in request.path:
             return response        
         if request.user.has_perm('content.' + request.path):
            print('jkl')
