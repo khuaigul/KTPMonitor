@@ -8,10 +8,12 @@ h1{
 
 p {
 	font-size: 20px;
-/*	padding: 5px;*/
+	padding-top: 5px;
+	margin-top: 2px;
+	margin-bottom: 2px;
 }
 
-select{
+.role_selector {
 /*	margin-left: 20px;*/
 	padding: 5px;
 	text-align: left;
@@ -20,6 +22,14 @@ select{
 	background-color: #E2B9FF;
 
 }
+
+.usual_selector{
+	padding: 5px;
+	text-align: left;
+	font-size: 18px;
+	height: 30px;
+}
+
 input{
 	width: 40%;
 	height: 30px;
@@ -35,8 +45,10 @@ input{
 
 .block{
 	margin: 0px;
+	padding-top: 10px;
 	padding-left: 30px;
 	padding-right: 30px;
+/*	position: fixed;*/
 }
 
 .menu p{
@@ -64,15 +76,12 @@ input{
 	border-radius: 15px;
 }*/
 
-p{
-/*	margin: 5px;*/
-}
+/*p{
+	margin: 5px;
+}*/
 
 h2{
-	margin: 5px;
-/*	font-size: 20px;*/
-	padding: 5px;
-	background-color: #D8F6A8;
+
 }
 
 .header
@@ -80,6 +89,15 @@ h2{
 	background-color: #C9E9FF;
 	padding: 15px;
 	margin-top: 0px;
+}
+
+.usual_header
+{
+	background-color: #C9E9FF;
+	padding: 20px;
+	padding-left: 30px;
+	margin: 0px;
+	text-align: left;
 }
 
 body{
@@ -114,4 +132,69 @@ body{
 }
 .student{
 /*	display: block;*/
+}
+
+.side_menu button{
+	background-color: #C9E9FF;
+	border: 0px solid black;
+	border-radius: 30px;
+	padding: 5px;
+	width: 80%;
+}
+
+.side_menu{
+	position: fixed;
+	width: 200px;
+	align: right;
+	margin-left: calc(100vw - 200px);
+}
+
+.side_menu a{
+	text-align: right;
+	margin: 2px;
+}
+
+.editButton{
+	background: url(".../static/main/images/edit.png");
+	margin-top: 8px;
+	border: 0px;
+	margin-top: auto;
+	margin-bottom: auto;
+	align-items: center
+}
+
+.editButton img{
+	width: 15px;
+	height: 15px;
+}
+
+.fullName{
+	align-items: center;
+}
+
+.fullName a{
+	margin-top: auto;
+	margin-bottom: auto;
+	font-size: 20px;
+}
+
+.block p{
+	margin-top: 5px;
+	font-size: 20px;
+	align-items: center;
+}
+
+.info{
+	align-items: center;
+	padding: 5px;
+}
+
+.info a{
+	padding: 5px;
+}
+
+.info img{
+	width: 15px;
+	height: 15px;
+/*	padding-top: 10px;*/
 }

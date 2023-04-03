@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'main/css/ktpmonitor.css' %}" >
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title> KTPMonitor 
+	</title>
+	<script type="text/javascript" src="{% static 'main/js/teacherProfile.js' %}"></script>
+</head>
+	<h1 class="usual_header">
+		Мой профиль
+	</h1>
+	<div class="side_menu">
+		<p>
+			<button onclick="toProfile()">
+				Мой профиль
+			</button>
+		</p>
+		<p>
+			<button onclick="toDivisions()">
+				Дивизионы
+			</button>
+		</p>	
+		<p>
+			<button onclick="toContests()">
+				Контесты
+			</button>
+		</p>
+		<p>
+			<button onclick="toStudents()">
+				Ученики
+			</button>
+		</p>
+		<p>
+			<button onclick="toStats()">
+				Статистика
+			</button>
+		</p>
+		<p>
+			<button onclick="toController()">
+				Управление
+			</button>
+		</p>
+		<p>
+			<button onclick="toNotifications()">
+				Объявления
+			</button>
+		</p>
+		<p>
+			<button onclick="toExit()">
+				Выйти
+			</button>
+		</p>
+	</div>
+	<div class="block">
+		<div class="fullName">
+			<a id="fullTeacherName">
+				
+			</a>
+			<button class="editButton" onclick="editProfile()">
+				<img src="{% static 'main/images/edit.png' %}">
+			</button>
+		</div>
+		<script type="module">
+			showProfileInfo()
+		</script>
+		<p id="div">
+
+		</p>
+		<p class="info">
+			<img src="{% static 'main/images/mail.png' %}">
+			<a id="mail"></a>
+		</p>
+		<p class="info">
+			<img src="{% static 'main/images/telegram.png' %}">
+			<a id="telegram"></a>
+		</p>
+	</div>
+</html>
