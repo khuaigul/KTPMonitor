@@ -13,6 +13,7 @@ function authorisation(login, password)
 		}
 		else {
 			getJson = xhr.responseText;
+			alert(getJson);
 			const obj = JSON.parse(getJson);
 			if (obj["status"] == true){
 				// if (obj["role"] == "student")

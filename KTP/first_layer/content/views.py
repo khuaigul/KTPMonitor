@@ -66,7 +66,8 @@ def editTeacherProfile(request):
 def signin(request):# Вернуть True, если авторизация прошла успешно
     if(request.method=='POST'):
         login = request.POST['login']
-        password = request.POST['password']        
+        password = request.POST['password']   
+        print("DDDDDDD", login, password);     
         user = authenticate(request, username=login, password=password) 
         if user is not None:
             dan_pidor(request, user)            
