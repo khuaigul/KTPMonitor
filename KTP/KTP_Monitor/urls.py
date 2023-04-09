@@ -23,6 +23,7 @@ urlpatterns = [
     path('newDivisionRe', views.newDivisionRe, name='newDivisionRe'),
     path('profileData/<slug:uidb64>/<slug:token>/',
         views.profileData, name='profileData'),
+    path('sendProfileData', views.sendProfileData, name='sendProfileData'),
     path('teacherProfile', views.teacherProfile, name='teacherProfile'),
     path('editTeacherProfile', views.editTeacherProfile, name='editTeacherProfile')
 ]

@@ -109,7 +109,7 @@ function send_profile_data()
 	var xhr = new XMLHttpRequest();
 
 
-	xhr.open("POST", 'http://127.0.0.1:8000/profileData?', true);
+	xhr.open("POST", 'http://127.0.0.1:8000/sendProfileData?', true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.send(params);
 
