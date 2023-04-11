@@ -246,8 +246,6 @@ function register_save()
 	if(now.getDate() < 10)
 		today = today + '0';
 	today = today + now.getDate();
-	alert(document.querySelectorAll("#birthdate input")[0].value);
-	alert(today);
 	let role = document.querySelectorAll("#role_selector > select")[0].value;
 	if (role == "student")
 	{

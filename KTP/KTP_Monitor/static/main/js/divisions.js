@@ -1,21 +1,81 @@
+function toProfile()
+{
+	document.location="teacherProfile";
+}
+function toDivisions()
+{
+	document.location="divisions";
+}
+function toContests()
+{
+	document.location="contests";
+}
+function toStudents()
+{
+	document.location="students";
+}
+function toStats()
+{
+	document.location="statistics";
+}
+function toController()
+{
+	document.location="controller";
+}
+function toNotifications()
+{
+	document.location="notifications";
+}
+function toExit()
+{
+	alert("Выйти из профиля?");
+	document.location="main";
+}
 function getJson_divs()
 {
-	var xhr_d = new XMLHttpRequest();
+	var str = '{"divisions" : ["A", "B", "C"]}';
+	return show_divisions(str); 
+	// var xhr_d = new XMLHttpRequest();
 
-	xhr_d.onload = function(){
-		if (xhr_d.status != 200){
-			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-		}
-		else 
-		{
-			get_div_Json = xhr_d.responseText;
-			localStorage.setItem('divList', get_div_Json);
-			return show_divisions(get_div_Json);
-		}
-	}
-	xhr_d.open("POST", 'http://127.0.0.1:8000/divisionsRe?', true);
-	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr_d.send(null);
+	// xhr_d.onload = function(){
+	// 	if (xhr_d.status != 200){
+	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+	// 	}
+	// 	else 
+	// 	{
+	// 		get_div_Json = xhr_d.responseText;
+	// 		alert(get_div_Json)
+	// 		// localStorage.setItem('divList', get_div_Json);
+	// 		return show_divisions(get_div_Json);
+	// 	}
+	// }
+	// xhr_d.open("POST", 'http://127.0.0.1:8000/divisionsRe?', true);
+	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	// xhr_d.send(null);
+}
+
+function get_divs()
+{
+	var str = '{"divisions" : ["A", "B", "C"]}';
+	return str; 
+	// var xhr_d = new XMLHttpRequest();
+	// alert("get_divs");
+
+	// xhr_d.onload = function(){
+	// 	if (xhr_d.status != 200){
+	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+	// 	}
+	// 	else 
+	// 	{
+	// 		get_div_Json = xhr_d.responseText;
+	// 		alert(get_div_Json)
+	// 		// localStorage.setItem('divList', get_div_Json);
+	// 		return get_div_Json;
+	// 	}
+	// }
+	// xhr_d.open("POST", 'http://127.0.0.1:8000/divisionsRe?', true);
+	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	// xhr_d.send(null);
 }
  
 function make_new_division(name)
@@ -57,6 +117,7 @@ function getJson_students_by_div()
 		else 
 		{
 			get_Json = xhr.responseText;
+			// localStorage.setItem("divlist", get_div_Json)
 			return show_div(get_Json);
 		}
 	}
@@ -96,25 +157,34 @@ function show_div(students_list)
 
 function add_division()
 {
-	// alert("add division");
-	let block = document.querySelectorAll(".block");
-	if (document.getElementById("errortext") != null)
-		block[0].removeChild(document.getElementById("errortext"));
-	let name = document.querySelectorAll("#name > input");
-	var divs_list = localStorage.getItem("divList");
-	var divs = JSON.parse(divs_list);
-	var newName = name[0].value;
-	if (name[0].value == "")
+	let error = document.getElementById("errortext");
+	error.setAttribute("hidden", "hidden");
+	let name = document.querySelectorAll("#new_division_name input")[0].value;
+	if (name == "")
 	{
-		let text = document.createElement("p");
-		text.innerHTML = "Заполните поле";
-		text.setAttribute("id", "errortext")
-		text.setAttribute("class", "note")
-		block[0].appendChild(text);
-	} 
+		error.innerHTML = "Введите имя дивизиона";
+		error.removeAttribute("hidden");
+	}
 	else
 	{
-		make_new_division(name[0].value);
+		let divisions = get_divs();
+		const divs = JSON.parse(divisions);
+		let flag = false;
+		for (var i = 0; i < divs["divisions"].length; i++)
+		{
+			console.log(name, divs["divisions"][i]);
+			if (name == divs["divisions"][i])
+				flag = true;
+		}
+		if (flag)
+		{
+			error.innerHTML = "Такой дивизион уже существует";
+			error.removeAttribute("hidden");
+		}
+		else
+		{
+			make_new_division(name);
+		}
 	}
 }
 
@@ -127,11 +197,25 @@ function show_divisions(div_json)
 	for (var j = 0; j < divs["divisions"].length; j++)
 	{
 		let p = document.createElement("p");
-		p.innerHTML = divs["divisions"][j];
-		p.setAttribute("class", "link");
-		p.addEventListener('click', function(){
+		let a = document.createElement("a");
+		a.innerHTML = divs["divisions"][j];
+		a.setAttribute("class", "link");
+		a.addEventListener('click', function(){
 			show_div_page(p.innerHTML)});
+		p.appendChild(a);
 		block[0].appendChild(p);
 	}
 	
 }
+
+function new_division_field()
+{
+	let name = document.querySelectorAll("#new_division_name input")[0];
+	let p = document.getElementById("new_division_name");
+	console.log(name);
+	p.removeAttribute("hidden");
+
+	document.getElementById("newDivisionButton").setAttribute("hidden", "hidden");
+	document.getElementById("addDivisionButton").removeAttribute("hidden");
+}
+
