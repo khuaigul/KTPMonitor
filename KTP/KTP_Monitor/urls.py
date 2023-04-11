@@ -26,7 +26,7 @@ urlpatterns = [
     path('sendProfileData', views.sendProfileData, name='sendProfileData'),
     path('teacherProfile', views.teacherProfile, name='teacherProfile'),
     path('editTeacherProfile', views.editTeacherProfile, name='editTeacherProfile'),
-    path('viewProfileData', views.viewProfileData, name='viewProfileData')
+    path('viewProfileData', views.viewProfileData, name='viewProfileData'),
     path('contests', views.contests, name='contests'),
     path('contest', views.contest, name='contest')
 ]

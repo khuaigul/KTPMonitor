@@ -139,12 +139,12 @@ def sendProfileData(request):
         user.user_permissions.add(Permission.objects.get(codename="/viewProfileData"))       
         if user.role == 'pupil':
             pass
-            #add_pupil(user.get_id(), user.role, request.POST['lastname'], request.POST['firstname'], request.POST['secondname'], 
+            #add_pupil(user.get_id(), request.POST['lastname'], request.POST['firstname'], request.POST['secondname'], 
             #    request.POST['nickname'], request.POST['birthdate'], request.POST['school'], request.POST['grade'], request.POST['phone'])
         else:
             user.user_permissions.add(Permission.objects.get(codename="/teacherProfile"))
             user.user_permissions.add(Permission.objects.get(codename="/editTeacherProfile"))            
-            #add_teacher(user.get_id(), user.role, request.POST['lastname'], request.POST['firstname'], request.POST['secondname'], 
+            #add_teacher(user.get_id(), request.POST['lastname'], request.POST['firstname'], request.POST['secondname'], 
              #   request.POST['nickname'], request.POST['phone'])
         print(user.role)
         return main(request)
