@@ -25,7 +25,6 @@ urlpatterns = [
         views.profileData, name='profileData'),
     path('sendProfileData', views.sendProfileData, name='sendProfileData'),
     path('teacherProfile', views.teacherProfile, name='teacherProfile'),
-    path('editTeacherProfile', views.editTeacherProfile, name='editTeacherProfile'),
-    path('viewProfileData', views.viewProfileData, name='viewProfileData')
+    path('editTeacherProfile', views.editTeacherProfile, name='editTeacherProfile')
 ]
  
