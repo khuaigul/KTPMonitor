@@ -21,11 +21,12 @@ from . import tokens
 from django.utils.encoding import force_bytes, force_str
 
 # Natlis test model
-from KTP_Monitor.models import *
-from server.DB.natlis_orm2 import *
+# from .models import Div_Info
+# from .natlis_orm import *
+# from .server.natlis_orm1 import *
+# from .server.DB.natlis_orm2 import *
 
-# models.User.objects.create()
-# add_new_pupil(1, "lastname", "firstname", "secondname", "CF", "birthday", "school", "grade", "phone")
+# pr()
 
 def main(request): 
     # request.GET['signin']
