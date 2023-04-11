@@ -53,7 +53,7 @@ function showProfileInfo()
 	// 		return showProfile(get_profile_Json);
 	// 	}
 	// }
-	// xhr_d.open("POST", 'http://127.0.0.1:8000/currentProfileData?', true);
+	// xhr_d.open("POST", 'http://127.0.0.1:8000/viewProfileData?', true);
 	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	// xhr_d.send(null);
 }
@@ -62,7 +62,7 @@ function showProfile(profileJson)
 {
 	const data = JSON.parse(profileJson);
 	let name = document.getElementById("fullTeacherName");
-	name.innerHTML = data["surname"] + " " + data["name"] + " "  + data["secondname"];
+	name.innerHTML = data["surname"] + " " + data["firstname"] + " "  + data["secondname"];
 
 	let divText = document.getElementById("div");
 	divText.innerHTML = "Преподаватель дивизиона " + data["division"];

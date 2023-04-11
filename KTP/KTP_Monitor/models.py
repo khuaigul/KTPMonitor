@@ -11,6 +11,8 @@ class Permissions(models.Model):
 
 class User(AbstractUser):
     role = "pupil"
+    def get_id():
+        return self.id
 
 
 class Div_Info(models.Model):

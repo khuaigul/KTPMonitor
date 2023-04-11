@@ -124,22 +124,40 @@ def profileData(request, uidb64, token):
 
 @csrf_exempt
 def sendProfileData(request):
-    if (request.method == 'POST'):    
+    if request.method == 'POST':    
         user = request.user    
         if user.is_active == True:
             return JsonResponse({"status": False})
         user.is_active = True     
         user.role = request.POST['role']
-        user.user_permissions.add(Permission.objects.get(codename="/signin"))        
+        user.user_permissions.add(Permission.objects.get(codename="/signin")) 
+        user.user_permissions.add(Permission.objects.get(codename="/viewProfileData"))       
         if user.role == 'pupil':
             pass
-            # add table pupil
+            #add_pupil(user.get_id(), user.role, request.POST['lastname'], request.POST['firstname'], request.POST['secondname'], 
+            #    request.POST['nickname'], request.POST['birthdate'], request.POST['school'], request.POST['grade'], request.POST['phone'])
         else:
             user.user_permissions.add(Permission.objects.get(codename="/teacherProfile"))
-            # add table teacher
+            user.user_permissions.add(Permission.objects.get(codename="/editTeacherProfile"))            
+            #add_teacher(user.get_id(), user.role, request.POST['lastname'], request.POST['firstname'], request.POST['secondname'], 
+             #   request.POST['nickname'], request.POST['phone'])
         print(user.role)
         return main(request)
     return JsonResponse({"status": False})
+
+@csrf_exempt
+def viewProfileData(request):
+    if request.method == 'GET':
+        user = request.user
+        if user.role == "teacher":
+            return JsonResponse({"firstname": user.teacher.firstname, "secondname": user.teacher.secondname,
+                "lastname": user.teacher.lastname, "nickname": user.teacher.nickname, "email": user.email, "phone": user.teacher.phone})
+        else:
+            return JsonResponse({"firstname": user.pupil.firstname, "secondname": user.pupil.secondname,
+                "lastname": user.pupil.lastname, "nickname": user.pupil.nickname, "email": user.email, "phone": user.pupil.phone, 
+                "school": user.pupil.school, "grade": user.pupil.grade, "birthdate": user.pupil.birthdate})
+    else:
+        return JsonResponse({"status": False})
 
 @csrf_exempt
 def studentData(request):

@@ -91,19 +91,19 @@ function send_profile_data()
 	var firstname = document.querySelectorAll("#firstname input");
 	var secondname = document.querySelectorAll("#secondname input");
 	var nickname = document.querySelectorAll("#nickname input");
-
+	var phone = document.querySelectorAll("#phone input");
 	var params;
 
 	if (role == "student")
 	{	
 		var datebirth = document.querySelectorAll("#birthdate input");
 	    var school = document.querySelectorAll("#school input");
-		var form = document.querySelectorAll("#form input");
-		params = 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&school=" + encodeURIComponent(school) + "&form=" + encodeURIComponent(form) + "&datebirth=" + encodeURIComponent(datebirth);
+		var form = document.querySelectorAll("#grade input");
+		params = 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&firstname=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&school=" + encodeURIComponent(school) + "&grade=" + encodeURIComponent(grade) + "&datebirth=" + encodeURIComponent(datebirth)+ "&phone=" + encodeURIComponent(phone);
 	}
 	else
 	{
-		params = 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname);
+		params = 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&firstname=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&phone=" + encodeURIComponent(phone);
 	}
 
 	var xhr = new XMLHttpRequest();
