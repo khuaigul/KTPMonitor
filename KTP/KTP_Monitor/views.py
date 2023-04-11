@@ -35,6 +35,8 @@ def main(request):
 def teacherProfile(request):
     return render(request, 'main/teacherProfile.html')
 
+def contests(request):
+    return render(request, 'main/contests.html')
 
 def continue_registration(request):
     return render(request, 'main/continue_registration.html')
@@ -45,7 +47,10 @@ def div_info(request):
 
 
 def divisions(request):    
-    return render(request, 'main/divisions.html')    
+    return render(request, 'main/divisions.html')  
+
+def contest(request):
+    return render(request, 'main/contest.html')  
 
 def menu(request):
     return render(request, 'main/menu.html')
