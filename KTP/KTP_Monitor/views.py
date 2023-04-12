@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from .models import User
 from django.contrib.auth import authenticate, login as dan_pidor, logout
 from django.core.mail import EmailMessage, send_mail
 from django.contrib.sites.shortcuts import get_current_site
@@ -119,12 +119,31 @@ def profileData(request, uidb64, token):
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
     if user is not None and tokens.account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.user_permissions.add(Permission.objects.get(codename="/signin"))
-        user.user_permissions.add(Permission.objects.get(codename="/menu"))
+        if user.is_active == True:
+            return JsonResponse({"status": False})                
+        user.user_permissions.add(Permission.objects.get(codename="/sendProfileData"))        
         user.save()
         dan_pidor(request, user)
         return continue_registration(request)
+    return JsonResponse({"status": False})
+
+@csrf_exempt
+def sendProfileData(request):
+    if (request.method == 'POST'):    
+        user = request.user    
+        if user.is_active == True:
+            return JsonResponse({"status": False})
+        user.is_active = True     
+        user.role = request.POST['role']
+        user.user_permissions.add(Permission.objects.get(codename="/signin"))        
+        if user.role == 'pupil':
+            pass
+            # add table pupil
+        else:
+            user.user_permissions.add(Permission.objects.get(codename="/teacherProfile"))
+            # add table teacher
+        print(user.role)
+        return main(request)
     return JsonResponse({"status": False})
 
 @csrf_exempt

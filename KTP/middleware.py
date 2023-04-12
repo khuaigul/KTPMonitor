@@ -12,11 +12,9 @@ class SimpleMiddleware:
         print(request.path)
         if "registration" in request.path or "profileData" in request.path or "signin" in request.path:
             return response        
-        if request.user.has_perm('content.' + request.path):
-           print('jkl')
+        if request.user.has_perm('KTP_Monitor.' + request.path):        
            return response
-        else:
-           print('hjk')
+        else:           
            return render(request, 'main/main.html')
 
         # Code to be executed for each request/response after

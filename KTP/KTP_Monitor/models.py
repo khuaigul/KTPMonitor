@@ -1,10 +1,16 @@
 from django.db import models
-class MyModel(models.Model):
+from django.contrib.auth.models import AbstractUser
+class Permissions(models.Model):
     class Meta:        
         permissions = (
             ('/menu', ''),
-            ('/signin', ''),            
+            ('/signin', ''),
+            ('/sendProfileData', ''),
+            ('/teacherProfile', '')            
         )
+
+class User(AbstractUser):
+    role = "pupil"
 
 
 class Div_Info(models.Model):
