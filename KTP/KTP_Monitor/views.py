@@ -38,8 +38,8 @@ def teacherProfile(request):
 def contests(request):
     return render(request, 'main/contests.html')
 
-def continue_registration(request):
-    return render(request, 'main/continue_registration.html')
+def continue_registration(request, uid):
+    return render(request, 'main/continue_registration.html', {'uid' : uid})
 
 
 def div_info(request):
@@ -124,7 +124,7 @@ def profileData(request, uidb64, token):
         user.user_permissions.add(Permission.objects.get(codename="/sendProfileData"))        
         user.save()
         dan_pidor(request, user)
-        return continue_registration(request)
+        return continue_registration(request, uid)
     return JsonResponse({"status": False})
 
 @csrf_exempt

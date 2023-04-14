@@ -96,14 +96,24 @@ function send_profile_data()
 
 	if (role == "student")
 	{	
+		role = "pupil";
 		var datebirth = document.querySelectorAll("#birthdate input");
 	    var school = document.querySelectorAll("#school input");
+<<<<<<< HEAD
 		var form = document.querySelectorAll("#grade input");
 		params = 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&firstname=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&school=" + encodeURIComponent(school) + "&grade=" + encodeURIComponent(grade) + "&datebirth=" + encodeURIComponent(datebirth)+ "&phone=" + encodeURIComponent(phone);
 	}
 	else
 	{
 		params = 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&firstname=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&phone=" + encodeURIComponent(phone);
+=======
+		var form = document.querySelectorAll("#form input");
+		params = 'uid=' + encodeURIComponent(uid) +  '&role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&phone=" + encodeURIComponent(phone) + "&school=" + encodeURIComponent(school) + "&form=" + encodeURIComponent(form) + "&datebirth=" + encodeURIComponent(datebirth);
+	}
+	else
+	{
+		params = 'uid=' + encodeURIComponent(uid) + 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&phone=" + encodeURIComponent(phone);
+>>>>>>> d1c5b4c32c01849f7b05521dc52b059b01f619c2
 	}
 
 	var xhr = new XMLHttpRequest();
@@ -226,8 +236,9 @@ function register()
 	}
 }
 
-function register_save()
+function register_save(uid)
 {
+	// alert(uid)
 	if (document.getElementById("errortext") != null)
 	{
 		let cur_div = document.querySelectorAll(".block")
@@ -240,9 +251,10 @@ function register_save()
 			flag = false;
 	var now = new Date();
 	var today = now.getFullYear() + '-';
-	if (now.getMonth() < 10)
+	var month = now.getMonth() + 1;
+	if (month < 10)
 		today = today + '0';
-	today = today + now.getMonth() + '-';
+	today = today + month + '-';
 	if(now.getDate() < 10)
 		today = today + '0';
 	today = today + now.getDate();
@@ -256,7 +268,6 @@ function register_save()
 	}
 	if (!flag)
 	{
-		console.log(document.querySelectorAll(".note").length);
 		var text = document.querySelectorAll(".note")[1];
 		text.innerHTML = "Заполните все поля ввода";
 		// let cur_div = document.querySelectorAll(".block")
@@ -269,7 +280,7 @@ function register_save()
 	}
 	else
 	{
-		send_profile_data();
+		send_profile_data(uid);
 	}
 }
 
@@ -277,6 +288,8 @@ function change_role()
 {
 	let sel = document.querySelectorAll("#role_selector > select");
 	let forms = document.querySelectorAll(".student");
+	var text = document.querySelectorAll(".note")[1];
+	text.innerHTML="";
 	for (var i = 0; i < forms.length; i++)
 	{
 		console.log(forms[i]);
