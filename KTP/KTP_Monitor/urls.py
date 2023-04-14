@@ -24,6 +24,7 @@ urlpatterns = [
     path('profileData/<slug:uidb64>/<slug:token>/',
         views.profileData, name='profileData'),
     path('teacherProfile', views.teacherProfile, name='teacherProfile'),
-    path('editTeacherProfile', views.editTeacherProfile, name='editTeacherProfile')
+    path('editTeacherProfile', views.editTeacherProfile, name='editTeacherProfile'),
+    path('currentProfileData', views.currentProfileData, name='currentProfileData')
 ]
  
