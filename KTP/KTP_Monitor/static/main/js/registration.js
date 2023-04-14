@@ -83,7 +83,7 @@ function send_registration_data(email, password)
 	}
 }
 
-function send_profile_data()
+function send_profile_data(uid)
 {
 	let role = document.querySelectorAll("#role_selector > select")[0].value;
 	
@@ -99,21 +99,12 @@ function send_profile_data()
 		role = "pupil";
 		var datebirth = document.querySelectorAll("#birthdate input");
 	    var school = document.querySelectorAll("#school input");
-<<<<<<< HEAD
-		var form = document.querySelectorAll("#grade input");
-		params = 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&firstname=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&school=" + encodeURIComponent(school) + "&grade=" + encodeURIComponent(grade) + "&datebirth=" + encodeURIComponent(datebirth)+ "&phone=" + encodeURIComponent(phone);
+		var grade = document.querySelectorAll("#grade input");
+		params = 'uid=' + encodeURIComponent(uid) + '&role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&firstname=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&school=" + encodeURIComponent(school) + "&grade=" + encodeURIComponent(grade) + "&datebirth=" + encodeURIComponent(datebirth)+ "&phone=" + encodeURIComponent(phone);
 	}
 	else
 	{
-		params = 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&firstname=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&phone=" + encodeURIComponent(phone);
-=======
-		var form = document.querySelectorAll("#form input");
-		params = 'uid=' + encodeURIComponent(uid) +  '&role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&phone=" + encodeURIComponent(phone) + "&school=" + encodeURIComponent(school) + "&form=" + encodeURIComponent(form) + "&datebirth=" + encodeURIComponent(datebirth);
-	}
-	else
-	{
-		params = 'uid=' + encodeURIComponent(uid) + 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&phone=" + encodeURIComponent(phone);
->>>>>>> d1c5b4c32c01849f7b05521dc52b059b01f619c2
+		params = 'uid=' + encodeURIComponent(uid) + '&role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&firstname=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&phone=" + encodeURIComponent(phone);
 	}
 
 	var xhr = new XMLHttpRequest();
@@ -129,10 +120,11 @@ function send_profile_data()
 		}
 		else {
 			getJson = xhr.responseText;
+			alert(getJson);
 			const obj = JSON.parse(getJson);
 			console.log(obj["status"]);
 			if (obj["status"] == true){
-				document.location = "main";
+				document.location = "http://127.0.0.1:8000/main";
 			}
 		}
 	}

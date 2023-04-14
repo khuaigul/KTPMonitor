@@ -6,7 +6,9 @@ class Permissions(models.Model):
             ('/menu', ''),
             ('/signin', ''),
             ('/sendProfileData', ''),
-            ('/teacherProfile', '')            
+            ('/teacherProfile', ''),
+            ('/viewProfileData', ''),
+            ('/editTeacherProfile', ''),           
         )
 
 class User(AbstractUser):

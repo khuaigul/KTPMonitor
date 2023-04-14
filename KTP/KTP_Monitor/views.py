@@ -129,8 +129,9 @@ def profileData(request, uidb64, token):
 
 @csrf_exempt
 def sendProfileData(request):
-    if request.method == 'POST':    
-        user = request.user    
+    print("AAAAAAAAAAAA")
+    if request.method == 'POST':     
+        user = User.objects.get(pk=request.POST['uid'])
         if user.is_active == True:
             return JsonResponse({"status": False})
         user.is_active = True     
@@ -147,7 +148,7 @@ def sendProfileData(request):
             #add_teacher(user.get_id(), request.POST['lastname'], request.POST['firstname'], request.POST['secondname'], 
              #   request.POST['nickname'], request.POST['phone'])
         print(user.role)
-        return main(request)
+        return JsonResponse({"status": True})
     return JsonResponse({"status": False})
 
 @csrf_exempt
