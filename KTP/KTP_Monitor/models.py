@@ -1,25 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-
-class MyModel(models.Model):
-    class Meta:        
-        permissions = (
-            ('/menu', ''),
-            ('/signin', ''),            
-        )
-
-class User(AbstractUser):
-    role = "pupil"
-    def get_id():
-        return self.id
+from django.contrib.auth.models import User
 
 class Div_Info(models.Model):
-    id = models.AutoField(primary_key=True)
     year = models.IntegerField()
     name = models.CharField(max_length=100)
 
 class Pupil_Info(models.Model):
-    user = models.OneToOneField(models.User, on_delete = models.CASCADE, primary_key = True)
+    user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
     lastname = models.CharField(max_length=100)
     firstname = models.CharField(max_length=100)
     secondname = models.CharField(max_length=100)
@@ -27,15 +14,15 @@ class Pupil_Info(models.Model):
     grade = models.IntegerField()
     CF = models.CharField(max_length=100)
     birthday = models.DateField()
-    div_id = models.ForeignKey(Div_Info, default = 1) #?????????????????????????????????????????????????????????????
+    div_id = models.ForeignKey(Div_Info, null=True, on_delete = models.SET_NULL, default= None)
     e_mail = models.EmailField()
-    phone_num = models.SlugField()
+    phone = models.SlugField()
 
 class Teacher_Info(models.Model):
-    user = models.OneToOneField(models.User, on_delete = models.CASCADE, primary_key = True)
+    user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
     name = models.CharField(max_length=100)
     CF = models.CharField(max_length=100)
-    div_id = models.ForeignKey(Div_Info)
+    div_id = models.ForeignKey(Div_Info, null=True, on_delete = models.SET_NULL, default= None)
     e_mail = models.EmailField()
     phone_num = models.SlugField()
 

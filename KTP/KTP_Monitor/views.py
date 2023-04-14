@@ -19,13 +19,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.contenttypes.models import ContentType
 from . import tokens
 from django.utils.encoding import force_bytes, force_str
+from .models import *
+from .server.DB.main_DB_modul import *
 
-# Natlis test model
-from KTP_Monitor.models import *
-from server.DB.natlis_orm2 import *
+# print(list(User.objects.all()))
 
-# models.User.objects.create()
-# add_new_pupil(1, "lastname", "firstname", "secondname", "CF", "birthday", "school", "grade", "phone")
 
 def main(request): 
     # request.GET['signin']
