@@ -32,6 +32,7 @@ def main(request):
     # request.GET['signin']
     return render(request, 'main/main.html')
 
+
 def teacherProfile(request):
     return render(request, 'main/teacherProfile.html')
 
@@ -52,6 +53,7 @@ def divisions(request):
 def contest(request):
     return render(request, 'main/contest.html')  
 
+
 def menu(request):
     return render(request, 'main/menu.html')
 
@@ -71,15 +73,17 @@ def student_profile(request):
 def students(request): 
     return render(request, 'main/students.html')
 
+
 def editTeacherProfile(request):
     return render(request, 'main/editTeacherProfile.html')
 
+
 @csrf_exempt 
-def signin(request):# Вернуть True, если авторизация прошла успешно
-    if(request.method=='POST'):
+def signin(request):  # Вернуть True, если авторизация прошла успешно
+    if request.method=='POST':
         login = request.POST['login']
         password = request.POST['password']   
-        print("DDDDDDD", login, password);     
+        print("DDDDDDD", login, password)
         user = authenticate(request, username=login, password=password) 
         if user is not None:
             dan_pidor(request, user)            
@@ -88,10 +92,11 @@ def signin(request):# Вернуть True, если авторизация пр�
             return JsonResponse({'status': False})
     return JsonResponse({'status': False})
 
+
 @csrf_exempt 
 def registrationRe(request):
     print('reg')
-    if (request.method == 'POST'):
+    if request.method == 'POST':
         to_email = request.POST['email']
         password = request.POST['password']        
         myuser = User.objects.create_user(to_email, to_email, password)
@@ -99,10 +104,10 @@ def registrationRe(request):
         myuser.save()       
         current_site = get_current_site(request)         
         message = render_to_string('acc_active_email.html', {
-                'user':myuser, 
-                'domain':current_site.domain,
-                'uid':urlsafe_base64_encode(force_bytes(myuser.pk)),
-                'token':tokens.account_activation_token.make_token(myuser),
+                'user': myuser,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(myuser.pk)),
+                'token': tokens.account_activation_token.make_token(myuser),
             })
         print(message)
         mail_subject = 'Activate your blog account.'        
@@ -110,6 +115,7 @@ def registrationRe(request):
         email.send()
         return JsonResponse({'status': True})
     return JsonResponse({"status": False})
+
 
 @csrf_exempt
 def profileData(request, uidb64, token):    
@@ -126,6 +132,7 @@ def profileData(request, uidb64, token):
         dan_pidor(request, user)
         return continue_registration(request, uid)
     return JsonResponse({"status": False})
+
 
 @csrf_exempt
 def sendProfileData(request):
@@ -167,40 +174,49 @@ def viewProfileData(request):
 
 @csrf_exempt
 def studentData(request):
-    if (request.method == 'POST'):
+    if request.method == 'POST':
         return JsonResponse(people.people_write_div())
     return JsonResponse({"status": False})
 
+
 @csrf_exempt
-def divisionsRe(request): #
-    if (request.method == 'POST'):
+def divisionsRe(request):  #
+    if request.method == 'POST':
         return JsonResponse(div.write_div())
     return JsonResponse({"status": False})
 
+
 @csrf_exempt
-def studentProfile(request): #
-    if (request.method == 'POST'):
+def studentProfile(request):  #
+    if request.method == 'POST':
         return JsonResponse(people.people_write_one(request.POST["nickname"]))
     return JsonResponse({"status": False})
 
-@csrf_exempt
-def сhangeDiv(request):
-    if (request.method == 'POST'):
-        div.change_people_div(request.POST)
-        return JsonResponse({"status" : True})
-    return JsonResponse({"status": False})
 
 @csrf_exempt
-def students_by_div(request): #
-    if (request.method == 'POST'):
+def сhangeDiv(request):
+    if request.method == 'POST':
+        return JsonResponse(div.change_people_div(request.POST))
+    return JsonResponse({"status": False})
+
+
+@csrf_exempt
+def students_by_div(request):  #
+    if request.method == 'POST':
         print(request.POST["div"])
         return JsonResponse(people.people_write_div_onle(request.POST["div"]))
     return JsonResponse({"status": False})
 
+
 @csrf_exempt
-def newDivisionRe(request): #
-    if (request.method == "POST"):
-        div.add_div(request.POST["name"])
-        return JsonResponse({"status" : True})
+def newDivisionRe(request):  #
+    if request.method == "POST":
+        return JsonResponse(div.add_div(request.POST["name"]))
     return JsonResponse({"status": False})
 
+
+@csrf_exempt
+def currentProfileData(request):  # Выводит информацию о пользователе, который сейчас авторизирован
+    if request.method == "POST":
+        return JsonResponse(people.info_person(request))
+    return JsonResponse({"status": False})

@@ -55,21 +55,29 @@ def add_div(info):  # добавление дивизиона
 	if info == "":
 		return {"status": False}
 	current_date = str(datetime.today())
-	div = New_div(info, "2022")
-	add_new_div(div)
+	try:
+		div = New_div(info, "2023")
+		add_new_div(div)
+		return {"status": True}
+	except:
+		return {"status": False}
 
 
 def remove_div(info):
 	if info == "":
 		return {"status": False}
-	divs = get_all_divs()
-	id_remove = None
-	for [name, _id] in divs:
-		if name == info:
-			id_remove = _id
-	if id_remove is None:
-		return
-	delete_div(id_remove)
+	try:
+		divs = get_all_divs()
+		id_remove = None
+		for [name, _id] in divs:
+			if name == info:
+				id_remove = _id
+		if id_remove is None:
+			return {"status": False}
+		delete_div(id_remove)
+		return {"status": True}
+	except:
+		return {"status": False}
 
 
 def change_people_div(info):
@@ -88,17 +96,21 @@ def change_people_div(info):
 			people_id = pupil_id
 	ch = pupil_div(people_id, dive_id)
 	change_pupil_div(ch)
-	return
+	return {"status": True}
 
 
 def write_div():
-	divs = get_all_divs()
-	div_write = dict()
-	div_name = []
-	for [name, _id] in divs:
-		if name == "NULL":
-			continue
-		div_name.append(name)
-	div_name.append("не выбрано")
-	div_write["divisions"] = div_name
-	return div_write
+	try:
+		divs = get_all_divs()
+		div_write = dict()
+		div_name = []
+		div_write["status"] = True
+		for [name, _id] in divs:
+			if name == "NULL":
+				continue
+			div_name.append(name)
+		div_name.append("не выбрано")
+		div_write["divisions"] = div_name
+		return div_write
+	except:
+		return {"status": False}
