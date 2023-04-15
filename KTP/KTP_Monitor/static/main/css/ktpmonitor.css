@@ -123,7 +123,7 @@ body{
 }
 
 .link{
-	color: #21618C ;
+	color: #05037B ;
 	text-decoration: underline;
 }
 
@@ -163,6 +163,20 @@ body{
 	align-items: center
 }
 
+.microButton{
+	background-color: white;
+	margin-top: 8px;
+	border: 0px;
+	margin-top: auto;
+	margin-bottom: auto;
+	align-items: center
+}
+
+.microButton img{
+	width: 15px;
+	height: 15px;
+}
+
 .editButton img{
 	width: 15px;
 	height: 15px;
@@ -197,4 +211,10 @@ body{
 	width: 15px;
 	height: 15px;
 /*	padding-top: 10px;*/
+}
+
+.contestLink{
+	padding-left: 30px;
+	color: #05037B;
+	text-decoration: underline;
 }

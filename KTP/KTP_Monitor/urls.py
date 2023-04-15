@@ -24,7 +24,11 @@ urlpatterns = [
     path('profileData/<slug:uidb64>/<slug:token>/',
         views.profileData, name='profileData'),
     path('sendProfileData', views.sendProfileData, name='sendProfileData'),
-    path('teacherProfile', views.teacherProfile, name='teacherProfile'),
-    path('editTeacherProfile', views.editTeacherProfile, name='editTeacherProfile')
+    path('teacherProfile', views.teacherProfile, name='teacherProfile'),    
+    path('editTeacherProfile', views.editTeacherProfile, name='editTeacherProfile'),
+    path('viewProfileData', views.viewProfileData, name='viewProfileData'),
+    path('contests', views.contests, name='contests'),
+    path('contest', views.contest, name='contest'),
+    path('currentProfileData', views.currentProfileData, name='currentProfileData')
 ]
  
