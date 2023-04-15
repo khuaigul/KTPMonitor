@@ -1,4 +1,5 @@
 from datetime import datetime
+<<<<<<< HEAD
 from .DB.add_contest.add_contest import add_contest
 from .DB.add_new_div.add_new_div import add_new_div
 from .DB.add_new_pupil.add_new_pupil import add_new_pupil
@@ -8,6 +9,9 @@ from .DB.get_all_contests.get_all_contests import get_all_contests
 from .DB.get_all_divs.get_all_divs import get_all_divs
 from .DB.get_all_pupils.get_all_pupils import get_all_pupils
 from .chek import *
+=======
+from .DB.main_DB_modul import *
+>>>>>>> 59c9759d3e419e401a1124837957127ca2d8b151
 
 
 class New_div:
