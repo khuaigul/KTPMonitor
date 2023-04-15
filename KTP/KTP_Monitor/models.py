@@ -1,6 +1,5 @@
 from django.db import models
-<<<<<<< HEAD
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 class Permissions(models.Model):
     class Meta:        
         permissions = (
@@ -12,14 +11,11 @@ class Permissions(models.Model):
             ('/editTeacherProfile', ''),           
         )
 
-class User(AbstractUser):
+class MyUser(models.Model):
+    user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
     role = "pupil"
-    def get_id():
-        return self.id
-
-=======
-from django.contrib.auth.models import User
->>>>>>> 59c9759d3e419e401a1124837957127ca2d8b151
+    # def get_id():
+    #     return user
 
 class Div_Info(models.Model):
     year = models.IntegerField()
@@ -40,11 +36,14 @@ class Pupil_Info(models.Model):
 
 class Teacher_Info(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
-    name = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100, default = 'ooo')
+    firstname = models.CharField(max_length=100, default = 'ooo')
+    secondname = models.CharField(max_length=100, default = 'ooo')
     CF = models.CharField(max_length=100)
     div_id = models.ForeignKey(Div_Info, null=True, on_delete = models.SET_NULL, default= None)
     e_mail = models.EmailField()
-    phone_num = models.SlugField()
+    phone = models.CharField(max_length=100, default = '123')
+    
 
 
 

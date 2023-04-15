@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.shortcuts import render, redirect
-from .models import User
+from .models import MyUser
 from django.contrib.auth import authenticate, login as dan_pidor, logout
 from django.core.mail import EmailMessage, send_mail
 from django.contrib.sites.shortcuts import get_current_site
@@ -97,6 +97,7 @@ def registrationRe(request):
         to_email = request.POST['email']
         password = request.POST['password']        
         myuser = User.objects.create_user(to_email, to_email, password)
+        muser = MyUser.objects.create(user=myuser)
         myuser.is_active = False
         myuser.save()       
         current_site = get_current_site(request)         
@@ -136,22 +137,24 @@ def sendProfileData(request):
     print("AAAAAAAAAAAA")
     if request.method == 'POST':     
         user = User.objects.get(pk=request.POST['uid'])
-        if user.is_active == True:
-            return JsonResponse({"status": False})
-        user.is_active = True     
-        user.role = request.POST['role']
+        # if user.is_active == True:
+        #     return JsonResponse({"status": False})
+        # user.is_active = True 
+
+
+        myUser = MyUser.objects.get(user=user)          
+
+        myUser.role = request.POST['role']
         user.user_permissions.add(Permission.objects.get(codename="/signin")) 
         user.user_permissions.add(Permission.objects.get(codename="/viewProfileData"))       
-        if user.role == 'pupil':
-            pass
-            #add_pupil(user.get_id(), request.POST['lastname'], request.POST['firstname'], request.POST['secondname'], 
-            #    request.POST['nickname'], request.POST['birthdate'], request.POST['school'], request.POST['grade'], request.POST['phone'])
+        if myUser.role == 'pupil':            
+            add_new_pupil(user, request.POST['surname'], request.POST['firstname'], request.POST['secondname'], 
+                request.POST['nickname'], request.POST['datebirth'], request.POST['school'], request.POST['grade'], request.POST['phone'])
         else:
             user.user_permissions.add(Permission.objects.get(codename="/teacherProfile"))
             user.user_permissions.add(Permission.objects.get(codename="/editTeacherProfile"))            
-            #add_teacher(user.get_id(), request.POST['lastname'], request.POST['firstname'], request.POST['secondname'], 
-             #   request.POST['nickname'], request.POST['phone'])
-        print(user.role)
+            add_new_teacher(user, request.POST['surname'], request.POST['firstname'], request.POST['secondname'], 
+               request.POST['nickname'], request.POST['phone'])        
         return JsonResponse({"status": True})
     return JsonResponse({"status": False})
 
@@ -159,7 +162,8 @@ def sendProfileData(request):
 def viewProfileData(request):
     if request.method == 'GET':
         user = request.user
-        if user.role == "teacher":
+        myUser = MyUser.objects.get(user=user)
+        if myUser.role == "teacher":
             return JsonResponse({"firstname": user.teacher.firstname, "secondname": user.teacher.secondname,
                 "lastname": user.teacher.lastname, "nickname": user.teacher.nickname, "email": user.email, "phone": user.teacher.phone})
         else:
