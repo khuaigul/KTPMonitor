@@ -8,29 +8,26 @@ function authorisation(login, password)
 	 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	 xhr.send(params); 
 	 	xhr.onload = function(){
-		if (xhr.status != 200){
-			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		if (xhr.status != 200){		
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');	
 		}
 		else {
-			getJson = xhr.responseText;
-			alert(getJson);
+			getJson = xhr.responseText;			
 			const obj = JSON.parse(getJson);
 			if (obj["status"] == true){
 				if (obj["role"] == "pupil")
-					document.location = "studentProfile";
+					document.location = "pupilProfile";
 				else if (obj["role"] == "teacher")
 					document.location = "teacherProfile";
 				else
 					document.location = "admin";
 			}
 			else
-			{
-				alert(document.querySelectorAll(".note").length);
+			{				
 				document.querySelectorAll(".note")[0].innerHTML = "Некорректные логин или пароль";
 				document.getElementById("login_input").value = "";
 				document.getElementById("password_input").value = "";				
-			}
-			alert(xhr.responseText);
+			}			
 			return true;
 		}
 	}
@@ -58,7 +55,7 @@ function enter()
 
 function send_registration_data(email, password)
 {
-	// alert("send" + email + " " + password);
+// 
 	var xhr = new XMLHttpRequest();
 	var params = 'email=' + encodeURIComponent(email) +'&password=' + encodeURIComponent(password);
 
@@ -68,15 +65,14 @@ function send_registration_data(email, password)
 	xhr.send(params);
 
  	xhr.onload = function(){
-		if (xhr.status != 200){
-			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		if (xhr.status != 200){	
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');		
 		}
 		else {
 			getJson = xhr.responseText;
 			const obj = JSON.parse(getJson);
 			console.log(obj["status"]);
-			if (obj["status"] == true){
-				alert("Письмо с подтверждением отправлено на вашу почту");
+			if (obj["status"] == true){				
 				document.location = "main";
 			}
 		}
@@ -107,8 +103,7 @@ function send_profile_data(uid)
 	{
 		params = 'uid=' + encodeURIComponent(uid) + '&role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&firstname=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&phone=" + encodeURIComponent(phone);
 	}
-
-	alert(params);
+	
 
 
 	var xhr = new XMLHttpRequest();
@@ -119,12 +114,11 @@ function send_profile_data(uid)
 	xhr.send(params);
 
 	xhr.onload = function(){
-		if (xhr.status != 200){
-			alert('Ошибка {xhr.status} : {xhr.statusText}');
+		if (xhr.status != 200){		
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');	
 		}
 		else {
-			getJson = xhr.responseText;
-			alert(getJson);
+			getJson = xhr.responseText;			
 			const obj = JSON.parse(getJson);
 			console.log(obj["status"]);
 			if (obj["status"] == true){
@@ -234,7 +228,7 @@ function register()
 
 function register_save(uid)
 {
-	// alert(uid)
+// 
 	if (document.getElementById("errortext") != null)
 	{
 		let cur_div = document.querySelectorAll(".block")

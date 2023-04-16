@@ -7,8 +7,7 @@ function showProfileInfo()
 {
 	// var a = '{"surname": "Иванов", "firstname": "Иван", "secondname" : "Иванович","division" : "A", "mail" : "ivan@gmail.com", "phone" : "+79999999999"}';
 	// return showProfile(a);
-	var xhr_d = new XMLHttpRequest();
-	alert("wfwg")
+	var xhr_d = new XMLHttpRequest();	
 	xhr_d.onload = function(){
 		if (xhr_d.status != 200){
 			alert('Ошибка ${xhr.status} : ${xhr.statusText}');

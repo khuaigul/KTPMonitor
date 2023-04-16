@@ -8,7 +8,8 @@ class Permissions(models.Model):
             ('/sendProfileData', ''),
             ('/teacherProfile', ''),
             ('/viewProfileData', ''),
-            ('/editTeacherProfile', ''),           
+            ('/editTeacherProfile', ''), 
+            ('/pupilProfile', ''),          
         )
 
 class MyUser(models.Model):

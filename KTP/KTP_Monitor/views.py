@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.shortcuts import render, redirect
 from .models import MyUser
-from django.contrib.auth import authenticate, login as dan_pidor, logout
+from django.contrib.auth import authenticate, login as dan_pidor, logout as exit_acc
 from django.core.mail import EmailMessage, send_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -83,8 +83,9 @@ def signin(request):
         print("DDDDDDD", login, password)
         user = authenticate(request, username=login, password=password) 
         if user is not None:
+            muser = MyUser.objects.get(user=user)
             dan_pidor(request, user)            
-            return JsonResponse({'status': True})
+            return JsonResponse({'status': True, 'role': muser.role})
         else:
             return JsonResponse({'status': False})
     return JsonResponse({'status': False})
@@ -148,7 +149,8 @@ def sendProfileData(request):
         user.user_permissions.add(Permission.objects.get(codename="/signin")) 
         user.user_permissions.add(Permission.objects.get(codename="/viewProfileData"))
         print(request.POST['surname'])       
-        if myUser.role == 'pupil':                        
+        if myUser.role == 'pupil':     
+            user.user_permissions.add(Permission.objects.get(codename="/pupilProfile"))                   
             add_new_pupil(user, request.POST['surname'], request.POST['firstname'], request.POST['secondname'], 
                 request.POST['nickname'], request.POST['datebirth'], request.POST['school'], request.POST['grade'], request.POST['phone'])
         else:
@@ -176,10 +178,14 @@ def currentProfileData(request):
         else:
             pupil = Pupil_Info.objects.get(user=user)   
             return JsonResponse({"firstname": pupil.firstname, "secondname": pupil.secondname,
-                "lastname": pupil.lastname, "nickname": pupil.CF, "email": user.email, "phone": pupil.phone, 
-                "school": pupil.school, "grade": pupil.grade, "birthdate": pupil.birthday})
+                "surname": pupil.lastname, "nickname": pupil.CF, "email": user.email, "phone": pupil.phone, 
+                "school": pupil.school, "grade": pupil.grade, "datebirth": pupil.birthday, 'division': "None"})
     else:
         return JsonResponse({"status": False})
+
+@csrf_exempt
+def logout(request):
+    exit_acc(request)
 
 @csrf_exempt
 def studentData(request):

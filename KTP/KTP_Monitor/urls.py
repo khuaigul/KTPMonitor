@@ -29,6 +29,7 @@ urlpatterns = [
     path('contests', views.contests, name='contests'),
     path('contest', views.contest, name='contest'),
     path('currentProfileData', views.currentProfileData, name='currentProfileData'),
-    path('pupilProfile', views.pupilProfile, name='pupilProfile')
+    path('pupilProfile', views.pupilProfile, name='pupilProfile'),
+    path('logout', views.logout, name='logout')
 ]
  
