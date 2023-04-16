@@ -28,6 +28,7 @@ urlpatterns = [
     path('editTeacherProfile', views.editTeacherProfile, name='editTeacherProfile'),    
     path('contests', views.contests, name='contests'),
     path('contest', views.contest, name='contest'),
-    path('currentProfileData', views.currentProfileData, name='currentProfileData')
+    path('currentProfileData', views.currentProfileData, name='currentProfileData'),
+    path('pupilProfile', views.pupilProfile, name='pupilProfile')
 ]
  

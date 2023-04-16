@@ -7,8 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title> KTPMonitor 
 	</title>
-	<script type="text/javascript" src="{% static 'main/js/teacherProfile.js' %}"></script>
-	<script type="text/javascript" src="{% static 'main/js/menu.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/pupilProfile.js' %}"></script>
 </head>
 <body>
 	<h1 class="usual_header">
@@ -26,31 +25,6 @@
 			</button>
 		</p>	
 		<p>
-			<button onclick="toContests()">
-				Контесты
-			</button>
-		</p>
-		<p>
-			<button onclick="toStudents()">
-				Ученики
-			</button>
-		</p>
-		<p>
-			<button onclick="toStats()">
-				Статистика
-			</button>
-		</p>
-		<p>
-			<button onclick="toController()">
-				Управление
-			</button>
-		</p>
-		<p>
-			<button onclick="toNotifications()">
-				Объявления
-			</button>
-		</p>
-		<p>
 			<button onclick="toExit()">
 				Выйти
 			</button>
@@ -58,7 +32,7 @@
 	</div>
 	<div class="block">
 		<div class="fullName">
-			<a id="fullTeacherName">
+			<a id="fullPupilName">
 				
 			</a>
 			<button class="editButton" onclick="editProfile()">
@@ -66,7 +40,7 @@
 			</button>
 		</div>
 		<script type="module">
-			showProfileInfo()
+			showPupilProfileInfo()
 		</script>
 		<p id="div">
 
@@ -78,6 +52,15 @@
 		<p class="info">
 			<img src="{% static 'main/images/telegram.png' %}">
 			<a id="telegram"></a>
+		</p>
+		<p>
+			<a id="datebirth"></a>
+		</p>
+		<p>
+			<a id="school"></a>
+		</p>
+		<p>
+			<a id="grade"></a>
 		</p>
 	</div>
 </body>

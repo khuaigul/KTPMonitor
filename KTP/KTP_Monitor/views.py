@@ -30,6 +30,9 @@ def main(request):
 def teacherProfile(request):
     return render(request, 'main/teacherProfile.html')
 
+def pupilProfile(request):
+    return render(request, 'main/pupilProfile.html')
+
 def contests(request):
     return render(request, 'main/contests.html')
 

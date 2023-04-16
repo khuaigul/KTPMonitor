@@ -16,12 +16,12 @@ function authorisation(login, password)
 			alert(getJson);
 			const obj = JSON.parse(getJson);
 			if (obj["status"] == true){
-				// if (obj["role"] == "student")
-				// 	document.location = "studentProfile";
-				// else if (obj["role"] == "teacher")
-				document.location = "teacherProfile";
-				// else
-				// 	document.location = "admin";
+				if (obj["role"] == "pupil")
+					document.location = "studentProfile";
+				else if (obj["role"] == "teacher")
+					document.location = "teacherProfile";
+				else
+					document.location = "admin";
 			}
 			else
 			{
