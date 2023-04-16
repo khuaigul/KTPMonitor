@@ -16,12 +16,12 @@ function authorisation(login, password)
 			alert(getJson);
 			const obj = JSON.parse(getJson);
 			if (obj["status"] == true){
-				// if (obj["role"] == "student")
-				// 	document.location = "studentProfile";
-				// else if (obj["role"] == "teacher")
-				document.location = "teacherProfile";
-				// else
-				// 	document.location = "admin";
+				if (obj["role"] == "pupil")
+					document.location = "studentProfile";
+				else if (obj["role"] == "teacher")
+					document.location = "teacherProfile";
+				else
+					document.location = "admin";
 			}
 			else
 			{
@@ -104,7 +104,7 @@ function send_profile_data()
 	}
 	else
 	{
-		params = 'uid=' + encodeURIComponent(uid) + 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&phone=" + encodeURIComponent(phone);
+		params = 'uid=' + encodeURIComponent(uid) + '&role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&phone=" + encodeURIComponent(phone);
 	}
 
 	var xhr = new XMLHttpRequest();
