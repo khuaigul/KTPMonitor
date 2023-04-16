@@ -99,21 +99,12 @@ function send_profile_data(uid)
 		role = "pupil";
 		var datebirth = document.querySelectorAll("#birthdate input");
 	    var school = document.querySelectorAll("#school input");
-<<<<<<< HEAD
-		var form = document.querySelectorAll("#form input");
-		params = 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&school=" + encodeURIComponent(school) + "&form=" + encodeURIComponent(form) + "&datebirth=" + encodeURIComponent(datebirth);
-	}
-	else
-	{
-		params = 'role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&name=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname);
-=======
 		var grade = document.querySelectorAll("#grade input");
 		params = 'uid=' + encodeURIComponent(uid) + '&role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&firstname=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&school=" + encodeURIComponent(school) + "&grade=" + encodeURIComponent(grade) + "&datebirth=" + encodeURIComponent(datebirth)+ "&phone=" + encodeURIComponent(phone);
 	}
 	else
 	{
 		params = 'uid=' + encodeURIComponent(uid) + '&role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&firstname=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&phone=" + encodeURIComponent(phone);
->>>>>>> neohacker
 	}
 
 	var xhr = new XMLHttpRequest();
