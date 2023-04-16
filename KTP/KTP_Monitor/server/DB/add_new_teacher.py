@@ -8,6 +8,7 @@ def add_new_teacher(user, lastname, firstname, secondname, CF, phone):
     t = Teacher_Info.objects.create(user=user, lastname=lastname, firstname=firstname, secondname=secondname,
                         			CF=CF, phone=phone)
     t.save()
+    print(t.firstname)
     
     # if (Teacher_Info.objects.contains(user=user, lastname=lastname, firstname=firstname, secondname=secondname,
     #                     			CF=CF, phone=phone)):

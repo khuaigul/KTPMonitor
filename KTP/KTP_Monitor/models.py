@@ -13,7 +13,7 @@ class Permissions(models.Model):
 
 class MyUser(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
-    role = "pupil"
+    role = models.CharField(max_length=100)
 
 class Div_Info(models.Model):
     year = models.IntegerField()

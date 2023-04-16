@@ -87,25 +87,29 @@ function send_profile_data(uid)
 {
 	let role = document.querySelectorAll("#role_selector > select")[0].value;
 	
-	var lastname = document.querySelectorAll("#lastname input");
-	var firstname = document.querySelectorAll("#firstname input");
-	var secondname = document.querySelectorAll("#secondname input");
-	var nickname = document.querySelectorAll("#nickname input");
+	var lastname = document.querySelectorAll("#lastname input")[0].value;
+	var firstname = document.querySelectorAll("#firstname input")[0].value;
+	var secondname = document.querySelectorAll("#secondname input")[0].value;
+	var nickname = document.querySelectorAll("#nickname input")[0].value;
+	var phone = document.querySelectorAll("#phone input")[0].value;
 
 	var params;
 
 	if (role == "student")
 	{	
 		role = "pupil";
-		var datebirth = document.querySelectorAll("#birthdate input");
-	    var school = document.querySelectorAll("#school input");
-		var grade = document.querySelectorAll("#grade input");
+		var datebirth = document.querySelectorAll("#birthdate input")[0].value;
+	    var school = document.querySelectorAll("#school input")[0].value;
+		var grade = document.querySelectorAll("#grade input")[0].value;
 		params = 'uid=' + encodeURIComponent(uid) + '&role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&firstname=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&school=" + encodeURIComponent(school) + "&grade=" + encodeURIComponent(grade) + "&datebirth=" + encodeURIComponent(datebirth)+ "&phone=" + encodeURIComponent(phone);
 	}
 	else
 	{
 		params = 'uid=' + encodeURIComponent(uid) + '&role=' + encodeURIComponent(role) + '&nickname=' + encodeURIComponent(nickname) +'&surname=' + encodeURIComponent(lastname) + "&firstname=" + encodeURIComponent(firstname) + "&secondname=" + encodeURIComponent(secondname) + "&phone=" + encodeURIComponent(phone);
 	}
+
+	alert(params);
+
 
 	var xhr = new XMLHttpRequest();
 

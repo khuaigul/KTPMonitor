@@ -73,7 +73,7 @@ def editTeacherProfile(request):
 
 
 @csrf_exempt 
-def signin(request):  # Вернуть True, если авторизация прошла успешно
+def signin(request):
     if request.method=='POST':
         login = request.POST['login']
         password = request.POST['password']   
@@ -96,7 +96,8 @@ def registrationRe(request):
         myuser = User.objects.create_user(to_email, to_email, password)
         muser = MyUser.objects.create(user=myuser)
         myuser.is_active = False
-        myuser.save()       
+        muser.save()
+        myuser.save()               
         current_site = get_current_site(request)         
         message = render_to_string('acc_active_email.html', {
                 'user': myuser,
@@ -123,8 +124,7 @@ def profileData(request, uidb64, token):
         if user.is_active == True:
             return JsonResponse({"status": False})                
         user.user_permissions.add(Permission.objects.get(codename="/sendProfileData"))        
-        user.save()
-        dan_pidor(request, user)
+        user.save()        
         return continue_registration(request, uid)
     return JsonResponse({"status": False})
 
@@ -134,39 +134,47 @@ def sendProfileData(request):
     print("AAAAAAAAAAAA")
     if request.method == 'POST':     
         user = User.objects.get(pk=request.POST['uid'])
-        # if user.is_active == True:
-        #     return JsonResponse({"status": False})
-        # user.is_active = True 
-
-
+        if user.is_active == True:
+            return JsonResponse({"status": False})
+        user.is_active = True 
         myUser = MyUser.objects.get(user=user)          
-
-        myUser.role = request.POST['role']
+        myUser.role = request.POST['role'] 
+        myUser.save()     
+        myUser = MyUser.objects.get(user=user) 
+        print(myUser.role)
         user.user_permissions.add(Permission.objects.get(codename="/signin")) 
-        user.user_permissions.add(Permission.objects.get(codename="/viewProfileData"))       
-        if myUser.role == 'pupil':            
+        user.user_permissions.add(Permission.objects.get(codename="/viewProfileData"))
+        print(request.POST['surname'])       
+        if myUser.role == 'pupil':                        
             add_new_pupil(user, request.POST['surname'], request.POST['firstname'], request.POST['secondname'], 
                 request.POST['nickname'], request.POST['datebirth'], request.POST['school'], request.POST['grade'], request.POST['phone'])
         else:
+            print(request.POST['firstname'])
             user.user_permissions.add(Permission.objects.get(codename="/teacherProfile"))
             user.user_permissions.add(Permission.objects.get(codename="/editTeacherProfile"))            
             add_new_teacher(user, request.POST['surname'], request.POST['firstname'], request.POST['secondname'], 
-               request.POST['nickname'], request.POST['phone'])        
+               request.POST['nickname'], request.POST['phone'])    
+        user.save()            
         return JsonResponse({"status": True})
     return JsonResponse({"status": False})
 
 @csrf_exempt
-def viewProfileData(request):
-    if request.method == 'GET':
-        user = request.user
+def currentProfileData(request):
+    if request.method == 'POST':
+        user = User.objects.get(pk=request.user.id)
+        print(user.email)
         myUser = MyUser.objects.get(user=user)
+        print(myUser.role, user.id)
         if myUser.role == "teacher":
-            return JsonResponse({"firstname": user.teacher.firstname, "secondname": user.teacher.secondname,
-                "lastname": user.teacher.lastname, "nickname": user.teacher.nickname, "email": user.email, "phone": user.teacher.phone})
+            teacher = Teacher_Info.objects.get(user=user)   
+            print(teacher.firstname)     
+            return JsonResponse({"firstname": teacher.firstname, "secondname": teacher.secondname,
+                "surname": teacher.lastname, "nickname": teacher.CF, "email": user.email, "phone": teacher.phone, "division": "None"})
         else:
-            return JsonResponse({"firstname": user.pupil.firstname, "secondname": user.pupil.secondname,
-                "lastname": user.pupil.lastname, "nickname": user.pupil.nickname, "email": user.email, "phone": user.pupil.phone, 
-                "school": user.pupil.school, "grade": user.pupil.grade, "birthdate": user.pupil.birthdate})
+            pupil = Pupil_Info.objects.get(user=user)   
+            return JsonResponse({"firstname": pupil.firstname, "secondname": pupil.secondname,
+                "lastname": pupil.lastname, "nickname": pupil.CF, "email": user.email, "phone": pupil.phone, 
+                "school": pupil.school, "grade": pupil.grade, "birthdate": pupil.birthday})
     else:
         return JsonResponse({"status": False})
 
@@ -212,9 +220,3 @@ def newDivisionRe(request):  #
         return JsonResponse(div.add_div(request.POST["name"]))
     return JsonResponse({"status": False})
 
-
-@csrf_exempt
-def currentProfileData(request):  # Выводит информацию о пользователе, который сейчас авторизирован
-    if request.method == "POST":
-        return JsonResponse(people.info_person(request))
-    return JsonResponse({"status": False})
