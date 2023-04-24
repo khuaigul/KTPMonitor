@@ -51,14 +51,6 @@ def check_form(form):
     return form
 
 
-def check_availability_mail(mail):  # проверяет есть ли почта в бд или нет
-    info = get_email()  # функция которая получает все почты бд
-    for item in info:
-        if mail == item:
-            return True
-    return False
-
-
 def check_nickname(nickname):
     if nickname == '' or nickname == 'NULL':
         return False
