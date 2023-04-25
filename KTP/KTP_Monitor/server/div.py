@@ -34,7 +34,7 @@ def change_people_div(info):
 		if info['nickname'] == item.CF:
 			people_id = item
 			break
-	change_pupil_div(dive_id, people_id)
+	change_pupil_div(people_id, dive_id)
 	return {"status": True}
 
 

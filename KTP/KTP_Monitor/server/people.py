@@ -22,15 +22,15 @@ def people_write_all():
 	write_people = dict()
 	write_people["status"] = True
 	name_people = []
-	for [surname, name, secondname, cf, div_name, pupil_id, div_id] in pupils:
+	for item in pupils:
 		info_people = dict()
-		info_people["nickname"] = cf
-		info_people["surname"] = surname
-		info_people["name"] = name
-		info_people["secondname"] = secondname
-		info_people["div"] = check_div(div_name)
+		info_people["nickname"] = item.CF
+		info_people["surname"] = item.lastname
+		info_people["name"] = item.name
+		info_people["secondname"] = item.secondname
+		info_people["div"] = item.div.name
 		name_people.append(info_people)
-	write_people["students"] = name_people
+	write_people["pupils"] = name_people
 	return write_people
 
 
@@ -39,7 +39,7 @@ def people_write_div(info):
 		return {"status": False}
 	divs = get_all_divs()
 	for item in divs:
-		if item.name == info['name'] or info['name'] == 'не выбрано' and item.name == 'NULL':
+		if item.name == info or info == 'не выбрано' and item.name == 'NULL':
 			pupils = get_all_pupils(item)
 	write_people = dict()
 	write_people["status"] = True

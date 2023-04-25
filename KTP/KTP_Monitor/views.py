@@ -183,9 +183,41 @@ def currentProfileData(request):
     else:
         return JsonResponse({"status": False})
 
+
 @csrf_exempt
 def logout(request):
     exit_acc(request)
+
+
+@csrf_exempt
+def divisionsRe(request):
+    if request.method == 'GET':
+        return JsonResponse(div.write_div())
+    return JsonResponse({"status": False})
+
+
+@csrf_exempt
+def newDivisionRe(request):
+    if request.method == 'POST':
+        return JsonResponse(div.add_div(request.POST["name"]))
+    return JsonResponse({"status": False})
+
+
+@csrf_exempt
+def students_by_div(request):
+    if request.method == 'GET':
+        return JsonResponse(people.people_write_div(request.GET['name']))
+    return JsonResponse({"status": False})
+
+
+
+
+
+
+
+
+
+
 
 @csrf_exempt
 def studentData(request):
@@ -194,11 +226,6 @@ def studentData(request):
     return JsonResponse({"status": False})
 
 
-@csrf_exempt
-def divisionsRe(request):  #
-    if request.method == 'POST':
-        return JsonResponse(div.write_div())
-    return JsonResponse({"status": False})
 
 
 @csrf_exempt
@@ -215,17 +242,4 @@ def сhangeDiv(request):
     return JsonResponse({"status": False})
 
 
-@csrf_exempt
-def students_by_div(request):  #
-    if request.method == 'POST':
-        print(request.POST["div"])
-        return JsonResponse(people.people_write_div_onle(request.POST["div"]))
-    return JsonResponse({"status": False})
-
-
-@csrf_exempt
-def newDivisionRe(request):  #
-    if request.method == "POST":
-        return JsonResponse(div.add_div(request.POST["name"]))
-    return JsonResponse({"status": False})
 
