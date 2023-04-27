@@ -102,7 +102,7 @@ function make_new_division(name)
 function show_div_page(div)
 {
 	localStorage.setItem('divToShow', div);
-	document.location="div_info";
+	document.location="div_info?division=" + div;
 }
 
 function getJson_students_by_div()

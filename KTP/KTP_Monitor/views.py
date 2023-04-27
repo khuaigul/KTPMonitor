@@ -157,6 +157,8 @@ def sendProfileData(request):
             print(request.POST['firstname'])
             user.user_permissions.add(Permission.objects.get(codename="/teacherProfile"))
             user.user_permissions.add(Permission.objects.get(codename="/editTeacherProfile"))            
+            user.user_permissions.add(Permission.objects.get(codename="/divisions"))   
+            user.user_permissions.add(Permission.objects.get(codename="/div_info"))                     
             add_new_teacher(user, request.POST['surname'], request.POST['firstname'], request.POST['secondname'], 
                request.POST['nickname'], request.POST['phone'])    
         user.save()            
