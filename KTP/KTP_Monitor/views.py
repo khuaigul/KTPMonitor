@@ -22,6 +22,42 @@ from django.utils.encoding import force_bytes, force_str
 from .models import *
 from .server.DB.main_DB_modul import *
 
+# add_new_div("NNN")
+# add_new_div("AAA")
+
+divs = get_all_divs()
+for d in divs:
+    print(d.name)
+
+# pupils = get_all_pupils()
+# for p in pupils:
+#     print(p.lastname)
+
+# add_contest("DP", "ch/123", divs)
+
+# c_d = list(Contest_Info.objects.get(link = "ch/123").divs.values())
+# print(c_d)
+
+# add_task("ch/123", "A", "dp1")
+# add_task("ch/123", "B", "dp2")
+# add_task("ch/123", "C", "dp3")
+
+# print(list(Task_Info.objects.all().values()))
+
+# print(pupils[0].div)
+# change_pupil_div(pupils[0], divs[1])
+# print(pupils[0].div.name)
+
+# add_new_send("ch/123", "A", pupils[0].CF, 5, "WA")
+
+# delete_div(divs[0])
+
+# divs = get_all_divs()
+# for d in divs:
+#     print(d.name)
+
+print(Contest_Info.objects.filter(div = divs[0]).values())
+
 def main(request): 
     # request.GET['signin']
     return render(request, 'main/main.html')
