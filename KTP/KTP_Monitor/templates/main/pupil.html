@@ -3,7 +3,7 @@
 <head>
 	{% load static %}
 	<link rel="stylesheet" href="{% static 'main/css/ktpmonitor.css' %}" >
-	<script type="text/javascript" src="{% static 'main/js/divInfo.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/pupil.js' %}"></script>
 	<script type="text/javascript" src="{% static 'main/js/menu.js' %}"></script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,22 +15,5 @@
 			setName();
 		</script>
 	</h1>
-	<div class="block">
-		<div id="teachers">
-			<script type="module">
-				getTeachers();
-			</script>
-		</div>
-		<div id="students" class="list">
-			<script type="module">
-				getStudents();
-			</script>
-		</div>
-		<div id=contests class="list">
-			<script type="module">
-				getContests();
-			</script>
-		</div>
-	</div>
 </body>
 </html>

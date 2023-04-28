@@ -100,9 +100,22 @@ h2{
 	text-align: left;
 }
 
+.name_header
+{
+	background-color: #E2B9FF;
+	padding: 20px;
+	padding-left: 30px;
+	margin: 0px;
+	text-align: left;
+}
+
 body{
 	/*margin: 0px;
 	padding: 20px;*/
+}
+
+#teachers p{
+	font-size: 12px;
 }
 
 .usual_button{
@@ -217,4 +230,31 @@ body{
 	padding-left: 30px;
 	color: #05037B;
 	text-decoration: underline;
+}
+
+.list{
+	border: solid black 1px;
+	width: 300px;
+	margin: 4px;
+	padding: 0px;
+	float: left;
+}
+
+.listTitle{
+	border-bottom: solid black 1px;
+/*	width: 300px;*/
+	margin: 0px;
+	padding: 0px;
+	background-color: #E2B9FF;
+	float: top;
+}
+
+.list p{
+	font-size: 12px;
+	margin: 0px;
+	padding: 2px;
+}
+
+.listTitle p{
+	text-align: center;
 }

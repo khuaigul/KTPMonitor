@@ -30,6 +30,7 @@ urlpatterns = [
     path('contest', views.contest, name='contest'),
     path('currentProfileData', views.currentProfileData, name='currentProfileData'),
     path('pupilProfile', views.pupilProfile, name='pupilProfile'),
-    path('logout', views.logout, name='logout')
+    path('logout', views.logout, name='logout'),
+    path('pupil', views.pupil, name='pupil')
 ]
  

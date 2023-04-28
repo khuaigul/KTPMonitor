@@ -11,7 +11,8 @@ class Permissions(models.Model):
             ('/editTeacherProfile', ''), 
             ('/pupilProfile', ''), 
             ('/divisions', ''),   
-            ('/div_info', ''),      
+            ('/div_info', ''),  
+            ('/pupil', ''),    
         )
 
 class MyUser(models.Model):
