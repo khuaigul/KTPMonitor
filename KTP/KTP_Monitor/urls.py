@@ -15,11 +15,8 @@ urlpatterns = [
     path('signin', views.signin, name='signin'),
     path('registrationRe', views.registrationRe, name='registrationRe'),
     path('profileData', views.profileData, name='profileData'),
-    path('studentData', views.studentData, name='studentData'),
     path('divisionsRe', views.divisionsRe, name='divisionsRe'),
-    path('studentProfile', views.studentProfile, name='studentProfile'),
     path('сhangeDiv', views.сhangeDiv, name='сhangeDiv'),
-    path('students_by_div', views.students_by_div, name='students_by_div'),
     path('newDivisionRe', views.newDivisionRe, name='newDivisionRe'),
     path('profileData/<slug:uidb64>/<slug:token>/',
         views.profileData, name='profileData'),
@@ -31,6 +28,13 @@ urlpatterns = [
     path('currentProfileData', views.currentProfileData, name='currentProfileData'),
     path('pupilProfile', views.pupilProfile, name='pupilProfile'),
     path('logout', views.logout, name='logout'),
-    path('students_by_div', views.newDivisionRe, name='students_by_div')
+    path('students_by_div', views.students_by_div, name='students_by_div'),
+    path('teachers_by_div', views.teachers_by_div, name='teachers_by_div'),
+    path('pupilInfo', views.pupilInfo, name='pupilInfo'),
+    path('pupilStats', views.pupilStats, name='pupilStats'),
+    path('divisionStats', views.divisionStats, name='divisionStats'),
+    path('contestStats', views.contestStats, name='contestStats'),
+    path('contestsList', views.contestsList, name='contestsList'),
+    path('deleteDivision', views.deleteDivision, name='deleteDivision')
 ]
  

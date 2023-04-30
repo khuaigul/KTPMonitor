@@ -1,37 +1,38 @@
 from .DB.main_DB_modul import *
+from .chek import *
 
 
-def add_div(info):  # добавление дивизиона
-	if info == "":
+def add_div(name):  # добавление дивизиона
+	if name == "":
 		return {"status": False}
-	add_new_div(info)
+	add_new_div(name)
 	return {"status": True}
 
 
-def remove_div(info):
-	if info == "":
+def remove_div(div):
+	if div == "":
 		return {"status": False}
 	divs = get_all_divs()
 	for item in divs:
-		if item.name == info:
+		if item.name == div:
 			delete_div(item)
 			return {"status": True}
 	return {"status": False}
 
 
-def change_people_div(info):
-	if info["divisions"] == "" or info["nickname"] == "":
+def change_people_div(divisions, nickname):
+	if divisions == "" or nickname == "":
 		return {"status": False}
 	divs = get_all_divs()
 	dive_id = None
 	for item in divs:
-		if item.name == info['divisions'] or info['divisions'] == "не выбрано" and item.name == "NULL":
+		if item.name == divisions:
 			dive_id = item
 			break
 	people_id = None
 	pupils = get_all_pupils()
 	for item in pupils:
-		if info['nickname'] == item.CF:
+		if nickname == item.CF:
 			people_id = item
 			break
 	change_pupil_div(people_id, dive_id)
@@ -44,8 +45,6 @@ def write_div():
 	div_name = []
 	div_write["status"] = True
 	for item in divs:
-		if item.name == "NULL":
-			continue
 		div_name.append(item.name)
 	div_name.append("не выбрано")
 	div_write["divisions"] = div_name
