@@ -22,6 +22,7 @@ from django.utils.encoding import force_bytes, force_str
 from .models import *
 from .server.DB.main_DB_modul import *
 
+
 def main(request): 
     # request.GET['signin']
     return render(request, 'main/main.html')
