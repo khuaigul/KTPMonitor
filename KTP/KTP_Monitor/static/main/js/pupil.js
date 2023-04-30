@@ -6,7 +6,7 @@ function setName(name)
 function getPupilInfo()
 {
 	var str = '{"name" : "Никита", "surname" : "Анисимов", "secondname" : "Николаевич", "datebirth" : "03.10.2002", "school" : "42", "grade" : "10", "email" : "email@email", "phone" : "876543"}';
-	alert(str);
+	// alert(str);
 	return showPupil(str); 
 	var params = "nickname=" + window.location.href.split("?")[1].split("=")[1];
 	// var xhr_d = new XMLHttpRequest();
@@ -29,6 +29,21 @@ function getPupilInfo()
 function showPupil(pupil_json)
 {
 	pupil = JSON.parse(pupil_json);
-	alert(pupil);
-	setname(pupil["surname"] + " " + pupil["name"] + "" + pupil["secondname"]);
+	// alert(pupil);
+	setName(pupil["surname"] + " " + pupil["name"] + " " + pupil["secondname"]);
+	
+	document.getElementById("nickname").innerHTML = window.location.href.split("?")[1].split("=")[1];
+
+	addInfo("", "email");
+	addInfo("", "phone");
+	addInfo("Дата рождения: ", "datebirth");
+	addInfo("Школа: ", "school");
+	addInfo("Класс: ", "grade");
+	addInfo("Дата рождения: ", "datebirth");
+	addInfo("Дивизион: ", "division");
+}
+
+function addInfo(text, info)
+{
+	document.getElementById(info).innerHTML = text + pupil[info];
 }

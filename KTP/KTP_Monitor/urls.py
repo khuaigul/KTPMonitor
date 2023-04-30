@@ -31,6 +31,7 @@ urlpatterns = [
     path('currentProfileData', views.currentProfileData, name='currentProfileData'),
     path('pupilProfile', views.pupilProfile, name='pupilProfile'),
     path('logout', views.logout, name='logout'),
-    path('pupil', views.pupil, name='pupil')
+    path('pupil', views.pupil, name='pupil'),
+    path('divisionStats', views.divisionStats, name='divisionStats')
 ]
  

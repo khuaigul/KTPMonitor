@@ -70,7 +70,25 @@ function getStudents()
 
 function getContests()
 {
+	var str = '{"contests" : [{"name" : "Динамика", "id" : "4345"}, {"name" : "Дерево отрезков", "id" : "76543"}] }'
+	return showContests(str);
+	var div = window.location.href.split("?")[1].split("=")[1];
+	var params = "name=" + div;  
+	// var xhr_d = new XMLHttpRequest();
 
+	// xhr_d.onload = function(){
+	// 	if (xhr_d.status != 200){
+	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+	// 	}
+	// 	else 
+	// 	{
+	// 		get_contests_Json = xhr_d.responseText;
+	// 		showContests(get_contests_Json);
+	// 	}
+	// }
+	// xhr_d.open("GET", 'http://127.0.0.1:8000/contests_by_div?', true);
+	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	// xhr_d.send(params);
 }
 
 function showStudents(students_json)
@@ -107,7 +125,75 @@ function showStudents(students_json)
 
 }
 
+function showContests(contests_json)
+{
+	var title = document.createElement("div");
+	var p = document.createElement("p");
+	p.innerHTML = "Контесты";
+	// title.appendChild(p);
+
+	title.setAttribute("class", "listTitle");
+
+	document.getElementById("contests").appendChild(title);
+
+	document.querySelectorAll(".listTitle")[1].appendChild(p);
+
+
+	contests = JSON.parse(contests_json)["contests"];
+
+	for (var i = 0; i < contests.length; i++)
+	{
+		var cur = document.createElement("p");
+		var a = document.createElement("a");
+
+		a.innerHTML = contests[i]["name"];
+		a.setAttribute("class", "link");
+		a.setAttribute("name", contests[i]["id"]);
+		a.addEventListener('click', function(){
+			showContest(this.getAttribute("name"));
+		})
+
+		cur.appendChild(a);
+		document.getElementById("contests").appendChild(cur);
+	}
+
+}
+
 function showStudent(student)
 {
 	document.location="pupil?nickname=" + student;
+}
+
+function showContest(contest)
+{
+	document.location="contest?id=" + contest;
+}
+
+function deleteDivision()
+{
+	var div = window.location.href.split("?")[1].split("=")[1];
+	if (confirm("Вы действительно хотите удалить дивизион " + div + "?"))
+	{
+		var params = "division=" + div;  
+		// var xhr_d = new XMLHttpRequest();
+
+		// xhr_d.onload = function(){
+		// 	if (xhr_d.status != 200){
+		// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		// 	}
+		// 	else 
+		// 	{
+		// 		return;
+		// 	}
+		// }
+		// xhr_d.open("POST", 'http://127.0.0.1:8000/deleteDivision?', true);
+		// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		// xhr_d.send(params);
+	}
+}
+
+function showStats()
+{
+	var div = window.location.href.split("?")[1].split("=")[1];
+	window.location = "divisionStats?division=" + div;
 }

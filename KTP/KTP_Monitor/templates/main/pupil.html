@@ -12,8 +12,75 @@
 <body>
 	<h1 class="name_header">
 		<script type="module">
-			setName();
+			getPupilInfo();
 		</script>
 	</h1>
+	<div class="side_menu">
+		<p>
+			<button onclick="toProfile()">
+				Мой профиль
+			</button>
+		</p>
+		<p>
+			<button onclick="toDivisions()">
+				Дивизионы
+			</button>
+		</p>	
+		<p>
+			<button onclick="toContests()">
+				Контесты
+			</button>
+		</p>
+		<p>
+			<button onclick="toStudents()">
+				Ученики
+			</button>
+		</p>
+		<p>
+			<button onclick="toStats()">
+				Статистика
+			</button>
+		</p>
+		<p>
+			<button onclick="toController()">
+				Управление
+			</button>
+		</p>
+		<p>
+			<button onclick="toNotifications()">
+				Объявления
+			</button>
+		</p>
+		<p>
+			<button onclick="toExit()">
+				Выйти
+			</button>
+		</p>
+	</div>
+	<div class="block">
+		<p class="info">
+			<img src="{% static 'main/images/mail.png' %}">
+			<a id="email"></a>
+		</p>
+		<p class="info">
+			<img src="{% static 'main/images/telegram.png' %}">
+			<a id="phone"></a>
+		</p>
+		<p class="info">
+			<a id="nickname"></a>
+		</p>
+		<p class="info">
+			<a id="division"></a>
+		</p>
+		<p class="info">
+			<a id="school"></a>
+		</p>
+		<p class="info">
+			<a id="grade"></a>
+		</p>
+		<p class="info">
+			<a id="datebirth"></a>
+		</p>
+	</div>
 </body>
 </html>

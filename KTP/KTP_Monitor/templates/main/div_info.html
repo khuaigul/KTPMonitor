@@ -15,22 +15,77 @@
 			setName();
 		</script>
 	</h1>
-	<div class="block">
-		<div id="teachers">
-			<script type="module">
-				getTeachers();
-			</script>
+	<div class="side_menu">
+		<p>
+			<button onclick="toProfile()">
+				Мой профиль
+			</button>
+		</p>
+		<p>
+			<button onclick="toDivisions()">
+				Дивизионы
+			</button>
+		</p>	
+		<p>
+			<button onclick="toContests()">
+				Контесты
+			</button>
+		</p>
+		<p>
+			<button onclick="toStudents()">
+				Ученики
+			</button>
+		</p>
+		<p>
+			<button onclick="toStats()">
+				Статистика
+			</button>
+		</p>
+		<p>
+			<button onclick="toController()">
+				Управление
+			</button>
+		</p>
+		<p>
+			<button onclick="toNotifications()">
+				Объявления
+			</button>
+		</p>
+		<p>
+			<button onclick="toExit()">
+				Выйти
+			</button>
+		</p>
+	</div>
+	<p>
+		<div class="block">
+			<p class="info">
+				<!-- <img src="{% static 'main/images/stats.png' %}"> -->
+				<a class="link" onclick="showStats()">Посмотреть статистику</a>
+			</p>
+			<div id="teachers">
+				<script type="module">
+					getTeachers();
+				</script>
+			</div>
+			<p>
+			<button onclick="deleteDivision()" class="extra_button">
+				Удалить дивизион
+			</button>
+			</p>
+			<div id="students" class="list">
+				<script type="module">
+					getStudents();
+				</script>
+			</div>
+			<div id=contests class="list">
+				<script type="module">
+					getContests();
+				</script>
+			</div>
 		</div>
-		<div id="students" class="list">
-			<script type="module">
-				getStudents();
-			</script>
-		</div>
-		<div id=contests class="list">
-			<script type="module">
-				getContests();
-			</script>
-		</div>
+	</p>
+	<div id="divDeleteButton">
 	</div>
 </body>
 </html>

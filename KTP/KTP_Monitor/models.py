@@ -12,7 +12,10 @@ class Permissions(models.Model):
             ('/pupilProfile', ''), 
             ('/divisions', ''),   
             ('/div_info', ''),  
-            ('/pupil', ''),    
+            ('/pupil', ''),   
+            ('/contest', ''), 
+            ('/contests', ''),
+            ('/divisionStats', ''),
         )
 
 class MyUser(models.Model):
