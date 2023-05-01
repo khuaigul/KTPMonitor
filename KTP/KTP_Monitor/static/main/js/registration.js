@@ -69,6 +69,7 @@ function send_registration_data(email, password)
 			alert('Ошибка ${xhr.status} : ${xhr.statusText}');		
 		}
 		else {
+			alert("Вам на почту придет письмо с ссылкой для подтверждения регистрации");
 			getJson = xhr.responseText;
 			const obj = JSON.parse(getJson);
 			console.log(obj["status"]);
@@ -117,7 +118,7 @@ function send_profile_data(uid)
 		if (xhr.status != 200){		
 			alert('Ошибка ${xhr.status} : ${xhr.statusText}');	
 		}
-		else {
+		else {			
 			getJson = xhr.responseText;			
 			const obj = JSON.parse(getJson);
 			console.log(obj["status"]);
