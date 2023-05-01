@@ -6,8 +6,6 @@
 
 - редактирование профила ученика
 - редактирование профила препода
-- вывести контесты конкретных дивов
-
 
 
 Протестировать:
@@ -27,8 +25,24 @@
 - добавление новой посылки (add_new_send)
 - изменение дивизиона ученика (change_pupil_div)
 - удаление дивизиона (delete_div)
+- вывод статистики контеста (get_statistic_contest)
 
 Актуально:
+1) get_all_divs()
+2) add_new_pupil(user, lastname, firstname, secondname, CF, birthday, school, grade, phone)
+3) add_new_teacher(user, lastname, firstname, secondname, CF, phone)
+4) add_new_div(name) 
+5) get_all_pupils(divs)
+6) change_pupil_div(pupil, div)
+7) delete_div(div)
+8) add_contest(name, link, divs)
+9) add_task(link, letter, name)
+10) add_new_send(link, letter, cf, cnt_try, result)
+11) get_all_teachers(divs)
+12) get_statistic_contest(link)
+13) get_all_contests(divs)
+
+Описание:
 1) Получить все дивизионы.
 
 get_all_divs()
@@ -141,8 +155,35 @@ add_new_send(link, letter, cf, cnt_try, result)
 - Примимает параметры: ссылка на контест, буква задачи, никмейм ученика, кол-во попыток, вердикт
 - ничего не возвращает 
 
+11) Вывести всех преподавателей
 
-11) Вывод контестов относящихся к выбранным дивизионам
+get_all_teachers(divs)
+
+- принимает лист объектов модели Div_Info. 
+- если нужны все дивизиона, то параметр не указывается
+- возвращает лист объектов модели Teacher_Info.
+
+12) Вывести статисктику по контесту
+
+get_statistic_contest(link)
+
+- принимает ссылку на контест. 
+- возвращает словарь словарей, где внешний словарь - буква задачи, внутренний словарь - ник ученика, хранящий пару (кол-во попыток, вердикт)
+- особенности:
+	1) ученик появится в статистике, только если он сделал хотя бы одну посылку в контесте.
+	2) значение result[task_letter][pupil_nick] может быть равно null, если ученик не делал посылок по этой задаче
+
+пример вызова:
+
+result = get_statistic_contest("cf/link")
+
+for task_letter in result:
+    for pupil_nick in result[task_letter]:
+        print(result[task_letter][pupil_nick], sep= ' ')
+    print()
+
+
+13) Вывод контестов относящихся к выбранным дивизионам
 
 get_all_contests(divs)
 
@@ -154,149 +195,7 @@ get_all_contests(divs)
 
 divs = [{экзеспляр класса Div_Info}, {экзеспляр класса Div_Info}]
 contests = get_all_contests(divs)
-
-
-
-
-
-Неактуально:
-3) 
-
-функция 
-
-add_contest(contest)
-
-- добавляет в БД: информацию о новом контесте, инфу о всех задачах добавленного контеста, инфу обо всех посылках из положения команд только для зарегистрированных учеников.
-
-- принимает параметр
-
-class contest:
-	def __init__(self, name, link, div_id, tasks, pupils_tasks):
-		self.name = name
-		self.link = link
-		self.div_id = div_id
-		self.tasks = tasks
-		self.pupils_tasks = pupils_tasks
-
-где параметр tasks - массив классов
-
-class task:
-	def __init__(self, letter, name):
-		self.letter = letter
-		self.name = name
-
-а параметр pupils_tasks - массив классов 
-
-class pupil_task:
-	def __init__(self, pupil_CF, task_letter, cnt_try, result):
-		self.pupil_CF = pupil_CF
-		self.task_letter = task_letter
-		self.cnt_try = cnt_try
-		self.result = result
-
-- ничего не возвращает
-
-Пример вызова:
-
-tasks = []
-t1 = task('A', "Aaa")
-t2 = task('B', "Bbb")
-t3 = task('C', "Ccc")
-
-tasks.append(t1)
-tasks.append(t2)
-tasks.append(t3)
-
-pup_task = []
-pt1 = pupil_task('CF_Nat', 'A', '5', '+')
-pt2 = pupil_task('CF_Nat', 'B', '1', '-')
-pt3 = pupil_task('CF_Dan', 'A', '90', '-')
-
-pup_task.append(pt1)
-pup_task.append(pt2)
-pup_task.append(pt3)
-
-
-con = contest("Traning", "link_CF", '2', tasks, pup_task)
-
-add_contest(con)
-
-
-8)
-функция 
-
-get_all_contests()
-
-- ничего не принимает
-- возвращает массив кортежей отсортированный по Id дивизиона.
-- кортеж вида: (название_контеста, Id_контеста, Id_дивизиона)
-первый параметр отражается в web-приложении.
-
-
-Пример вызова:
-
-contests = get_all_contests()
-
-for [name, contest_id, div_id] in contests:
-		print(name, contest_id, div_id)
-
-
-9)
-
-функция 
-
-get_status_on_pupils_contests(pupils, contests)
-
-- статистика по людям и контестам
-
-- принимает 2 параметра:
-pupils - массив id_учеников
-contests - массив id_контестов
-
-
-- возвращает словарь(dist), где ключ - кортеж вида (id_ученика, id_контеста), а значение - строка вида "3/5" - количество задач сданных челом из всех задач контеста или "-", если этот контест ученику не доступен.
-
-Пример вызова:
-
-pupil_id1 = '1'
-pupil_id2 = '2'
-
-pupils = []
-pupils.append(pupil_id1)
-pupils.append(pupil_id2)
-
-
-contest_id1 = '1'
-contest_id2 = '2'
-
-contests = []
-contests.append(contest_id1)
-contests.append(contest_id2)
-
-
-status = get_status_on_pupils_contests(pupils, contests)
-
-for con_id in contests:
-	print('%-7s' % con_id,  end=' ')
-print()
-
-for pup_id in pupils:
-	for con_id in contests:
-		print('%-7s' % status[(pup_id, con_id)], end=' ')
-	print()
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
+for c in contests:
+      print(c.name)
 
 

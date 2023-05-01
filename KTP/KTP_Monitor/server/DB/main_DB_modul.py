@@ -10,6 +10,11 @@ from .delete_div import *
 from .get_all_contests import *
 from .get_all_divs import *
 from .get_all_pupils import *
+from .get_all_teachers import *
+from .get_statistic_contest import *
+from .get_statistic_pupil_contest import *
+
+
 
 
 
