@@ -1,23 +1,13 @@
 # Тут будут функции которые отвечают за работу бд с Contest.
 
 
-from parsing import parsing_json_with_parameter
-from API_CF import authorized_request
+from .parsing import parsing_json_with_parameter
+from .API_CF import authorized_request
+from .chek import *
+from .DB.main_DB_modul import *
 
 STR_TYPE = type("qwe")
 info = {}
-
-
-def check_human(handle, id_contest):  # проверка на наличие человека в Contest
-    if handle == "" or id_contest == "":
-        return False
-    return True
-
-
-def check_verdict(handle, id_contest, problem):  # проверка на ранний вердикт в Contest
-    if handle == "" or id_contest == "" or problem == "":
-        return False
-    return True
 
 
 def give_json(id_contest):  # получение json надо сь которым дальше будем работать
@@ -90,10 +80,27 @@ def add_new_human(human):  # добавление данных человека 
     return False
 
 
-def write_contest(id_contest):  # вывод конкретного Contest
-    if id_contest == "":
+def write_contest_list(divs):  # вывод конкретного Contest
+    if divs == "":
         return {"status": False}
-    return True
+    divs = get_all_divs()
+    flag = True
+    for item in divs:
+        if item.name == info:
+            contests = get_all_contests([item])
+            flag = False
+            break
+    if flag:
+        return {"status": False}
+    write_contests = dict()
+    write_contests["status"] = True
+    name_contests = []
+    for item in contests:
+        info_contests = dict()
+        info_contests["name "] = item.name
+        info_contests["id"] = item.link
+    write_contests["pupils"] = name_contests
+    return write_contests
 
 
 def write_all_contest():  # вывод всех Contest
@@ -110,3 +117,6 @@ def up_contest_all():  # обновление всех Contest
     if up_contest(1, 1):
         return True
     return False
+
+
+
