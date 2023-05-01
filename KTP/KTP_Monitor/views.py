@@ -75,6 +75,12 @@ def students(request):
 def editTeacherProfile(request):
     return render(request, 'main/editTeacherProfile.html')
 
+def pupil(request):
+    return render(request, 'main/pupil.html')
+
+def divisionStats(request):
+    return render(request, 'main/divisionStats.html')
+
 
 @csrf_exempt 
 def signin(request):
@@ -157,6 +163,12 @@ def sendProfileData(request):
             print(request.POST['firstname'])
             user.user_permissions.add(Permission.objects.get(codename="/teacherProfile"))
             user.user_permissions.add(Permission.objects.get(codename="/editTeacherProfile"))            
+            user.user_permissions.add(Permission.objects.get(codename="/divisions"))   
+            user.user_permissions.add(Permission.objects.get(codename="/div_info")) 
+            user.user_permissions.add(Permission.objects.get(codename="/pupil"))                     
+            user.user_permissions.add(Permission.objects.get(codename="/contest"))                     
+            user.user_permissions.add(Permission.objects.get(codename="/contests"))                     
+            user.user_permissions.add(Permission.objects.get(codename="/divisionStats"))
             add_new_teacher(user, request.POST['surname'], request.POST['firstname'], request.POST['secondname'], 
                request.POST['nickname'], request.POST['phone'])    
         user.save()            

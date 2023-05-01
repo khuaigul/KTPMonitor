@@ -9,7 +9,13 @@ class Permissions(models.Model):
             ('/teacherProfile', ''),
             ('/viewProfileData', ''),
             ('/editTeacherProfile', ''), 
-            ('/pupilProfile', ''),          
+            ('/pupilProfile', ''), 
+            ('/divisions', ''),   
+            ('/div_info', ''),  
+            ('/pupil', ''),   
+            ('/contest', ''), 
+            ('/contests', ''),
+            ('/divisionStats', ''),
         )
 
 class MyUser(models.Model):

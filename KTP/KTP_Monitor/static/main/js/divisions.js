@@ -102,14 +102,14 @@ function make_new_division(name)
 function show_div_page(div)
 {
 	localStorage.setItem('divToShow', div);
-	document.location="div_info";
+	document.location="div_info?division=" + div;
 }
 
 function getJson_students_by_div()
 {
 	div = localStorage.getItem('divToShow')
 	var xhr = new XMLHttpRequest();
-	var params = 'div=' + encodeURIComponent(div);
+	var params = 'name=' + encodeURIComponent(div);
 	xhr.onload = function(){
 		if (xhr.status != 200){
 			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
@@ -201,7 +201,7 @@ function show_divisions(div_json)
 		a.innerHTML = divs["divisions"][j];
 		a.setAttribute("class", "link");
 		a.addEventListener('click', function(){
-			show_div_page(p.innerHTML)});
+			show_div_page(a.innerHTML)});
 		p.appendChild(a);
 		block[0].appendChild(p);
 	}

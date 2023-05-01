@@ -100,9 +100,22 @@ h2{
 	text-align: left;
 }
 
+.name_header
+{
+	background-color: #E2B9FF;
+	padding: 20px;
+	padding-left: 30px;
+	margin: 0px;
+	text-align: left;
+}
+
 body{
 	/*margin: 0px;
 	padding: 20px;*/
+}
+
+#teachers p{
+	font-size: 12px;
 }
 
 .usual_button{
@@ -111,6 +124,15 @@ body{
 	border-radius: 30px;
 	padding: 5px;
 }
+
+.extra_button{
+	background-color: #FFBA94;
+	border: 1px solid black;
+	border-radius: 30px;
+	padding: 5px;
+	font-size: 12px;
+}
+
 
 .note{
 	font-size: 12px;
@@ -218,3 +240,93 @@ body{
 	color: #05037B;
 	text-decoration: underline;
 }
+
+.list{
+	border: solid black 1px;
+	width: 300px;
+	margin: 4px;
+	padding: 0px;
+	float: left;
+}
+
+.listTitle{
+	border-bottom: solid black 1px;
+/*	width: 300px;*/
+	margin: 0px;
+	padding: 0px;
+	background-color: #E2B9FF;
+	float: top;
+}
+
+.list p{
+	font-size: 12px;
+	margin: 0px;
+	padding: 2px;
+}
+
+.listTitle p{
+	text-align: center;
+}
+
+#divDeleteButton{
+	width: 100%;
+	position: relative;
+/*	bottom: 0;*/
+}
+
+
+.table-scroll {
+/*	position:relative;*/
+	align-items: left;
+	max-width:600px;
+	margin:auto;
+	overflow:hidden;
+	border:1px solid #000;
+}
+
+.table-wrap {
+	width:100%;
+	overflow:auto;
+}
+
+.table-scroll table {
+	width:100%;
+/*	margin:auto;*/
+	border-collapse:separate;
+	border-spacing:0;
+}
+
+.table-scroll th, .table-scroll td {
+	padding:5px 10px;
+	border:1px solid #000;
+	background:#fff;
+	white-space:nowrap;
+	vertical-align:top;
+}
+
+.table-scroll thead, .table-scroll tfoot {
+	background:#f9f9f9;
+}
+
+.clone {
+	position:absolute;
+	top:0;
+	left:0;
+	pointer-events:none;
+}
+.clone th, .clone td {
+	visibility:hidden
+}
+.clone td, .clone th {
+	border-color:transparent
+}
+.clone tbody th {
+	visibility:visible;
+	color:red;
+}
+.clone .fixed-side {
+	border:1px solid #000;
+	background:#eee;
+	visibility:visible;
+}
+.clone thead, .clone tfoot{background:transparent;}
