@@ -9,21 +9,21 @@ function getPupilInfo()
 	// alert(str);
 	return showPupil(str); 
 	var params = "nickname=" + window.location.href.split("?")[1].split("=")[1];
-	// var xhr_d = new XMLHttpRequest();
+	var xhr_d = new XMLHttpRequest();
 
-	// xhr_d.onload = function(){
-	// 	if (xhr_d.status != 200){
-	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-	// 	}
-	// 	else 
-	// 	{
-	// 		get_pupil_Json = xhr_d.responseText;
-	// 		showPupil(get_pupil_Json);
-	// 	}
-	// }
-	// xhr_d.open("GET", 'http://127.0.0.1:8000/pupilInfo?', true);
-	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// xhr_d.send(params);
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_pupil_Json = xhr_d.responseText;
+			showPupil(get_pupil_Json);
+		}
+	}
+	xhr_d.open("GET", 'http://127.0.0.1:8000/pupilInfo?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(params);
 }
 
 function showPupil(pupil_json)

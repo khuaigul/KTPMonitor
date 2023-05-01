@@ -75,6 +75,8 @@ function send_registration_data(email, password)
 			if (obj["status"] == true){				
 				document.location = "main";
 			}
+			else
+				return false;
 		}
 	}
 }
@@ -123,6 +125,14 @@ function send_profile_data(uid)
 			console.log(obj["status"]);
 			if (obj["status"] == true){
 				document.location = "http://127.0.0.1:8000/main";
+			}
+			else if (obj["status"] == "nicknameExists")
+			{
+				var note = document.createElement("p");
+				note.setAttribute("class", "note");
+				note.setAttribute("id", "errortext");
+				note.innerHTML = "Никнейм уже зарегестрирован";
+				document.querySelectorAll(".block")[0].appendChild(p);
 			}
 		}
 	}
@@ -218,11 +228,14 @@ function register()
 	else if (document.getElementById("infotext") == null)
 	{
 		let text = document.createElement("p");
+		text.setAttribute("class", "note");
+		text.setAttribute("id", "errortext");
 		text.innerHTML = "Письмо с подтверждением отправлено на вашу почту";
-		text.setAttribute("id", "infotext")
-		text.setAttribute("class", "note")
 
-		send_registration_data(email[0].value, password[0].value);
+
+		if (send_registration_data(email[0].value, password[0].value) == false)
+			text.innerHTML = "Почта уже зарегестрированна";
+		block.appendChild(text);
 	}
 }
 

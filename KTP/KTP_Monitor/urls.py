@@ -36,6 +36,7 @@ urlpatterns = [
     path('divisionStats', views.divisionStats, name='divisionStats'),
     path('contestStats', views.contestStats, name='contestStats'),
     path('contestsList', views.contestsList, name='contestsList'),
-    path('deleteDivision', views.deleteDivision, name='deleteDivision')
+    path('deleteDivision', views.deleteDivision, name='deleteDivision'),
+    path('testParams', views.testParams, name='testParams')
 ]
  

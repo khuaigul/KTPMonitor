@@ -23,7 +23,7 @@ from .models import *
 from .server.DB.main_DB_modul import *
 
 
-
+ 
 
 def main(request): 
     # request.GET['signin']
@@ -207,6 +207,8 @@ def logout(request):
 @csrf_exempt
 def divisionsRe(request):
     if request.method == 'GET':
+        print("HERE")
+        print (div.write_div())
         return JsonResponse(div.write_div())
     return JsonResponse({"status": False})
 
@@ -281,3 +283,6 @@ def contestsList(request):
         return JsonResponse(contest.write_contest_list(request.GET["id"]))
     return JsonResponse({"status": False})
 
+def testParams(request):
+    if (request.method == 'POST'):
+        print (request.POST["id"])
