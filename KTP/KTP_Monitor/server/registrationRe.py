@@ -11,7 +11,7 @@ from .DB.main_DB_modul import *
 def registration_Re(request):
     to_email = request.POST['email']
     password = request.POST['password'] 
-    if User.objects.get(to_email) is not None:
+    if User.objects.filter(email=to_email).first() is not None:
         return {'status': False}       
     myuser = User.objects.create_user(to_email, to_email, password)
     muser = MyUser.objects.create(user=myuser)

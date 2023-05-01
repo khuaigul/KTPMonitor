@@ -21,7 +21,7 @@ def send_profile_data(request):
         user.user_permissions.add(Permission.objects.get(codename="/pupilProfile"))                   
         if add_new_pupil(user, request.POST['surname'], request.POST['firstname'], request.POST['secondname'], 
             request.POST['nickname'], request.POST['datebirth'], request.POST['school'], request.POST['grade'], request.POST['phone']) is False:
-            return {'status': False}
+            return {'status': 'nicknameExists'}
     else:            
         user.user_permissions.add(Permission.objects.get(codename="/teacherProfile"))
         user.user_permissions.add(Permission.objects.get(codename="/editTeacherProfile"))            
@@ -33,6 +33,6 @@ def send_profile_data(request):
         user.user_permissions.add(Permission.objects.get(codename="/divisionStats"))
         if add_new_teacher(user, request.POST['surname'], request.POST['firstname'], request.POST['secondname'], 
            request.POST['nickname'], request.POST['phone']) is False:
-            return {'status': False}
+            return {'status': 'nicknameExists'}
     user.save()            
     return {"status": True}

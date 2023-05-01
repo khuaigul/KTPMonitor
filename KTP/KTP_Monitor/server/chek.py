@@ -4,62 +4,67 @@
 
 
 def check_name(name):
-    if name == "NULL" or name == "":
+    if name == None or name == "":
         return "не введено"
     return name
 
 
 def check_email(mail):
-    if mail == "NULL" or mail == "":
+    if mail == None or mail == "":
         return "Нету @mail"
     return mail
 
 
 def check_phone(phone):
-    if phone == "NULL" or phone == "":
+    if phone == None or phone == "":
         return "Не введён телефон"
     return phone
 
 
 def check_div(div):
-    if div == "NULL" or div == "":
-        return "Не выбран"
+    if div == None or div == "":
+        return "не выбран"
     return div
 
 
 def check_surname(surname):
-    if surname == "NULL" or surname == "":
+    if surname == None or surname == "":
         return "не введено"
     return surname
 
 
 def check_secondname(secondname):
-    if secondname == "NULL" or secondname == "":
+    if secondname == None or secondname == "":
         return "не введено"
     return secondname
 
 
 def check_school(school):
-    if school == "NULL" or school == "":
+    if school == None or school == "":
         return "не введено"
     return school
 
 
 def check_form(form):
-    if form == "NULL" or form == "":
+    if form == None or form == "":
         return "не введено"
     return form
 
 
-def check_availability_mail(mail):  # проверяет есть ли почта в бд или нет
-    info = get_email()  # функция которая получает все почты бд
-    for item in info:
-        if mail == item:
-            return True
-    return False
-
-
 def check_nickname(nickname):
-    if nickname == '' or nickname == 'NULL':
+    if nickname == '' or nickname == None:
         return False
     return True
+
+
+def check_human(handle, id_contest):  # проверка на наличие человека в Contest
+    if handle == "" or id_contest == "":
+        return False
+    return True
+
+
+def check_verdict(handle, id_contest, problem):  # проверка на ранний вердикт в Contest
+    if handle == "" or id_contest == "" or problem == "":
+        return False
+    return True
+

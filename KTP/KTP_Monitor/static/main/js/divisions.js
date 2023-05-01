@@ -33,25 +33,24 @@ function toExit()
 }
 function getJson_divs()
 {
-	var str = '{"divisions" : ["A", "B", "C"]}';
-	return show_divisions(str); 
-	// var xhr_d = new XMLHttpRequest();
+	// var str = '{"divisions" : ["A", "B", "C"]}';
+	// return show_divisions(str); 
+	var xhr_d = new XMLHttpRequest();
 
-	// xhr_d.onload = function(){
-	// 	if (xhr_d.status != 200){
-	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-	// 	}
-	// 	else 
-	// 	{
-	// 		get_div_Json = xhr_d.responseText;
-	// 		alert(get_div_Json)
-	// 		// localStorage.setItem('divList', get_div_Json);
-	// 		return show_divisions(get_div_Json);
-	// 	}
-	// }
-	// xhr_d.open("POST", 'http://127.0.0.1:8000/divisionsRe?', true);
-	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// xhr_d.send(null);
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_div_Json = xhr_d.responseText;
+			alert(get_div_Json)
+			return show_divisions(get_div_Json);
+		}
+	}
+	xhr_d.open("GET", 'http://127.0.0.1:8000/divisionsRe?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(null);
 }
 
 function get_divs()
@@ -90,7 +89,8 @@ function make_new_division(name)
 		else 
 		{
 			get_div_Json = xhr_d.responseText;
-			document.location='divisions';
+			return (get_div_Json["status"])
+
 		}
 	}
 	xhr_d.open("POST", 'http://127.0.0.1:8000/newDivisionRe?', true);
@@ -167,24 +167,13 @@ function add_division()
 	}
 	else
 	{
-		let divisions = get_divs();
-		const divs = JSON.parse(divisions);
-		let flag = false;
-		for (var i = 0; i < divs["divisions"].length; i++)
-		{
-			console.log(name, divs["divisions"][i]);
-			if (name == divs["divisions"][i])
-				flag = true;
-		}
-		if (flag)
+		if (make_new_division(name) == false)
 		{
 			error.innerHTML = "Такой дивизион уже существует";
 			error.removeAttribute("hidden");
 		}
 		else
-		{
-			make_new_division(name);
-		}
+			document.location = "divisions";
 	}
 }
 

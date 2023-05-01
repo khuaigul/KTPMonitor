@@ -83,6 +83,8 @@ function save_changes()
 function add_divisions_select(div_json)
 {
 	const divs = JSON.parse(div_json);
+	console.log("fgg");
+	console.log(divs);
 
 	let select = document.querySelectorAll(".usual_selector");
 
@@ -98,22 +100,22 @@ function getJson_divs()
 {
 	var xhr_d = new XMLHttpRequest();
 
-	var a = '{"divisions":["A", "B", "C"]}';
-	return add_divisions_select(a);
+	// var a = '{"divisions":["A", "B", "C"]}';
+	// return add_divisions_select(a);
 
-	// xhr_d.onload = function(){
-	// 	if (xhr_d.status != 200){
-	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-	// 	}
-	// 	else 
-	// 	{
-	// 		get_div_Json = xhr_d.responseText;
-	// 		return add_divisions_select(get_div_Json);
-	// 	}
-	// }
-	// xhr_d.open("POST", 'http://127.0.0.1:8000/divisionsRe?', true);
-	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// xhr_d.send(null);
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_div_Json = xhr_d.responseText;
+			return add_divisions_select(get_div_Json);
+		}
+	}
+	xhr_d.open("GET", 'http://127.0.0.1:8000/divisionsRe?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(null);
 }
 
 function showInfo(info) 
@@ -123,7 +125,7 @@ function showInfo(info)
 	let surname = document.querySelectorAll("#lastname input")[0];
 	surname.value = data["surname"];
 	let name = document.querySelectorAll("#firstname input")[0];
-	name.value = data["name"];
+	name.value = data["firstname"];
 	let secondname = document.querySelectorAll("#secondname input")[0];
 	secondname.value = data["secondname"];
 	let nickname = document.querySelectorAll("#nickname input")[0];
@@ -132,7 +134,7 @@ function showInfo(info)
 	phone.value = data["phone"];
 	let div = document.querySelectorAll("#usual_selector")[0];
 	let opts = document.querySelectorAll("#usual_selector option");
-	alert(opts.length);
+	// alert(opts.length);
 	for (var j = 0; j < opts.length; j++)
 	{
 		console.log(opts[j].innerHTML);
@@ -143,22 +145,23 @@ function showInfo(info)
 
 function fill_profile()
 {
-	var a = '{"nickname": "ivann", "surname": "Иванов", "firstname": "Иван", "secondname" : "Иванович","division" : "B", "mail" : "ivan@gmail.com", "phone" : "+79999999999"}';
-	return showInfo(a);
-	// var xhr_d = new XMLHttpRequest();
+	// var a = '{"nickname": "ivann", "surname": "Иванов", "firstname": "Иван", "secondname" : "Иванович","division" : "B", "mail" : "ivan@gmail.com", "phone" : "+79999999999"}';
+	// return showInfo(a);
+	var xhr_d = new XMLHttpRequest();
 
-	// xhr_d.onload = function(){
-	// 	if (xhr_d.status != 200){
-	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-	// 	}
-	// 	else 
-	// 	{
-	// 		get_profile_Json = xhr_d.responseText;
-	// 		return showInfo(get_profile_Json);
-	// 	}
-	// }
-	// xhr_d.open("POST", 'http://127.0.0.1:8000/currentProfileData?', true);
-	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// xhr_d.send(null);
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			console.log(xhr_d.responseText);
+			get_profile_Json = xhr_d.responseText;
+			return showInfo(get_profile_Json);
+		}
+	}
+	xhr_d.open("POST", 'http://127.0.0.1:8000/currentProfileData?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(null);
 }
 
