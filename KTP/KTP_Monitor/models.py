@@ -35,7 +35,7 @@ class Pupil_Info(models.Model):
     grade = models.IntegerField()
     CF = models.CharField(max_length=100)
     birthday = models.DateField()
-    div_id = models.ForeignKey(Div_Info, null=True, on_delete = models.SET_NULL, default= None)
+    div = models.ForeignKey(Div_Info, null=True, on_delete = models.SET_NULL, default= None)
     e_mail = models.EmailField()
     phone = models.SlugField()
 
@@ -45,11 +45,31 @@ class Teacher_Info(models.Model):
     firstname = models.CharField(max_length=100, default = 'ooo')
     secondname = models.CharField(max_length=100, default = 'ooo')
     CF = models.CharField(max_length=100)
-    div_id = models.ForeignKey(Div_Info, null=True, on_delete = models.SET_NULL, default= None)
+    div = models.ForeignKey(Div_Info, null=True, on_delete = models.SET_NULL, default= None)
     e_mail = models.EmailField()
     phone = models.CharField(max_length=100, default = '123')
-    
 
+class Contest_Info(models.Model):
+    name = models.CharField(max_length=100)
+    link = models.CharField(max_length=100)
+    divs = models.ManyToManyField(Div_Info, through="Contest_Div")
+       
+class Contest_Div(models.Model):
+    contest = models.ForeignKey(Contest_Info, on_delete=models.CASCADE)
+    div = models.ForeignKey(Div_Info, on_delete=models.CASCADE)
+
+
+class Task_Info(models.Model):
+    letter = models.CharField(max_length=1)
+    contest = models.ForeignKey(Contest_Info, on_delete = models.CASCADE)
+    name =  models.CharField(max_length=100, null = True)
+
+    
+class Pupil_Task(models.Model):
+    pupil =  models.ForeignKey(Pupil_Info, on_delete = models.CASCADE)
+    task = models.ForeignKey(Task_Info, on_delete = models.CASCADE)
+    cnt_try =  models.IntegerField(default=0)
+    result = models.CharField(max_length=100, null = True)
 
 
 

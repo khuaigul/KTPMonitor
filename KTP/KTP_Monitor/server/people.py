@@ -1,112 +1,119 @@
-from datetime import datetime
 from .DB.main_DB_modul import *
+from .chek import *
 
 
-class New_div:
-	def __init__(self, name, year):
-		self.name = name
-		self.year = year
-
-class New_pupil:
-	def __init__(self, surname, name, patronymic, school, grade, nick_CF, birthday):
-		self.surname = surname
-		self.name = name
-		self.patronymic = patronymic
-
-		self.school = school
-		self.grade = grade
-		self.nick_CF = nick_CF
-		self.birthday = birthday
-
-class pupil_div:
-	def __init__(self, pupil_id, div_id):
-		self.pupil_id = pupil_id
-		self.div_id = div_id
-
-class contest:
-	def __init__(self, name, link, div_id, tasks, pupils_tasks):
-		self.name = name
-		self.link = link
-		self.div_id = div_id
-		self.tasks = tasks
-		self.pupils_tasks = pupils_tasks
-
-class task:
-	def __init__(self, letter, name):
-		self.letter = letter
-		self.name = name
-
-class pupil_task:
-	def __init__(self, pupil_CF, task_letter, cnt_try, result):
-		self.pupil_CF = pupil_CF
-		self.task_letter = task_letter
-		self.cnt_try = cnt_try
-		self.result = result
-
-
-
-def people_write_one(info):
-	if info == "":
-		return {"status": False}
-	pupils = get_all_pupils()
-	write_people = dict()
-	write_people["status"] = True
-	write_people["nickname"] = info
-	for [surname, name, patronymic, cf, div_name, pupil_id, div_id] in pupils:
-		if info == cf:
-			write_people["surname"] = surname
-			write_people["name"] = name
-			write_people["secondname"] = patronymic
-			write_people["div"] = check_div(div_name)
-	return write_people
-
-
-def people_write_div():
+def people_write_all():
 	pupils = get_all_pupils()
 	write_people = dict()
 	write_people["status"] = True
 	name_people = []
-	for [surname, name, secondname, cf, div_name, pupil_id, div_id] in pupils:
+	for item in pupils:
 		info_people = dict()
-		info_people["nickname"] = cf
-		info_people["surname"] = surname
-		info_people["name"] = name
-		info_people["secondname"] = secondname
-		info_people["div"] = check_div(div_name)
+		info_people["nickname"] = item.CF
+		info_people["surname"] = item.lastname
+		info_people["name"] = item.firstname
+		info_people["secondname"] = item.secondname
+		if item.div == None:
+			info_people["div"] = check_div(item.div)
+		else:
+			info_people["div"] = check_div(item.div.name)
 		name_people.append(info_people)
-	write_people["students"] = name_people
+	write_people["pupils"] = name_people
 	return write_people
 
 
-def people_write_div_onle(info):
-	if info == "":
-		return {"status": False}
+def f():  # не бейте просто пока не предусмотрено, что делать с людими без дива
 	pupils = get_all_pupils()
 	write_people = dict()
 	write_people["status"] = True
 	name_people = []
-	for [surname, name, secondname, cf, div_name, pupil_id, div_id] in pupils:
-		if div_name == info or info == "не выбрано" and div_name == "NULL":
-			info_people = dict()
-			info_people["nickname"] = cf
-			info_people["surname"] = surname
-			info_people["name"] = name
-			info_people["secondname"] = secondname
-			info_people["div"] = check_div(div_name)
+	for item in pupils:
+		info_people = dict()
+		if item.div == None:
+			info_people["nickname"] = item.CF
+			info_people["surname"] = item.lastname
+			info_people["name"] = item.firstname
+			info_people["secondname"] = item.secondname
 			name_people.append(info_people)
-	write_people["students"] = name_people
+	write_people["pupils"] = name_people
 	return write_people
 
 
-def info_person(request):
-	user = f(request.user)  # типа тут должна быть функция, которая получает информацию о
-	info = dict()
-	info["status"] = True
-	info["mail"] = check_email(user.email)
-	info["phone"] = check_phone(user.phone)
-	info["division"] = check_div(user.div)
-	info["name"] = check_name(user.name)
-	info["nickname"] = check_nickname(user.nickname)
-	info["secondname"] = check_secondname(user.secondname)
-	info["surname"] = check_surname(user.surname)
-	return {"status": False}
+def people_write_div(info):
+	if info == "":
+		return {"status": False}
+	if info == "не выбран":
+		return f()
+	divs = get_all_divs()
+	flag = True
+	for item in divs:
+		if item.name == info:
+			pupils = get_all_pupils([item])
+			flag = False
+			break
+	if flag:
+		return {"status": False}
+	write_people = dict()
+	write_people["status"] = True
+	name_people = []
+	for item in pupils:
+		info_people = dict()
+		info_people["nickname"] = item.CF
+		info_people["surname"] = item.lastname
+		info_people["name"] = item.firstname
+		info_people["secondname"] = item.secondname
+		name_people.append(info_people)
+	write_people["pupils"] = name_people
+	return write_people
+
+
+def profile_write(nickname):
+	if nickname == "":
+		return {"status": False}
+	write_people = dict()
+	write_people["status"] = True
+	pupils = get_all_pupils()
+	for item in pupils:
+		if nickname == item.CF:
+			write_people["surname"] = item.lastname
+			write_people["name"] = item.firstname
+			write_people["secondname"] = item.secondname
+			write_people["school"] = item.school
+			write_people["email"] = item.e_mail
+			write_people["phone"] = item.phone
+			write_people["grade"] = item.grade
+			if item.div == None:
+				write_people["division"] = check_div(item.div)
+			else:
+				write_people["division"] = check_div(item.div.name)
+			write_people["datebitrh"] = item.birthday
+			break
+	return write_people
+
+
+def teacher_write_div(info):
+	if info == "":
+		return {"status": False}
+	divs = get_all_divs()
+	flag = 1
+	teachers = []
+	for item in divs:
+		if item.name == info or info == 'не выбрано':
+			teachers = get_all_teachers(item)
+			flag = 0
+			break
+	if flag:
+		return {"status": False}
+	write_teachers = dict()
+	write_teachers["status"] = True
+	all_teachers = []
+	for item in teachers:
+		info_teachers = dict()
+		info_teachers["surname"] = item.lastname
+		info_teachers["name"] = item.firstname
+		info_teachers["secondname"] = item.secondname
+		all_teachers.append(info_teachers)
+	write_teachers["teachers"] = all_teachers
+	return write_teachers
+
+
