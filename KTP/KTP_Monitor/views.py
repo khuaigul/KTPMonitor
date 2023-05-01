@@ -135,8 +135,7 @@ def profileData(request, uidb64, token):
 
 
 @csrf_exempt
-def sendProfileData(request):
-    print("AAAAAAAAAAAA")
+def sendProfileData(request):    
     if request.method == 'POST':     
         user = User.objects.get(pk=request.POST['uid'])
         if user.is_active == True:
