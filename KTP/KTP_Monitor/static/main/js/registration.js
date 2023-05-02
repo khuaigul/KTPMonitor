@@ -134,13 +134,13 @@ function send_profile_data(uid)
 				document.location = "http://127.0.0.1:8000/main";
 			}
 			else if (obj["status"] == "nicknameExists")
-			{
+			{			
 				var note = document.createElement("p");
 				note.setAttribute("class", "note");
 				note.setAttribute("id", "errortext");
-				note.innerHTML = "Никнейм уже зарегестрирован";
+				note.innerHTML = "Никнейм уже зарегистрирован";
 				console.log(document.querySelectorAll(".block")); 
-				document.querySelectorAll(".block")[0].appendChild(p);
+				document.querySelectorAll(".block")[0].appendChild(note);
 			}
 		}
 	}
