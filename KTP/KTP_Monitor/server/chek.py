@@ -68,3 +68,4 @@ def check_verdict(handle, id_contest, problem):  # проверка на ран�
         return False
     return True
 
+

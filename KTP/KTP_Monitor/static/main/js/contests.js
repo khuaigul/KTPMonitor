@@ -34,25 +34,25 @@ function toExit()
 
 function getJson_divs()
 {
-	var str = '{"divisions" : ["A", "B", "C"]}';
-	return show_divisions(str); 
-	// var xhr_d = new XMLHttpRequest();
+	// var str = '{"divisions" : ["A", "B", "C"]}';
+	// return show_divisions(str); 
+	var xhr_d = new XMLHttpRequest();
 
-	// xhr_d.onload = function(){
-	// 	if (xhr_d.status != 200){
-	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-	// 	}
-	// 	else 
-	// 	{
-	// 		get_div_Json = xhr_d.responseText;
-	// 		alert(get_div_Json)
-	// 		// localStorage.setItem('divList', get_div_Json);
-	// 		return show_divisions(get_div_Json);
-	// 	}
-	// }
-	// xhr_d.open("POST", 'http://127.0.0.1:8000/divisionsRe?', true);
-	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// xhr_d.send(null);
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_div_Json = xhr_d.responseText;
+			alert(get_div_Json)
+			// localStorage.setItem('divList', get_div_Json);
+			return show_divisions(get_div_Json);
+		}
+	}
+	xhr_d.open("GET", 'http://127.0.0.1:8000/divisionsRe?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(null);
 }
 
 function show_divisions(divisions)
@@ -113,10 +113,10 @@ function showContests(sender)
 
 function get_contests(name, block)
 {
-	var str = '{"contests" : ["Дерево отрезков", "Геометрия", "Графы"]}';
+	var str = '{"contests" : [{"name" : "Дерево отрезков", "id" : "1234"}, {"name" : "Геометрия", "id" : "2354"}, {"name" : "Графы", "id" : "7544"}]}';
 	return show_contests(str, block); 
 
-	var params = 'division=' + encodeURIComponent(name);
+	// var params = 'division=' + encodeURIComponent(name);
 	// var xhr_d = new XMLHttpRequest();
 
 	// xhr_d.onload = function(){
@@ -129,7 +129,7 @@ function get_contests(name, block)
 	// 		return show_contests(get_Json, block);
 	// 	}
 	// }
-	// xhr_d.open("POST", 'http://127.0.0.1:8000/divisionsRe?', true);
+	// xhr_d.open("GET", 'http://127.0.0.1:8000/contestsList?', true);
 	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	// xhr_d.send(params);
 }
@@ -143,7 +143,8 @@ function show_contests(contests_json, block)
 		var a = document.createElement("a");
 		p.setAttribute("class", "contestLink");
 		p.setAttribute("name", contests["contests"][i]);
-		a.innerHTML = contests["contests"][i];
+		a.innerHTML = contests["contests"][i]["name"];
+		a.setAttribute("name", contests["contests"][i]["id"]);
 		a.setAttribute("onclick", "show_contest(this)");
 		p.appendChild(a);
 		block.appendChild(p);
@@ -152,7 +153,10 @@ function show_contests(contests_json, block)
 
 function show_contest(sender)
 {
-	alert(sender.innerHTML);
-	document.location="contest?contest=" + sender.innerHTML;
+	document.location="contest?id=" + '[' + sender.name + ', fgf]';
 }
 
+function addContest()
+{
+	
+}

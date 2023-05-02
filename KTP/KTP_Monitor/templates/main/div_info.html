@@ -3,19 +3,89 @@
 <head>
 	{% load static %}
 	<link rel="stylesheet" href="{% static 'main/css/ktpmonitor.css' %}" >
-	<script type="text/javascript" src="{% static 'main/js/divisions.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/divInfo.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/menu.js' %}"></script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Страница дивизиона</title>
+	<title></title>
 </head>
 <body>
-	<div class="header_empty">
-		
-	</div>
-	<div class="block">
+	<h1 class="name_header">
 		<script type="module">
-			getJson_students_by_div();
+			setName();
 		</script>
+	</h1>
+	<div class="side_menu">
+		<p>
+			<button onclick="toProfile()">
+				Мой профиль
+			</button>
+		</p>
+		<p>
+			<button onclick="toDivisions()">
+				Дивизионы
+			</button>
+		</p>	
+		<p>
+			<button onclick="toContests()">
+				Контесты
+			</button>
+		</p>
+		<p>
+			<button onclick="toStudents()">
+				Ученики
+			</button>
+		</p>
+		<p>
+			<button onclick="toStats()">
+				Статистика
+			</button>
+		</p>
+		<p>
+			<button onclick="toController()">
+				Управление
+			</button>
+		</p>
+		<p>
+			<button onclick="toNotifications()">
+				Объявления
+			</button>
+		</p>
+		<p>
+			<button onclick="toExit()">
+				Выйти
+			</button>
+		</p>
+	</div>
+	<p>
+		<div class="block">
+			<p class="info">
+				<!-- <img src="{% static 'main/images/stats.png' %}"> -->
+				<a class="link" onclick="showStats()">Посмотреть статистику</a>
+			</p>
+			<div id="teachers">
+				<script type="module">
+					getTeachers();
+				</script>
+			</div>
+			<p>
+			<button onclick="deleteDivision()" class="extra_button">
+				Удалить дивизион
+			</button>
+			</p>
+			<div id="students" class="list">
+				<script type="module">
+					getStudents();
+				</script>
+			</div>
+			<div id=contests class="list">
+				<script type="module">
+					getContests();
+				</script>
+			</div>
+		</div>
+	</p>
+	<div id="divDeleteButton">
 	</div>
 </body>
 </html>

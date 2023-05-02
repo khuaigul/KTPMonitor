@@ -3,14 +3,17 @@
 <head>
 	{% load static %}
 	<link rel="stylesheet" href="{% static 'main/css/ktpmonitor.css' %}" >
-	<script type="text/javascript" src="{% static 'main/js/contest.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/divStats.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/menu.js' %}"></script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Контест</title>
+	<title></title>
 </head>
 <body>
-	<h1 class="usual_header">
-		Контесты
+	<h1 class="name_header">
+		<script type="module">
+			setName();
+		</script>
 	</h1>
 	<div class="side_menu">
 		<p>
@@ -54,10 +57,16 @@
 			</button>
 		</p>
 	</div>
-	<div class="block"> 
-		<script type="module">
-			show();
-		</script>
+	<div class="block">
+		<div class="table-scroll">
+			<div class="table-wrap">
+				<table class="main-table">
+					<script type="module">
+						getStats();
+					</script>
+				</table>
+			</div>
+		</div>
 	</div>
 </body>
-</html> 
+</html>

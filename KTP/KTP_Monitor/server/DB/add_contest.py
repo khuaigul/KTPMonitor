@@ -7,7 +7,7 @@ def add_contest(name, link, divs):
         c[0].divs.add(d)
     
     print("contest added with choosen divs")
-    # return c[0]
+    return c[1]
 
 	
 	

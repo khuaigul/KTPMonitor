@@ -28,6 +28,7 @@ urlpatterns = [
     path('currentProfileData', views.currentProfileData, name='currentProfileData'),
     path('pupilProfile', views.pupilProfile, name='pupilProfile'),
     path('logout', views.logout, name='logout'),
+    path('pupil', views.pupil, name='pupil'),
     path('students_by_div', views.students_by_div, name='students_by_div'),
     path('teachers_by_div', views.teachers_by_div, name='teachers_by_div'),
     path('pupilInfo', views.pupilInfo, name='pupilInfo'),
@@ -35,6 +36,9 @@ urlpatterns = [
     path('divisionStats', views.divisionStats, name='divisionStats'),
     path('contestStats', views.contestStats, name='contestStats'),
     path('contestsList', views.contestsList, name='contestsList'),
-    path('deleteDivision', views.deleteDivision, name='deleteDivision')
+    path('deleteDivision', views.deleteDivision, name='deleteDivision'),
+    path('testParams', views.testParams, name='testParams')
+    path('newContest', views.newContest, name='newContest'),
+    path('deleteDivisiont', views.deleteDivisiont, name='deleteDivisiont')
 ]
  
