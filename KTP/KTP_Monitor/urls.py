@@ -37,7 +37,7 @@ urlpatterns = [
     path('contestStats', views.contestStats, name='contestStats'),
     path('contestsList', views.contestsList, name='contestsList'),
     path('deleteDivision', views.deleteDivision, name='deleteDivision'),
-    path('testParams', views.testParams, name='testParams')
+    path('testParams', views.testParams, name='testParams'),
     path('newContest', views.newContest, name='newContest'),
     path('deleteDivisiont', views.deleteDivisiont, name='deleteDivisiont')
 ]
