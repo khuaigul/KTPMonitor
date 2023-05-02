@@ -41,6 +41,8 @@
 11) get_all_teachers(divs)
 12) get_statistic_contest(link)
 13) get_all_contests(divs)
+14) delete_contest(link)
+15) get_statistic_pupil_contest(pupils, contests)
 
 Описание:
 1) Получить все дивизионы.
@@ -209,5 +211,19 @@ delete_contest(link)
 Пример вызова:
 
 delete_contest("cf/link")
+
+15) Вывести статисктику по выбранным ученикам и контестам
+
+get_statistic_pupil_contest(pupils, links)
+
+- принимает лист экземпляров класса Pupil_Info и лист ссылок на контест. 
+- возвращает словарь словарей, где внешний словарь - ссылка контеста, внутренний словарь - ник ученика, хранящий пару (кол-во сданных задач, всего задач)
+
+пример вызова:
+
+r = get_statistic_pupil_contest(pupils, contests)
+for contest_link in r:
+    for pupil_nick in r[contest_link]:
+        print(r[contest_link][pupil_nick])
 
 
