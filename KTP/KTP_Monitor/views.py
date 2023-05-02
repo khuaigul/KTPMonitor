@@ -214,13 +214,6 @@ def students_by_div(request):
 
 
 @csrf_exempt
-def contests_by_div(request):
-    if request.method == 'GET':
-        return JsonResponse(people.teacher_write_div(request.GET['name']))
-    return JsonResponse({"status": False})
-
-
-@csrf_exempt
 def teachers_by_div(request):
     if request.method == 'GET':
         return JsonResponse(people.teacher_write_div(request.GET['name']))
@@ -267,5 +260,17 @@ def contestStats(request):
 def contestsList(request):
     if request.method == 'GET':
         return JsonResponse(contest.write_contest_list(request.GET["id"]))
+    return JsonResponse({"status": False})
+
+
+def newContest(request):
+    if request.method == 'POST':
+        return JsonResponse(contest.add_contest(request.POST["link"], request.POST["name"], request.POST["divison"]))
+    return JsonResponse({"status": False})
+
+
+def deleteDivisiont(request):
+    if request.method == 'POST':
+        return JsonResponse(div.remove_div(request.POST["division"]))
     return JsonResponse({"status": False})
 
