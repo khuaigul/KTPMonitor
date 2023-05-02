@@ -25,6 +25,14 @@ class MyUser(models.Model):
 class Div_Info(models.Model):
     year = models.IntegerField()
     name = models.CharField(max_length=100)
+    
+    @classmethod
+    def get_default(cls):
+        div, created = cls.objects.get_or_create(
+            name='None', year = 1980) 
+            # defaults=dict(description='this is not an exam'),
+        # )
+        return div.pk
 
 class Pupil_Info(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
@@ -35,17 +43,17 @@ class Pupil_Info(models.Model):
     grade = models.IntegerField()
     CF = models.CharField(max_length=100)
     birthday = models.DateField()
-    div = models.ForeignKey(Div_Info, null=True, on_delete = models.SET_NULL, default= None)
+    div = models.ForeignKey(Div_Info, default= Div_Info.get_default,  on_delete = models.SET_DEFAULT)
     e_mail = models.EmailField()
     phone = models.SlugField()
 
 class Teacher_Info(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
-    lastname = models.CharField(max_length=100, default = 'ooo')
-    firstname = models.CharField(max_length=100, default = 'ooo')
-    secondname = models.CharField(max_length=100, default = 'ooo')
+    lastname = models.CharField(max_length=100, default = 'lastname')
+    firstname = models.CharField(max_length=100, default = 'firstname')
+    secondname = models.CharField(max_length=100, default = 'secondname')
     CF = models.CharField(max_length=100)
-    div = models.ForeignKey(Div_Info, null=True, on_delete = models.SET_NULL, default= None)
+    div = models.ForeignKey(Div_Info, default= Div_Info.get_default,  on_delete = models.SET_DEFAULT)
     e_mail = models.EmailField()
     phone = models.CharField(max_length=100, default = '123')
 

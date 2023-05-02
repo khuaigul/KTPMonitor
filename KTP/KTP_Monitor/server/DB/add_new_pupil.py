@@ -4,8 +4,13 @@ from KTP_Monitor.models import Pupil_Info
 #  ['nickname'], ['birthdate'],  
 # ['school'], ['grade'],['phone'])
 def add_new_pupil(user, lastname, firstname, secondname, CF, birthday, school, grade, phone):
+
+    if (Pupil_Info.objects.filter(CF = CF).exists()):
+        return False
+
     Pupil_Info.objects.create(user=user, lastname=lastname, firstname=firstname, secondname=secondname,
                         			CF=CF, birthday=birthday, school=school, grade=grade, phone=phone)
+    return True
 
     print("add_new_pupil")
 
