@@ -27,7 +27,7 @@ def change_people_div(divisions, nickname):
 	divs = get_all_divs()
 	dive_id = None
 	for item in divs:
-		if item.name == divisions:
+		if item.name == divisions or divisions == "не выбран" and item.name == "None":
 			dive_id = item
 			break
 	people_id = None
@@ -46,8 +46,7 @@ def write_div():
 	div_name = []
 	div_write["status"] = True
 	for item in divs:
-		div_name.append(item.name)
-	div_name.append("не выбрано")
+		div_name.append(check_div(item.name))
 	div_write["divisions"] = div_name
 	return div_write
 

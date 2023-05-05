@@ -22,7 +22,7 @@ def check_phone(phone):
 
 
 def check_div(div):
-    if div == None or div == "":
+    if div == "None" or div == "":
         return "не выбран"
     return div
 

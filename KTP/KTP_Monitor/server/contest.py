@@ -42,7 +42,7 @@ def add_problem(id_contest):
 
 
 def add_contest(link, name, divison):
-    if link == "" or name == "" or divison == 0:
+    if link == "" or name == "" or divison == "":
         return {"status": False}
     divs = get_all_divs()
     for item in divs:
