@@ -125,16 +125,8 @@ def logout(request):
 @csrf_exempt
 def divisionsRe(request):
     if request.method == 'GET':
-        print("HERE")
-        print (div.write_div())
+        print(people.people_write_div('не выбрано'))
         return JsonResponse(div.write_div())
-    return JsonResponse({"status": False})
-
-
-@csrf_exempt
-def newDivisionRe(request):
-    if request.method == 'POST':
-        return JsonResponse(div.add_div(request.POST["name"]))
     return JsonResponse({"status": False})
 
 
@@ -176,11 +168,13 @@ def pupilStats(request):
         return JsonResponse({"status": False})
     return JsonResponse({"status": False})
 
+
 @csrf_exempt
 def newDivisionRe(request):  #
     if request.method == "POST":
         return JsonResponse(div.add_div(request.POST["name"]))
     return JsonResponse({"status": False})
+
 
 def divisionStats(request):
     if request.method == 'GET':
@@ -199,9 +193,11 @@ def contestsList(request):
         return JsonResponse(contest.write_contest_list(request.GET["id"]))
     return JsonResponse({"status": False})
 
+
 def testParams(request):
     if (request.method == 'POST'):
         print (request.POST["id"])
+
 
 def newContest(request):
     if request.method == 'POST':
