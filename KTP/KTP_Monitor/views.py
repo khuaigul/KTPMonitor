@@ -125,7 +125,7 @@ def logout(request):
 @csrf_exempt
 def divisionsRe(request):
     if request.method == 'GET':
-        print(people.people_write_div('не выбрано'))
+        print(people.people_write_div('None'))
         return JsonResponse(div.write_div())
     return JsonResponse({"status": False})
 
