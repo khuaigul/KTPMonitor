@@ -13,7 +13,7 @@ def people_write_all():
 		info_people["surname"] = item.lastname
 		info_people["name"] = item.firstname
 		info_people["secondname"] = item.secondname
-		info_people["div"] = check_div(item.div.name)
+		info_people["div"] = item.div.name
 		name_people.append(info_people)
 	write_people["pupils"] = name_people
 	return write_people
@@ -24,7 +24,7 @@ def people_write_div(info):
 		return {"status": False}
 	divs = get_all_divs()
 	for item in divs:
-		if item.name == info or info == 'не выбрано' and item.name == "None":
+		if item.name == info:
 			pupils = get_all_pupils([item])
 			write_people = dict()
 			write_people["status"] = True
@@ -56,7 +56,7 @@ def profile_write(nickname):
 			write_people["email"] = item.e_mail
 			write_people["phone"] = item.phone
 			write_people["grade"] = item.grade
-			write_people["division"] = check_div(item.div.name)
+			write_people["division"] = item.div.name
 			write_people["datebitrh"] = item.birthday
 			break
 	return write_people
@@ -67,7 +67,7 @@ def teacher_write_div(info):
 		return {"status": False}
 	divs = get_all_divs()
 	for item in divs:
-		if item.name == info or info == 'не выбрано' and item.name == "None":
+		if item.name == info:
 			teachers = get_all_teachers([item])
 			write_teachers = dict()
 			write_teachers["status"] = True
