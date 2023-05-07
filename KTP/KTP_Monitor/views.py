@@ -15,7 +15,7 @@ from .server.sendProfileData import send_profile_data
 from .server.signin import sign_in
 from .server.registrationRe import registration_Re
 from .server.currentProfileData import current_profile_data
-
+from .server.updateTeacherProfileData import update_teacher_profile_data
 def main(request):     
     return render(request, 'main/main.html')
 
@@ -116,6 +116,12 @@ def currentProfileData(request):
         return JsonResponse(current_profile_data(request))
     return JsonResponse({"status": False})
 
+@csrf_exempt
+def updateTeacherProfileData(request):
+    if request.method == 'POST':
+        return JsonResponse(update_teacher_profile_data(request))
+    return JsonResponse({'status': False})
+
 
 @csrf_exempt
 def logout(request):
@@ -132,8 +138,8 @@ def divisionsRe(request):
 
 @csrf_exempt
 def students_by_div(request):
-    if request.method == 'GET':
-        return JsonResponse(people.people_write_div(request.GET['name']))
+    if request.method == 'POST':
+        return JsonResponse(people.people_write_div(request.POST['name']))
     return JsonResponse({"status": False})
 
 

@@ -138,7 +138,7 @@ function show_div(students_list)
 {
 	let dv = document.querySelectorAll(".header_empty");
 	let header = document.createElement("h1");
-	var divName = localStorage.getItem('divToShow');
+	var divName = localStorage.getItem('divToShow');	
 	header.innerHTML = "Дивизион " + divName;
 	dv[0].appendChild(header);
 
