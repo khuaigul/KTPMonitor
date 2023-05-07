@@ -154,7 +154,7 @@ def teachers_by_div(request):
         return JsonResponse(people.teacher_write_div(request.POST['name']))
     return JsonResponse({"status": False})
 
-
+@csrf_exempt
 def pupilInfo(request):
     if request.method == 'GET':
         return JsonResponse(people.profile_write(request.GET['nickname']))
@@ -173,7 +173,7 @@ def сhangeDiv(request):
         return JsonResponse(div.change_people_div(request.POST["divisions"], request.POST["nickname"]))
     return JsonResponse({"status": False})
 
-
+@csrf_exempt
 def pupilStats(request):
     if request.method == 'GET':
         return JsonResponse({"status": False})
@@ -186,25 +186,25 @@ def newDivisionRe(request):  #
         return JsonResponse(div.add_div(request.POST["name"]))
     return JsonResponse({"status": False})
 
-
+@csrf_exempt
 def divisionStats(request):
     if request.method == 'GET':
         return JsonResponse({"status": False})
     return JsonResponse({"status": False})
 
-
+@csrf_exempt
 def contestStats(request):
     if request.method == 'GET':
         return JsonResponse({"status": False})
     return JsonResponse({"status": False})
 
-
+@csrf_exempt
 def contestsList(request):
     if request.method == 'GET':
         return JsonResponse(contest_server.write_contest_list(request.GET["division"]))
     return JsonResponse({"status": False})
 
-
+@csrf_exempt
 def testParams(request):
     if (request.method == 'POST'):
         print(request.POST["id"])
