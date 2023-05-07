@@ -28,7 +28,7 @@ function toNotifications()
 }
 function toExit()
 {
-	alert("Выйти из профиля?");
+	alert("Выйти из профиляесть ?");
 	document.location="main";
 }
 
@@ -153,7 +153,7 @@ function show_contests(contests_json, block)
 
 function show_contest(sender)
 {
-	document.location="contest?id=" + sender.name + "&name=" + sender.innerHTML;
+	document.location="contest?id=" + encodeURIComponent(sender.name) + "&name=" + encodeURIComponent(sender.innerHTML);
 }
 
 function addContest()
