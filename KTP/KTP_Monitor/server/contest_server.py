@@ -43,10 +43,22 @@ def add_problem(id_contest):
     return True
 
 
-def add_contestt(link, name, divison):
-    if link == "" or name == "" or divison == "":
+def get_name_contest(lint):
+    request = [("contestId", str(lint)), ("from", str(1)), ("count", str(1))]
+    request_for_cf = authorized_request("contest.standings", request)  # делаем запрос на кф
+    if request_for_cf is None:  # что-то пошло не так и запрос не удалось сделать
+        return False
+    request = {'result': {'contest': ['name']}}
+    name = parsing_json_with_parameter(request_for_cf, request)
+    return name
+
+def add_contestt(link, divison):
+    if link == "" or divison == "":
         return {"status": False}
     divs = get_all_divs()
+    name = get_name_contest(link)
+    if type(name) == type(False):
+        return {"status": False}
     for item in divs:
         if item.name == divison:
             if not add_contest(name, link, [item]):
