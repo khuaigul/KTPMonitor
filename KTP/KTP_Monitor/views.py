@@ -83,6 +83,8 @@ def pupil(request):
 def divisionStats(request):
     return render(request, 'main/divisionStats.html')
 
+def addContest(request):
+    return render(request, 'main/addContest.html')
 
 @csrf_exempt 
 def signin(request):

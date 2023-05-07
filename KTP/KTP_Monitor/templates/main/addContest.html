@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'main/css/ktpmonitor.css' %}" >
+	<script type="text/javascript" src="{% static 'main/js/contests.js' %}"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Контест</title>
+</head>
+<body>
+	<h1 class="usual_header">
+		Контесты
+	</h1>
+	<div class="side_menu">
+		<p>
+			<button onclick="toProfile()">
+				Мой профиль
+			</button>
+		</p>
+		<p>
+			<button onclick="toDivisions()">
+				Дивизионы
+			</button>
+		</p>	
+		<p>
+			<button onclick="toContests()">
+				Контесты
+			</button>
+		</p>
+		<p>
+			<button onclick="toStudents()">
+				Ученики
+			</button>
+		</p>
+		<p>
+			<button onclick="toStats()">
+				Статистика
+			</button>
+		</p>
+		<p>
+			<button onclick="toController()">
+				Управление
+			</button>
+		</p>
+		<p>
+			<button onclick="toNotifications()">
+				Объявления
+			</button>
+		</p>
+		<p>
+			<button onclick="toExit()">
+				Выйти
+			</button>
+		</p>
+	</div>
+	<div class="block"> 
+		<p>
+			Название
+		</p>
+		<input id="contestName" type="text" name="">
+		<p>
+			Ссылка
+		</p>
+		<input id="link" type="text" name="">
+		<p>
+			Дивизионы
+		</p>
+		<p class="data">
+			<input id="allDivisions" class="checkbox" type="checkbox" name="">
+			<a>Выбрать все
+			</a>
+		</p>
+		<script type="module">
+			divCheckBox()
+		</script>
+		<button class="usual_button" onclick="addNewContest()">
+			Добавить
+		</button>
+	</div>
+</body>
+</html> 

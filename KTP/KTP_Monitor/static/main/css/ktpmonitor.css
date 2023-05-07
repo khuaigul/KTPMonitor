@@ -330,3 +330,21 @@ body{
 	visibility:visible;
 }
 .clone thead, .clone tfoot{background:transparent;}
+
+
+.checkbox{
+	width: 15px;
+	height: 15px;
+	float: left;
+}
+
+.movedCheckbox{
+	width: 15px;
+	height: 15px;
+	float: left;
+	margin-left: 15px;
+}
+
+.data{
+	width: 100%;
+}
