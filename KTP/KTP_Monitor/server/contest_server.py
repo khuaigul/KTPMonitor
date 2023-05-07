@@ -50,7 +50,7 @@ def get_name_contest(lint):
         return False
     request = {'result': {'contest': ['name']}}
     name = parsing_json_with_parameter(request_for_cf, request)
-    return name
+    return name['name']
 
 def add_contestt(link, divison):
     if link == "" or divison == "":
