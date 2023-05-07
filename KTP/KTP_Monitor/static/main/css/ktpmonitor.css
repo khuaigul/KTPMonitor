@@ -30,6 +30,15 @@ p {
 	height: 30px;
 }
 
+.div_selector{
+	margin-left: 5px;
+	padding: 2px;
+	text-align: left;
+	font-size: 12px;
+/*	height: 30px;*/
+	background-color: #E2B9FF;
+}
+
 input{
 	width: 40%;
 	height: 30px;

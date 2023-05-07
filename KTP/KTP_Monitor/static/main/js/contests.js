@@ -113,25 +113,25 @@ function showContests(sender)
 
 function get_contests(name, block)
 {
-	var str = '{"contests" : [{"name" : "Дерево отрезков", "id" : "1234"}, {"name" : "Геометрия", "id" : "2354"}, {"name" : "Графы", "id" : "7544"}]}';
-	return show_contests(str, block); 
+	// var str = '{"contests" : [{"name" : "Дерево отрезков", "id" : "1234"}, {"name" : "Геометрия", "id" : "2354"}, {"name" : "Графы", "id" : "7544"}]}';
+	// return show_contests(str, block); 
 
-	// var params = 'division=' + encodeURIComponent(name);
-	// var xhr_d = new XMLHttpRequest();
+	var params = 'division=' + encodeURIComponent(name);
+	var xhr_d = new XMLHttpRequest();
 
-	// xhr_d.onload = function(){
-	// 	if (xhr_d.status != 200){
-	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-	// 	}
-	// 	else 
-	// 	{
-	// 		get_Json = xhr_d.responseText;
-	// 		return show_contests(get_Json, block);
-	// 	}
-	// }
-	// xhr_d.open("GET", 'http://127.0.0.1:8000/contestsList?', true);
-	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// xhr_d.send(params);
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_Json = xhr_d.responseText;
+			return show_contests(get_Json, block);
+		}
+	}
+	xhr_d.open("GET", 'http://127.0.0.1:8000/contestsList?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(params);
 }
 
 function show_contests(contests_json, block)
@@ -229,6 +229,9 @@ function showDivisionsCheckBox(json_divisions)
 function addNewContest()
 {
 	var link = document.getElementById("link").value;
+	link = link.split('/');
+	link = link[link.length-1];
+	alert(link);
 	var name = document.getElementById("contestName").value;
 
 

@@ -59,7 +59,7 @@ function getJson_students_divs()
 					alert('Ошибка ${xhr.status} : ${xhr.statusText}');
 				}
 				else 
-				{
+				{		
 					get_div_Json = xhr_d.responseText;
 					localStorage.setItem('studentList', getJson);
 					localStorage.setItem('divList', get_div_Json);
@@ -79,24 +79,25 @@ function getJson_students_divs()
 
 function show_student(student_info)
 {
-	console.log("show");
-	let dv = document.querySelectorAll(".header_empty");
-	let header = document.createElement("h1");
-	var nickName = localStorage.getItem('nicknameToShow');
-	header.innerHTML = "Профиль школьника: " + nickName;
-	dv[0].appendChild(header);
+	alert(student_info)
+	// console.log("show");
+	// let dv = document.querySelectorAll(".header_empty");
+	// let header = document.createElement("h1");
+	// var nickName = localStorage.getItem('nicknameToShow');
+	// header.innerHTML = "Профиль школьника: " + nickName;
+	// dv[0].appendChild(header);
 
-	console.log(student_info);
-	const info = JSON.parse(student_info);
+	// console.log(student_info);
+	// const info = JSON.parse(student_info);
 
-	make_info_element(info["surname"], "Фамилия");
-	make_info_element(info["name"], "Имя");
-	make_info_element(info["secondname"], "Отчество");
-	make_info_element(info["div"], "Дивизион");
-	make_info_element(info["nickname"], "Ник на Codeforces");
-	make_info_element(info["datebirth"], "Дата рождения");
-	make_info_element(info["school"], "Школа");
-	make_info_element(info["form"], "Класс");
+	// make_info_element(info["surname"], "Фамилия");
+	// make_info_element(info["name"], "Имя");
+	// make_info_element(info["secondname"], "Отчество");
+	// make_info_element(info["div"], "Дивизион");
+	// make_info_element(info["nickname"], "Ник на Codeforces");
+	// make_info_element(info["datebirth"], "Дата рождения");
+	// make_info_element(info["school"], "Школа");
+	// make_info_element(info["form"], "Класс");
 }
 
 function set_new_div(name, div)
@@ -136,78 +137,81 @@ function save_division_update()
 	document.location="students";
 }
 
-
-
-function show_students_list()
+function show()
 {
-	var students_list = localStorage.getItem('studentList');
-	var div_list = localStorage.getItem('divList');
-	console.log("third", students_list);
-	const obj = JSON.parse(students_list);
-	const div = JSON.parse(div_list);
+	var xhr_d = new XMLHttpRequest();
 
-	console.log(div);
-
-	console.log(obj["students"].length);
-
-	obj["students"].sort(function(a, b){
-		console.log("sort");
-		if (a["div"] == "не выбрано")
-		{
-			console.log("sort1");
-			return 1;
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
 		}
-		else if (b["div]"] == "не выбрано")
+		else 
 		{
-			console.log("sort2");
-			return 0;
+			get_div_Json = xhr_d.responseText;
+			showPupils(get_div_Json);
 		}
-		else
-		{
-			console.log("sort3");
-			return a["div"] < b["div"];
-		}
-	});
-
-	for (var i = 0; i < obj["students"].length; i++)
-	{
-		let par = document.createElement("p");
-		let nickName = document.createElement("a");
-		let name = document.createElement("a");
-		nickName.innerHTML = obj["students"][i]["nickname"];
-		// nickName.setAttribute("onclick", 'show_student(' + obj["students"][i]["nickname"] + ')');
-		nickName.setAttribute("class", "link");
-		nickName.addEventListener('click', function(){
-			show_student_page(nickName.innerHTML)});
-		console.log("MADE");
-		name.innerHTML = ": " + obj["students"][i]["surname"] + " " + obj["students"][i]["name"] + " " + obj["students"][i]["secondname"]
-		let div_change = document.createElement("select");
-		for (var j = 0; j < div["divisions"].length; j++)
-		{
-			if (div["divisions"][j] == obj["students"][i]["div"])
-			{
-				let opt = document.createElement("option");
-				opt.setAttribute("selected", "selected"); 
-				opt.innerHTML = div["divisions"][j];
-				div_change.appendChild(opt);
-			}
-			else
-			{
-				let opt = document.createElement("option");
-				opt.innerHTML = div["divisions"][j];
-				div_change.appendChild(opt);
-			}
-		}
-		par.appendChild(nickName);
-		par.appendChild(name);
-		var id = "nickname_" + obj["students"][i]["nickname"];
-//		alert(id);
-		div_change.setAttribute('id', id);
-		par.appendChild(div_change);
-		let dv = document.querySelectorAll("#students_list");
-		dv[0].appendChild(par);
-//		document.body.appendChild(dv[0]);
 	}
+	xhr_d.open("GET", 'http://127.0.0.1:8000/divisionsRe?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(null);
+}
 
-//	console.log(obj["students"][0]);
+function showPupils(json_divs)
+{
+	var divs = JSON.parse(json_divs)["divisions"];
+	for (var i = 0; i < divs.length; i++)
+	{
+		var p = document.createElement("p");
+		p.innerHTML = "Дивизион " + divs[i];
+		document.querySelectorAll(".block")[0].appendChild(p);
+
+		var str = '{"pupils":[{"surname":"Анисимов","name":"Никита","secondname":"Николаевич","nickname":"aaa"},{"surname":"Ройтбурд","name":"Дан","secondname":"Дмитриевич","nickname":"bbb"},{"name":"Наталья","surname":"Собянина","secondname":"Николаевна","nickname":"ccc"}]}';
+		show_students_list(str, divs[i], divs);
+		// var params = "name=" + divs[i];  
+		// var xhr_d = new XMLHttpRequest();
+
+		// xhr_d.onload = function(){
+		// 	if (xhr_d.status != 200){
+		// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		// 	}
+		// 	else 
+		// 	{
+		// 		get_students_Json = xhr_d.responseText;
+		// 		show_students_list(get_students_Json, divs[i], divs);
+		// 	}
+		// }
+		// xhr_d.open("POST", 'http://127.0.0.1:8000/students_by_div?', true);
+		// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		// xhr_d.send(params);
+	}
+}
+
+function show_students_list(json_students, curDiv, divs)
+{
+	var students = JSON.parse(json_students)["pupils"];
+	for (var i = 0; i < students.length; i++)
+	{
+		var cur_p = document.createElement("p");
+		var a = document.createElement("a");
+		a.setAttribute("class", "link");
+		a.setAttribute("name", students[i]["nickname"]);
+		a.addEventListener('click', function(){
+			show_student(this.getAttribute("name"))});
+		a.innerHTML = students[i]["surname"] + " " + students[i]["name"] + " " + students[i]["secondname"];
+		
+		var sel = document.createElement("select");
+		console.log(divs);
+		for (var j = 0; j < divs.length; j++)
+		{
+			var opt = document.createElement("option");
+			opt.innerHTML = divs[j];
+			sel.appendChild(opt);
+		}
+		sel.setAttribute("selected", curDiv);
+		sel.setAttribute("class", "div_selector");
+
+		cur_p.appendChild(a);
+		cur_p.appendChild(sel);
+		document.querySelectorAll(".block")[0].appendChild(cur_p);
+	}
 }

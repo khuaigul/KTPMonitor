@@ -189,7 +189,8 @@ function deleteDivision()
 			}
 			else 
 			{
-				return;
+				alert("back");	
+				document.location = "divisions";
 			}
 		}		
 	}

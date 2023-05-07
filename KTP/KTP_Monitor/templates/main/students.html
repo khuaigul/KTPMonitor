@@ -4,27 +4,61 @@
 	{% load static %}
 	<link rel="stylesheet" href="{% static 'main/css/ktpmonitor.css' %}" >
 	<script type="text/javascript" src="{% static 'main/js/students.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/menu.js' %}"></script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Студенты</title>
 </head>
 <body>
-	<div class="header_empty">
-		<h1>
-			Списки школьников
-		</h1>
+	<h1 class="name_header">
+		Ученики
+	</h1>
+	<div class="side_menu">
+		<p>
+			<button onclick="toProfile()">
+				Мой профиль
+			</button>
+		</p>
+		<p>
+			<button onclick="toDivisions()">
+				Дивизионы
+			</button>
+		</p>	
+		<p>
+			<button onclick="toContests()">
+				Контесты
+			</button>
+		</p>
+		<p>
+			<button onclick="toStudents()">
+				Ученики
+			</button>
+		</p>
+		<p>
+			<button onclick="toStats()">
+				Статистика
+			</button>
+		</p>
+		<p>
+			<button onclick="toController()">
+				Управление
+			</button>
+		</p>
+		<p>
+			<button onclick="toNotifications()">
+				Объявления
+			</button>
+		</p>
+		<p>
+			<button onclick="toExit()">
+				Выйти
+			</button>
+		</p>
 	</div>
-	<div class = "block">
-	<div id = "students_list">
+	<div class="block">
 		<script type="module">
-			getJson_students_divs();
+			show();
 		</script>
-	</div>
-	<p>
-		<button class="usual_button" onclick="save_division_update()">
-			Сохранить изменения
-		</button>
-	</p>
 	</div>
 </body>
 </html>
