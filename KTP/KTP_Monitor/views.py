@@ -146,6 +146,7 @@ def students_by_div(request):
     print(request.method)
     if request.method == 'POST':
         print(request.POST['name'])
+        print(people.people_write_div(request.POST['name']))
         return JsonResponse(people.people_write_div(request.POST['name']))
     else:
         return JsonResponse({"status": False})
@@ -217,10 +218,11 @@ def testParams(request):
 
 def newContest(request):
     if request.method == 'POST':
+        print(request.POST["link"])
         return JsonResponse(contest.add_contest(request.POST["link"], request.POST["name"], request.POST["divison"]))
     return JsonResponse({"status": False})
 
-def deleteDivisiont(request):
+def deleteDivision(request):
     if request.method == 'POST':
         return JsonResponse(div.remove_div(request.POST["division"]))
     return JsonResponse({"status": False})

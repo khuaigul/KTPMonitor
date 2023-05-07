@@ -153,7 +153,7 @@ function show_contests(contests_json, block)
 
 function show_contest(sender)
 {
-	document.location="contest?id=" + '[' + sender.name + ', fgf]';
+	document.location="contest?id=" + sender.name + "&name=" + sender.innerHTML;
 }
 
 function addContest()
@@ -217,12 +217,21 @@ function showDivisionsCheckBox(json_divisions)
     		}
   		}
 	})
+	var bt = document.createElement("button");
+	bt.setAttribute("class", "usual_button");
+	bt.setAttribute("onclick", "addNewContest()");
+	bt.innerHTML = "Добавить";
+
+	document.querySelectorAll(".block")[0].appendChild(bt);
+
 }
 
 function addNewContest()
 {
 	var link = document.getElementById("link").value;
-	var name = document.getElementById("name").value;
+	var name = document.getElementById("contestName").value;
+
+
 
 	var divs = document.querySelectorAll(".movedCheckbox");
 	for (var i = 0; i < divs.length; i++)
@@ -231,19 +240,22 @@ function addNewContest()
 			continue;
 		var params = "link=" + encodeURIComponent(link) + "&name=" + encodeURIComponent(name) + "&division=" + encodeURIComponent(divs[i]["name"]); 
 		console.log(params);
-		// var xhr_d = new XMLHttpRequest();
+		var xhr_d = new XMLHttpRequest();
 
-		// xhr_d.onload = function(){
-		// 	if (xhr_d.status != 200){
-		// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-		// 	}
-		// 	else 
-		// 	{
-		// 		get_div_Json = xhr_d.responseText;
-		// 	}
-		// }
-		// xhr_d.open("GET", 'http://127.0.0.1:8000/newContest?', true);
-		// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		// xhr_d.send(params);
+		xhr_d.onload = function(){
+			if (xhr_d.status != 200){
+				alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+			}
+			else 
+			{
+				get_div_Json = xhr_d.responseText;
+				var ret = JSON.parse(get_div_Json);
+				if (ret["status"] == true)
+					alert("Контест успешно добавлен");
+			}
+		}
+		xhr_d.open("POST", 'http://127.0.0.1:8000/newContest?', true);
+		xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr_d.send(params);
 	}
 }

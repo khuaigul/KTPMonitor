@@ -40,5 +40,7 @@ urlpatterns = [
     path('deleteDivision', views.deleteDivision, name='deleteDivision'),
     path('newContest', views.newContest, name='newContest'),
     path('updateTeacherProfileData', views.updateTeacherProfileData, name='updateTeacherProfileData'),    
+    path('addContest', views.addContest, name='addContest'),
+
 ]
  
