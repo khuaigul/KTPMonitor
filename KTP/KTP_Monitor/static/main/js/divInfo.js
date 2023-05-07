@@ -109,7 +109,7 @@ function showStudents(students_json)
 	// console.log(document.querySelectorAll(".listTitle"));
 
 
-	students = JSON.parse(students_json)["students"];
+	students = JSON.parse(students_json)["pupils"];
 
 	// console.log(students);
 
@@ -138,9 +138,9 @@ function showContests(contests_json)
 	title.setAttribute("class", "listTitle");
 
 	document.getElementById("contests").appendChild(title);
-	// console.log(document.getElementById("contests"));
-	// console.log(document.querySelectorAll(".listTitle"));
-	document.querySelectorAll(".listTitle")[1].appendChild(p);
+	console.log(document.getElementById("contests"));
+	console.log(document.querySelectorAll(".listTitle"));
+	document.querySelectorAll(".listTitle")[0].appendChild(p);
 
 
 	contests = JSON.parse(contests_json)["contests"];
