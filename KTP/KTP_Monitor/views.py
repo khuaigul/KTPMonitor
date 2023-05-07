@@ -3,7 +3,7 @@ from django.contrib.auth import login as enter_acc, logout as exit_acc
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.models import Permission
 from django.http import JsonResponse
-from .server import contest
+from .server import contest_server
 from .server import div
 from .server import people
 from django.views.decorators.csrf import csrf_exempt
@@ -136,17 +136,13 @@ def logout(request):
 @csrf_exempt
 def divisionsRe(request):
     if request.method == 'GET':
-        print(people.people_write_div('None'))
         return JsonResponse(div.write_div())
     return JsonResponse({"status": False})
 
 
 @csrf_exempt
 def students_by_div(request):
-    print(request.method)
     if request.method == 'POST':
-        print(request.POST['name'])
-        print(people.people_write_div(request.POST['name']))
         return JsonResponse(people.people_write_div(request.POST['name']))
     else:
         return JsonResponse({"status": False})
@@ -155,12 +151,10 @@ def students_by_div(request):
 @csrf_exempt
 def teachers_by_div(request):
     if request.method == 'POST':
-        for i in request.POST:
-            print(i)
         return JsonResponse(people.teacher_write_div(request.POST['name']))
     return JsonResponse({"status": False})
 
-
+@csrf_exempt
 def pupilInfo(request):
     if request.method == 'GET':
         return JsonResponse(people.profile_write(request.GET['nickname']))
@@ -179,7 +173,7 @@ def сhangeDiv(request):
         return JsonResponse(div.change_people_div(request.POST["divisions"], request.POST["nickname"]))
     return JsonResponse({"status": False})
 
-
+@csrf_exempt
 def pupilStats(request):
     if request.method == 'GET':
         return JsonResponse({"status": False})
@@ -192,38 +186,36 @@ def newDivisionRe(request):  #
         return JsonResponse(div.add_div(request.POST["name"]))
     return JsonResponse({"status": False})
 
-
+@csrf_exempt
 def divisionStats(request):
     if request.method == 'GET':
         return JsonResponse({"status": False})
     return JsonResponse({"status": False})
 
-
+@csrf_exempt
 def contestStats(request):
     if request.method == 'GET':
         return JsonResponse({"status": False})
     return JsonResponse({"status": False})
 
-
+@csrf_exempt
 def contestsList(request):
     if request.method == 'GET':
-        return JsonResponse(contest.write_contest_list(request.GET["id"]))
+        return JsonResponse(contest_server.write_contest_list(request.GET["division"]))
     return JsonResponse({"status": False})
 
-
+@csrf_exempt
 def testParams(request):
     if (request.method == 'POST'):
-        print (request.POST["id"])
+        print(request.POST["id"])
 
 
+@csrf_exempt
 def newContest(request):
     if request.method == 'POST':
-        print(request.POST["link"])
-        return JsonResponse(contest.add_contest(request.POST["link"], request.POST["name"], request.POST["divison"]))
+        return JsonResponse(contest_server.add_contestt(request.POST["link"], request.POST["name"], request.POST["division"]))
     return JsonResponse({"status": False})
 
-def deleteDivision(request):
-    if request.method == 'POST':
-        return JsonResponse(div.remove_div(request.POST["division"]))
-    return JsonResponse({"status": False})
+
+
 

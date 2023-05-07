@@ -14,6 +14,7 @@ def write_contest_list(info):  # вывод конкретного Contest
     divs = get_all_divs()
     for item in divs:
         if item.name == info:
+            print("tyt")
             contests = get_all_contests([item])
             write_contests = dict()
             write_contests["status"] = True
@@ -22,6 +23,7 @@ def write_contest_list(info):  # вывод конкретного Contest
                 info_contests = dict()
                 info_contests["name"] = item2.name
                 info_contests["id"] = item2.link
+                name_contests.append(info_contests)
             write_contests["contests"] = name_contests
             return write_contests
     return {"status": False}
@@ -35,22 +37,23 @@ def add_problem(id_contest):
     request = {'result': {'problems': ['name', 'index']}}
     info = parsing_json_with_parameter(request_for_cf, request)
     for item in info:
-        name = item[1]['name']
-        index = item[0]['index']
+        name = item[0]['name']
+        index = item[1]['index']
         add_task(id_contest, index, name)
     return True
 
 
-def add_contest(link, name, divison):
+def add_contestt(link, name, divison):
     if link == "" or name == "" or divison == "":
         return {"status": False}
     divs = get_all_divs()
     for item in divs:
         if item.name == divison:
-            if add_contest(name, link, [item]):
+            if not add_contest(name, link, [item]):
                 return {"status": True}
             if add_problem(link):
                 return {"status": True}
+            return {"status": False}
     return {"status": False}
 
 
@@ -58,6 +61,5 @@ def remove_contest(id_contest):  # удаление конкретного Conte
     if id_contest == "":
         return False
     return True
-
 
 
