@@ -232,16 +232,13 @@ function addNewContest()
 	link = link.split('/');
 	link = link[link.length-1];
 	alert(link);
-	var name = document.getElementById("contestName").value;
-
-
 
 	var divs = document.querySelectorAll(".movedCheckbox");
 	for (var i = 0; i < divs.length; i++)
 	{
 		if (divs[i].checked == false)
 			continue;
-		var params = "link=" + encodeURIComponent(link) + "&name=" + encodeURIComponent(name) + "&division=" + encodeURIComponent(divs[i]["name"]); 
+		var params = "link=" + encodeURIComponent(link) + "&division=" + encodeURIComponent(divs[i]["name"]); 
 		console.log(params);
 		var xhr_d = new XMLHttpRequest();
 
