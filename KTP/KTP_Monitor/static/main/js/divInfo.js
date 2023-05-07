@@ -29,7 +29,7 @@ function getTeachers()
 function showTeachers(teachers_json)
 {
 	teachers = JSON.parse(teachers_json);
-	console.log(teachers["teachers"]);
+	// console.log(teachers["teachers"]);
 
 	var title = document.createElement("p");
 	title.innerHTML = "Преподаватели:"
@@ -47,6 +47,7 @@ function showTeachers(teachers_json)
 function getStudents()
 {	
 	var div = window.location.href.split("?")[1].split("=")[1];
+	alert(div);
 	var params = "name=" + div;  
 	var xhr_d = new XMLHttpRequest();
 
@@ -57,7 +58,7 @@ function getStudents()
 		else 
 		{
 			get_students_Json = xhr_d.responseText;
-			showTeachers(get_students_Json);
+			showStudents(get_students_Json);
 		}
 	}
 	xhr_d.open("POST", 'http://127.0.0.1:8000/students_by_div?', true);
@@ -90,6 +91,8 @@ function getContests()
 
 function showStudents(students_json)
 {
+	console.log("showww");
+	console.log(students_json)
 	var title = document.createElement("div");
 	var p = document.createElement("p");
 	p.innerHTML = "Ученики";
@@ -99,13 +102,16 @@ function showStudents(students_json)
 
 	document.getElementById("students").appendChild(title);
 
+	console.log(document.getElementById("students"));
+
+
 	document.querySelectorAll(".listTitle")[0].appendChild(p);
-	console.log(document.querySelectorAll(".listTitle")[0]);
+	// console.log(document.querySelectorAll(".listTitle"));
 
 
 	students = JSON.parse(students_json)["students"];
 
-	console.log(students);
+	// console.log(students);
 
 	for (var i = 0; i < students.length; i++)
 	{
@@ -132,7 +138,8 @@ function showContests(contests_json)
 	title.setAttribute("class", "listTitle");
 
 	document.getElementById("contests").appendChild(title);
-
+	// console.log(document.getElementById("contests"));
+	// console.log(document.querySelectorAll(".listTitle"));
 	document.querySelectorAll(".listTitle")[1].appendChild(p);
 
 
@@ -191,5 +198,5 @@ function deleteDivision()
 function showStats()
 {
 	var div = window.location.href.split("?")[1].split("=")[1];
-	window.location = "divisionStats?division=" + div;
+	window.location = "division_stats?division=" + div;
 }

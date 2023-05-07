@@ -33,6 +33,7 @@ urlpatterns = [
     path('teachers_by_div', views.teachers_by_div, name='teachers_by_div'),
     path('pupilInfo', views.pupilInfo, name='pupilInfo'),
     path('pupilStats', views.pupilStats, name='pupilStats'),
+    path('division_stats', views.division_stats, name='division_stats'),
     path('divisionStats', views.divisionStats, name='divisionStats'),
     path('contestStats', views.contestStats, name='contestStats'),
     path('contestsList', views.contestsList, name='contestsList'),

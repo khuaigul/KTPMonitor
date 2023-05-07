@@ -70,8 +70,8 @@ def editTeacherProfile(request):
 def pupil(request):
     return render(request, 'main/pupil.html')
 
-def divisionStats(request):
-    return render(request, 'main/divisionStats.html')
+def division_stats(request):
+    return render(request, 'main/division_stats.html')
 
 def addContest(request):
     return render(request, 'main/addContest.html')
@@ -114,7 +114,10 @@ def sendProfileData(request):
 
 @csrf_exempt
 def currentProfileData(request):
+    print("SOME");
     if request.method == 'POST':
+        print("HERER")
+        print(current_profile_data(request))
         return JsonResponse(current_profile_data(request))
     return JsonResponse({"status": False})
 
@@ -140,9 +143,12 @@ def divisionsRe(request):
 
 @csrf_exempt
 def students_by_div(request):
+    print(request.method)
     if request.method == 'POST':
+        print(request.POST['name'])
         return JsonResponse(people.people_write_div(request.POST['name']))
-    return JsonResponse({"status": False})
+    else:
+        return JsonResponse({"status": False})
 
 
 @csrf_exempt
