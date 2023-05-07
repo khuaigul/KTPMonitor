@@ -213,7 +213,7 @@ def testParams(request):
 @csrf_exempt
 def newContest(request):
     if request.method == 'POST':
-        return JsonResponse(contest_server.add_contestt(request.POST["link"], request.POST["name"]))
+        return JsonResponse(contest_server.add_contestt(request.POST["link"], request.POST["division"]))
     return JsonResponse({"status": False})
 
 
