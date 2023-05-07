@@ -21,7 +21,7 @@ def people_write_all():
 
 def people_write_div(info):
 	if info == "":
-		return {"status": False}
+		return {"status": False, "problem": "name clear"}
 	divs = get_all_divs()
 	for item in divs:
 		if item.name == info:
@@ -38,7 +38,7 @@ def people_write_div(info):
 				name_people.append(info_people)
 			write_people["pupils"] = name_people
 			return write_people
-	return {"status": False}
+	return {"status": False, "problem": "dont take name div in bd"}
 
 
 def profile_write(nickname):
