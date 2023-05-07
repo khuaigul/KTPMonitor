@@ -22,7 +22,7 @@ def write_contest_list(info):  # вывод конкретного Contest
             for item2 in contests:
                 info_contests = dict()
                 info_contests["name"] = item2.name
-                info_contests["id"] = item2.link
+                info_contests["link"] = item2.link
                 name_contests.append(info_contests)
             write_contests["contests"] = name_contests
             return write_contests
