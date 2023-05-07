@@ -22,7 +22,7 @@ def check_phone(phone):
 
 
 def check_div(div):
-    if div == None or div == "":
+    if div == "None" or div == "":
         return "не выбран"
     return div
 
@@ -67,4 +67,5 @@ def check_verdict(handle, id_contest, problem):  # проверка на ран�
     if handle == "" or id_contest == "" or problem == "":
         return False
     return True
+
 

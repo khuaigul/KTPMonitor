@@ -13,28 +13,8 @@ def people_write_all():
 		info_people["surname"] = item.lastname
 		info_people["name"] = item.firstname
 		info_people["secondname"] = item.secondname
-		if item.div == None:
-			info_people["div"] = check_div(item.div)
-		else:
-			info_people["div"] = check_div(item.div.name)
+		info_people["div"] = item.div.name
 		name_people.append(info_people)
-	write_people["pupils"] = name_people
-	return write_people
-
-
-def f():  # не бейте просто пока не предусмотрено, что делать с людими без дива
-	pupils = get_all_pupils()
-	write_people = dict()
-	write_people["status"] = True
-	name_people = []
-	for item in pupils:
-		info_people = dict()
-		if item.div == None:
-			info_people["nickname"] = item.CF
-			info_people["surname"] = item.lastname
-			info_people["name"] = item.firstname
-			info_people["secondname"] = item.secondname
-			name_people.append(info_people)
 	write_people["pupils"] = name_people
 	return write_people
 
@@ -42,29 +22,23 @@ def f():  # не бейте просто пока не предусмотрен�
 def people_write_div(info):
 	if info == "":
 		return {"status": False}
-	if info == "не выбран":
-		return f()
 	divs = get_all_divs()
-	flag = True
 	for item in divs:
 		if item.name == info:
 			pupils = get_all_pupils([item])
-			flag = False
-			break
-	if flag:
-		return {"status": False}
-	write_people = dict()
-	write_people["status"] = True
-	name_people = []
-	for item in pupils:
-		info_people = dict()
-		info_people["nickname"] = item.CF
-		info_people["surname"] = item.lastname
-		info_people["name"] = item.firstname
-		info_people["secondname"] = item.secondname
-		name_people.append(info_people)
-	write_people["pupils"] = name_people
-	return write_people
+			write_people = dict()
+			write_people["status"] = True
+			name_people = []
+			for item2 in pupils:
+				info_people = dict()
+				info_people["nickname"] = item2.CF
+				info_people["surname"] = item2.lastname
+				info_people["name"] = item2.firstname
+				info_people["secondname"] = item2.secondname
+				name_people.append(info_people)
+			write_people["pupils"] = name_people
+			return write_people
+	return {"status": False}
 
 
 def profile_write(nickname):
@@ -82,10 +56,7 @@ def profile_write(nickname):
 			write_people["email"] = item.e_mail
 			write_people["phone"] = item.phone
 			write_people["grade"] = item.grade
-			if item.div == None:
-				write_people["division"] = check_div(item.div)
-			else:
-				write_people["division"] = check_div(item.div.name)
+			write_people["division"] = item.div.name
 			write_people["datebitrh"] = item.birthday
 			break
 	return write_people
@@ -95,25 +66,21 @@ def teacher_write_div(info):
 	if info == "":
 		return {"status": False}
 	divs = get_all_divs()
-	flag = 1
-	teachers = []
 	for item in divs:
-		if item.name == info or info == 'не выбрано':
-			teachers = get_all_teachers(item)
-			flag = 0
-			break
-	if flag:
-		return {"status": False}
-	write_teachers = dict()
-	write_teachers["status"] = True
-	all_teachers = []
-	for item in teachers:
-		info_teachers = dict()
-		info_teachers["surname"] = item.lastname
-		info_teachers["name"] = item.firstname
-		info_teachers["secondname"] = item.secondname
-		all_teachers.append(info_teachers)
-	write_teachers["teachers"] = all_teachers
-	return write_teachers
+		if item.name == info:
+			teachers = get_all_teachers([item])
+			write_teachers = dict()
+			write_teachers["status"] = True
+			all_teachers = []
+			for item2 in teachers:
+				info_teachers = dict()
+				info_teachers["surname"] = item2.lastname
+				info_teachers["name"] = item2.firstname
+				info_teachers["secondname"] = item2.secondname
+				all_teachers.append(info_teachers)
+			write_teachers["teachers"] = all_teachers
+			return write_teachers
+	return {"status": False}
+
 
 

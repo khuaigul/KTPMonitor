@@ -5,8 +5,9 @@ from .chek import *
 def add_div(name):  # добавление дивизиона
 	if name == "":
 		return {"status": False}
-	add_new_div(name)
-	return {"status": True}
+	if add_new_div(name):
+		return {"status": True}
+	return {"status": False}
 
 
 def remove_div(div):
@@ -46,7 +47,6 @@ def write_div():
 	div_write["status"] = True
 	for item in divs:
 		div_name.append(item.name)
-	div_name.append("не выбрано")
 	div_write["divisions"] = div_name
 	return div_write
 

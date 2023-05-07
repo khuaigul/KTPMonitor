@@ -53,31 +53,30 @@ function save_changes()
 	var xhr = new XMLHttpRequest();
 
 	var params = 'surname=' + encodeURIComponent(lastname) +
-		'&name=' + encodeURIComponent(name) + 
+		'&firstname=' + encodeURIComponent(firstname) + 
 		'&secondname=' + encodeURIComponent(secondname)+
 		'&nickname=' + encodeURIComponent(nickname)+
 		'&phone=' + encodeURIComponent(phone) + 
 		'&division=' + encodeURIComponent(div);
+	
 
-	console.log(params);
+	xhr.open("POST", 'http://127.0.0.1:8000/updateTeacherProfileData?', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send(params);
 
-	// xhr.open("POST", 'http://127.0.0.1:8000/updateTeacherProfileData?', true);
-	// xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// xhr.send(params);
-
-	// xhr.onload = function(){
-	// 	if (xhr.status != 200){
-	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-	// 	}
-	// 	else {
-	// 		getJson = xhr.responseText;
-	// 		const obj = JSON.parse(getJson);
-	// 		console.log(obj["status"]);
-	// 		if (obj["status"] == true){
-	// 			document.location = "main";
-	// 		}
-	// 	}
-	// }
+	xhr.onload = function(){
+		if (xhr.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else {
+			getJson = xhr.responseText;
+			const obj = JSON.parse(getJson);
+			console.log(obj["status"]);
+			if (obj["status"] == true){
+				document.location = "teacherProfile";
+			}
+		}
+	}
 }
 
 function add_divisions_select(div_json)

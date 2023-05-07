@@ -6,25 +6,24 @@ function setName()
 
 function getTeachers()
 {
-	var div = window.location.href.split("?")[1].split("=")[1];
-	var str = '{"teachers" : [{"name": "Собянина Наталья Николаевна"}, {"name" : "Анисимов Никита Николаевич"}]}';
-	return showTeachers(str); 
+	var div = window.location.href.split("?")[1].split("=")[1];		
 	var params = "name=" + div;
-	// var xhr_d = new XMLHttpRequest();
+	var xhr_d = new XMLHttpRequest();
+	
+	xhr_d.open("POST", 'http://127.0.0.1:8000/teachers_by_div?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(params);
 
-	// xhr_d.onload = function(){
-	// 	if (xhr_d.status != 200){
-	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-	// 	}
-	// 	else 
-	// 	{
-	// 		get_teachers_Json = xhr_d.responseText;
-	// 		showTeachers(get_teachers_Json);
-	// 	}
-	// }
-	// xhr_d.open("GET", 'http://127.0.0.1:8000/teachers_by_div?', true);
-	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// xhr_d.send(params);
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_teachers_Json = xhr_d.responseText;
+			showTeachers(get_teachers_Json);
+		}
+	}
 }
 
 function showTeachers(teachers_json)
@@ -46,26 +45,24 @@ function showTeachers(teachers_json)
 }
 
 function getStudents()
-{
-	var str = '{"students" : [{"name": "Дан", "secondname" : "Дмитриевич", "surname" : "Ройтбурд", "nickname" : "ccc"}, {"name": "Айгуль", "secondname" : "Рустемовна", "surname" : "Хуснутдинова", "nickname" : "bbb"}, {"name": "Никита", "secondname" : "Николаевич", "surname" : "Анисимов", "nickname" : "aa"}]}';
-	return showStudents(str);
+{	
 	var div = window.location.href.split("?")[1].split("=")[1];
 	var params = "name=" + div;  
-	// var xhr_d = new XMLHttpRequest();
+	var xhr_d = new XMLHttpRequest();
 
-	// xhr_d.onload = function(){
-	// 	if (xhr_d.status != 200){
-	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-	// 	}
-	// 	else 
-	// 	{
-	// 		get_students_Json = xhr_d.responseText;
-	// 		showTeachers(get_students_Json);
-	// 	}
-	// }
-	// xhr_d.open("GET", 'http://127.0.0.1:8000/students_by_div?', true);
-	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// xhr_d.send(params);
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_students_Json = xhr_d.responseText;
+			showTeachers(get_students_Json);
+		}
+	}
+	xhr_d.open("POST", 'http://127.0.0.1:8000/students_by_div?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(params);
 }
 
 function getContests()
@@ -175,20 +172,19 @@ function deleteDivision()
 	if (confirm("Вы действительно хотите удалить дивизион " + div + "?"))
 	{
 		var params = "division=" + div;  
-		// var xhr_d = new XMLHttpRequest();
-
-		// xhr_d.onload = function(){
-		// 	if (xhr_d.status != 200){
-		// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-		// 	}
-		// 	else 
-		// 	{
-		// 		return;
-		// 	}
-		// }
-		// xhr_d.open("POST", 'http://127.0.0.1:8000/deleteDivision?', true);
-		// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		// xhr_d.send(params);
+		var xhr_d = new XMLHttpRequest();
+		xhr_d.open("POST", 'http://127.0.0.1:8000/deleteDivision?', true);
+		xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr_d.send(params);
+		xhr_d.onload = function(){
+			if (xhr_d.status != 200){
+				alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+			}
+			else 
+			{
+				return;
+			}
+		}		
 	}
 }
 

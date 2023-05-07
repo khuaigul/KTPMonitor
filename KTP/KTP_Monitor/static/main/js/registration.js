@@ -68,15 +68,22 @@ function send_registration_data(email, password)
 		if (xhr.status != 200){	
 			alert('Ошибка ${xhr.status} : ${xhr.statusText}');		
 		}
-		else {
+		else {			
 			getJson = xhr.responseText;
 			const obj = JSON.parse(getJson);
 			console.log(obj["status"]);
+			let text = document.createElement("p");
+			text.setAttribute("class", "note");
+			text.setAttribute("id", "errortext");							
 			if (obj["status"] == true){				
-				document.location = "main";
+				text.innerHTML = "Письмо с подтверждением отправлено на вашу почту";
+				alert("Вам на почту придет письмо с ссылкой для подтверждения регистрации");
+				document.location = "main";				
 			}
-			else
-				return false;
+			else{					
+				text.innerHTML = "Почта уже зарегистрированна";				
+			}
+			document.querySelectorAll(".block")[0].appendChild(text);
 		}
 	}
 }
@@ -115,11 +122,11 @@ function send_profile_data(uid)
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.send(params);
 
-	xhr.onload = function(){
+	return xhr.onload = function(){
 		if (xhr.status != 200){		
 			alert('Ошибка ${xhr.status} : ${xhr.statusText}');	
 		}
-		else {
+		else {			
 			getJson = xhr.responseText;			
 			const obj = JSON.parse(getJson);
 			console.log(obj["status"]);
@@ -127,12 +134,13 @@ function send_profile_data(uid)
 				document.location = "http://127.0.0.1:8000/main";
 			}
 			else if (obj["status"] == "nicknameExists")
-			{
+			{			
 				var note = document.createElement("p");
 				note.setAttribute("class", "note");
 				note.setAttribute("id", "errortext");
-				note.innerHTML = "Никнейм уже зарегестрирован";
-				document.querySelectorAll(".block")[0].appendChild(p);
+				note.innerHTML = "Никнейм уже зарегистрирован";
+				console.log(document.querySelectorAll(".block")); 
+				document.querySelectorAll(".block")[0].appendChild(note);
 			}
 		}
 	}
@@ -225,17 +233,17 @@ function register()
 			text1.innerHTML = "Пароль должен содержать символы латинского алфавита";
 		block.appendChild(text1);
 	}
-	else if (document.getElementById("infotext") == null)
+	else
 	{
-		let text = document.createElement("p");
-		text.setAttribute("class", "note");
-		text.setAttribute("id", "errortext");
-		text.innerHTML = "Письмо с подтверждением отправлено на вашу почту";
+		// let text = document.createElement("p");
+		// text.setAttribute("class", "note");
+		// text.setAttribute("id", "errortext");
+		// text.innerHTML = "Письмо с подтверждением отправлено на вашу почту";
 
 
-		if (send_registration_data(email[0].value, password[0].value) == false)
-			text.innerHTML = "Почта уже зарегестрированна";
-		block.appendChild(text);
+		send_registration_data(email[0].value, password[0].value);
+			// text.innerHTML = "Почта уже зарегестрированна";
+		// block.appendChild(text);
 	}
 }
 
