@@ -170,18 +170,18 @@ get_all_teachers(divs)
 get_statistic_contest(link)
 
 - принимает ссылку на контест. 
-- возвращает словарь словарей, где внешний словарь - буква задачи, внутренний словарь - ник ученика, хранящий пару (кол-во попыток, вердикт)
+- возвращает словарь словарей, где внешний словарь - экземпляр класса задачи, внутренний словарь - экземпляр класса ученика, хранящий пару (кол-во попыток, вердикт)
 - особенности:
 	1) ученик появится в статистике, только если он сделал хотя бы одну посылку в контесте.
-	2) значение result[task_letter][pupil_nick] может быть равно null, если ученик не делал посылок по этой задаче
+	2) значение result[task][pupil] может быть равно null, если ученик не делал посылок по этой задаче
 
 пример вызова:
 
-result = get_statistic_contest("cf/link")
+result = get_statistic_contest("link1")
 
-for task_letter in result:
-    for pupil_nick in result[task_letter]:
-        print(result[task_letter][pupil_nick], sep= ' ')
+for task in result:
+    for pupil in result[task]:
+        print("res[", task.letter, "][", pupil.CF, "] = ",  result[task][pupil], sep= ' ')
     print()
 
 
