@@ -5,8 +5,11 @@ from .parsing import parsing_json_with_parameter
 from .API_CF import authorized_request
 from .chek import *
 from .DB.main_DB_modul import *
-
-
+import time
+from django.db import IntegrityError
+from django.db import transaction
+from db_mutex import DBMutexError, DBMutexTimeoutError
+from db_mutex.db_mutex import db_mutex
 
 def write_contest_list(info):  # вывод конкретного Contest
     if info == "":
@@ -39,6 +42,7 @@ def add_problem(id_contest):
     for item in info:
         name = item[0]['name']
         index = item[1]['index']
+        print(index, name)
         add_task(id_contest, index, name)
     return True
 
@@ -52,21 +56,39 @@ def get_name_contest(lint):
     name = parsing_json_with_parameter(request_for_cf, request)
     return name['name']
 
+
 def add_contestt(link, divison):
-    if link == "" or divison == "":
-        return {"status": False}
-    divs = get_all_divs()
-    name = get_name_contest(link)
-    if type(name) == type(False):
-        return {"status": False}
-    for item in divs:
-        if item.name == divison:
-            if not add_contest(name, link, [item]):
-                return {"status": True}
-            if add_problem(link):
-                return {"status": True}
+#    while(True):
+    try:
+        with db_mutex('lock_id'):
+            if link == "" or divison == "":
+                return {"status": False}
+            divs = get_all_divs()
+            name = get_name_contest(link)
+            if type(name) == type(False):
+                return {"status": False}
+            print(name)
+            print(link)
+            for item in divs:
+                if item.name == divison:
+                    if not add_contest(name, link, [item]):
+                        print("add contest")
+                        return {"status": True}
+
+                    print("add task!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
+                    while True:
+                        if add_problem(link):
+                            return {"status": True}
+            pass
             return {"status": False}
-    return {"status": False}
+#            break
+    except DBMutexError:
+        print('Could not obtain lock')
+    except DBMutexTimeoutError:
+        print('Task completed but the lock timed out')
+    except Exception as e:
+        print(0)
+
 
 
 def remove_contest(id_contest):  # удаление конкретного Contest
