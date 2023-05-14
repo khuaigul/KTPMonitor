@@ -90,10 +90,10 @@ def add_contestt(link, divison):
         print(0)
 
 
-
 def remove_contest(id_contest):  # удаление конкретного Contest
     if id_contest == "":
-        return False
-    return True
+        return {"status": False}
+    delete_contest(id_contest)
+    return {"status": True}
 
 

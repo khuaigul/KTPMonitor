@@ -204,7 +204,6 @@ def contestStats(request):
 @csrf_exempt
 def contestsList(request):
     if request.method == 'GET':
-        print(list(request.GET.items()))
         return JsonResponse(contest_server.write_contest_list(request.GET["division"]))
     return JsonResponse({"status": False})
 
@@ -222,5 +221,15 @@ def newContest(request):
     return JsonResponse({"status": False})
 
 
+@csrf_exempt
+def deleteContest(request):
+    if request.method == 'POST':
+        return JsonResponse(contest_server.remove_contest(request.POST["link"]))
+    return JsonResponse({"status": False})
 
 
+@csrf_exempt
+def updatePupilDivison(request):
+    if request.method == 'POST':
+        return JsonResponse(div.change_div_people(list(request.POST.items())))
+    return JsonResponse({"status": False})

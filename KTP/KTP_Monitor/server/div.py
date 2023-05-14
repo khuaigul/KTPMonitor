@@ -50,3 +50,7 @@ def write_div():
 	div_write["divisions"] = div_name
 	return div_write
 
+
+def change_div_people(info):
+	return False
+

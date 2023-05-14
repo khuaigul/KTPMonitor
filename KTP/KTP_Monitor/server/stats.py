@@ -19,7 +19,7 @@ def contest_stats(link):
         for pupil in result[task]:
             info = result[task][pupil].split()
             if pupil.CF in name:
-                problem = all_people[1]['problems']
+                problem = all_people[people[pupil.CF]]['problems']
                 problem.append({task.name: info[1]})
                 all_people[people[pupil.CF]]['problems'] = problem
             else:
