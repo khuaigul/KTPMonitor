@@ -76,6 +76,9 @@ def division_stats(request):
 def addContest(request):
     return render(request, 'main/addContest.html')
 
+def edit_pupil_profile(request):
+    return render(request, 'main/edit_pupil_profile.html')
+
 @csrf_exempt 
 def signin(request):
     if request.method=='POST':

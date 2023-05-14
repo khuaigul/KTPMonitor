@@ -192,6 +192,7 @@ function show_students_list(json_students, curDiv, divs)
 	for (var i = 0; i < students.length; i++)
 	{
 		var cur_p = document.createElement("p");
+		cur_p.setAttribute("class", "pupil");
 		var a = document.createElement("a");
 		a.setAttribute("class", "link");
 		a.setAttribute("name", students[i]["nickname"]);
@@ -208,10 +209,24 @@ function show_students_list(json_students, curDiv, divs)
 			sel.appendChild(opt);
 		}
 		sel.setAttribute("selected", curDiv);
+		sel.setAttribute("name", curDiv);
 		sel.setAttribute("class", "div_selector");
 
 		cur_p.appendChild(a);
 		cur_p.appendChild(sel);
 		document.querySelectorAll(".block")[0].appendChild(cur_p);
+	}
+
+	var bt = document.createElement("button");
+	bt.setAttribute("class", "usual_button");
+	bt.setAttribute("onclick", save_changes());
+}
+
+function save_changes()
+{
+	var pupils = document.querySelectorAll(".pupil");
+	for (var i = 0; i < pupils.length; i++)
+	{
+		if ()
 	}
 }
