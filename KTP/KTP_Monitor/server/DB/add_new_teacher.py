@@ -1,4 +1,4 @@
-import mysql.connector
+# import mysql.connector
 from KTP_Monitor.models import Teacher_Info
 from KTP_Monitor.models import Pupil_Info
 

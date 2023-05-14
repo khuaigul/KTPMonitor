@@ -1,4 +1,4 @@
-import mysql.connector
+# import mysql.connector
 from KTP_Monitor.models import Div_Info
 
 
