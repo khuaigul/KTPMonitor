@@ -16,19 +16,6 @@ from .server.signin import sign_in
 from .server.registrationRe import registration_Re
 from .server.currentProfileData import current_profile_data
 
-pupils = get_all_pupils()
-contests = get_all_contests()
-print(contests[0].link)
-
-result = get_statistic_contest("link1")
-
-print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-
-for task in result:
-    for pupil in result[task]:
-        print("res[", task.letter, "][", pupil.CF, "] = ",  result[task][pupil], sep= ' ')
-    print()
-
 def main(request):     
     return render(request, 'main/main.html')
 
