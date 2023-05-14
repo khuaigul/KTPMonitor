@@ -9,13 +9,88 @@
 	<title>Профиль студента</title>
 </head>
 <body>
-	<div class="header_empty">
+	<h1 class="usual_header">
 		
+	</h1>
+	<div class="side_menu">
+		<p>
+			<button onclick="toProfile()">
+				Мой профиль
+			</button>
+		</p>
+		<p>
+			<button onclick="toDivisions()">
+				Дивизионы
+			</button>
+		</p>	
+		<p>
+			<button onclick="toContests()">
+				Контесты
+			</button>
+		</p>
+		<p>
+			<button onclick="toStudents()">
+				Ученики
+			</button>
+		</p>
+		<p>
+			<button onclick="toStats()">
+				Статистика
+			</button>
+		</p>
+		<p>
+			<button onclick="toController()">
+				Управление
+			</button>
+		</p>
+		<p>
+			<button onclick="toNotifications()">
+				Объявления
+			</button>
+		</p>
+		<p>
+			<button onclick="toExit()">
+				Выйти
+			</button>
+		</p>
 	</div>
 	<div class="block">
 		<script type="module">
 			getJson_profile()
 		</script>
+		<p class="info">
+			<img src="{% static 'main/images/mail.png' %}">
+			<a id="email"></a>
+		</p>
+		<p class="info">
+			<img src="{% static 'main/images/telegram.png' %}">
+			<a id="phone"></a>
+		</p>
+		<p>
+			<a id="division">
+				Дивизион: 
+			</a>
+		</p>
+		<p>
+			<a id="datebirth">
+				Дата рождения: 
+			</a>
+		</p>
+		<p>
+			<a id="school">
+				Школа: 
+			</a>
+		</p>
+		<p>
+			<a id="grade">
+				Класс: 
+			</a>
+		</p>
+		<p>
+			<button class="usual_button" onclick="showPupilStat()">
+				Статистика
+			</button>
+		</p>
 	</div>
 </body>
-</html>
+</html> 
