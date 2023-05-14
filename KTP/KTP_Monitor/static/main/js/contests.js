@@ -92,7 +92,7 @@ function showContests(sender)
 		let img = blocks[i].querySelectorAll("img")[0];
 		img["src"] = "/static/main/images/minus.png";
 
-		let name = sender["name"];
+		var name = sender["name"];
 
 		if (img["name"] == "plus")
 		{
@@ -116,17 +116,19 @@ function get_contests(name, block)
 	// var str = '{"contests" : [{"name" : "Дерево отрезков", "id" : "1234"}, {"name" : "Геометрия", "id" : "2354"}, {"name" : "Графы", "id" : "7544"}]}';
 	// return show_contests(str, block); 
 
-	var params = 'division=' + encodeURIComponent(name);
+	alert(name);
+	var params = 'division='+ encodeURIComponent(name);
 	var xhr_d = new XMLHttpRequest();
 
+	console.log(params);
 	xhr_d.onload = function(){
 		if (xhr_d.status != 200){
 			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
 		}
 		else 
 		{
-			get_Json = xhr_d.responseText;
-			return show_contests(get_Json, block);
+			get_div_Json = xhr_d.responseText;
+			return show_contests(get_div_Json);
 		}
 	}
 	xhr_d.open("GET", 'http://127.0.0.1:8000/contestsList?', true);

@@ -204,6 +204,7 @@ def contestStats(request):
 @csrf_exempt
 def contestsList(request):
     if request.method == 'GET':
+        print (request.GET["division"])
         return JsonResponse(contest_server.write_contest_list(request.GET["division"]))
     return JsonResponse({"status": False})
 
