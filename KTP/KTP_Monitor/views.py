@@ -160,6 +160,7 @@ def teachers_by_div(request):
 @csrf_exempt
 def pupilInfo(request):
     if request.method == 'GET':
+
         return JsonResponse(people.profile_write(request.GET['nickname']))
     return JsonResponse({"status": False})
 
@@ -201,12 +202,16 @@ def contestStats(request):
         return JsonResponse({"status": False})
     return JsonResponse({"status": False})
 
+
 @csrf_exempt
 def contestsList(request):
     if request.method == 'GET':
-        print (request.GET["division"])
+        print("запрос пришёл таким :", request.GET.get('division', None))
+        # print("запрос пришёл таким :", request.POST)
+        return JsonResponse({"status": False})
         return JsonResponse(contest_server.write_contest_list(request.GET["division"]))
     return JsonResponse({"status": False})
+
 
 @csrf_exempt
 def testParams(request):
@@ -217,8 +222,7 @@ def testParams(request):
 @csrf_exempt
 def newContest(request):
     if request.method == 'POST':
-        result = contest_server.add_contestt(request.POST["link"], request.POST["division"])
-        return JsonResponse(result)
+        return JsonResponse(contest_server.add_contestt(request.POST["link"], request.POST["division"]))
     return JsonResponse({"status": False})
 
 

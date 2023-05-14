@@ -52,5 +52,17 @@ def write_div():
 
 
 def change_div_people(info):
-	return False
+	people = []
+	div = []
+	ch = 0
+	for item in info:
+		if item[0][0] == 'p':
+			ch = ch + 1
+			people.append(info[1])
+		else:
+			div.append(info[1])
+	while ch:
+		ch = ch - 1
+		change_people_div(div[ch], people[ch])
+	return {"status": True}
 
