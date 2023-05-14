@@ -41,6 +41,7 @@ urlpatterns = [
     path('newContest', views.newContest, name='newContest'),
     path('updateTeacherProfileData', views.updateTeacherProfileData, name='updateTeacherProfileData'),    
     path('addContest', views.addContest, name='addContest'),
+    path('edit_pupil_profile', views.edit_pupil_profile, name='edit_pupil_profile'),
 
 ]
  
