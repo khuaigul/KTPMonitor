@@ -1,41 +1,48 @@
-function show_student_page(nickname)
+function showPupilHeader()
 {
-	console.log("NICK", nickname);
-//	document.location="student_profile";
-	localStorage.setItem('nicknameToShow', nickname);
-	document.location="student_profile";
-
+	var nickname = window.location.href.split('?')[1].split('=')[1];
+	
 }
 
 function getJson_profile()
 {
-//	var profile_info = '{"nickname" : "abcd", "surname" : "Иванов", "name" : "Иван", "secondname" : "Иванович", "div" : "A", "datebirth" : "12.05.2005", "school" : "Школа № 99", "form" : 10, "lastActivity" : "2 days ago"}';
-	var nickname = localStorage.getItem('nicknameToShow');
+	var profile_info = '{"email" : "a@a", "nickname" : "abcd", "surname" : "Иванов", "name" : "Иван", "secondname" : "Иванович", "division" : "A", "datebirth" : "12.05.2005", "school" : "Школа № 99", "grade" : 10, "phone" : "89212222222"}';
+	var nickname = window.location.href.split('?')[1].split('=')[1];
 	var params = 'nickname=' + encodeURIComponent(nickname);
-//	return profile_info;
-
-	var xhr = new XMLHttpRequest();
-	xhr.onload = function(){
-		if (xhr.status != 200){
-			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-		} 
-		else
-		{
-//			alert(xhr.responseText);
-			show_student(xhr.responseText);
-		}
-	}
-	xhr.open("POST", 'http://127.0.0.1:8000/studentProfile?', true);
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send(params);
+	return showStudent(profile_info);
+// 	var xhr = new XMLHttpRequest();
+// 	xhr.onload = function(){
+// 		if (xhr.status != 200){
+// 			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+// 		} 
+// 		else
+// 		{
+// //			alert(xhr.responseText);
+// 			showStudent(xhr.responseText);
+// 		}
+// 	}
+// 	xhr.open("POST", 'http://127.0.0.1:8000/pupilProfileInfo?', true);
+// 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+// 	xhr.send(params);
 }
 
-function make_info_element(value, position)
+function showStudent(pupil_json)
 {
-	let block = document.querySelectorAll(".block");
-	let p = document.createElement("p");
-	p.innerHTML = position + ": " + value;
-	block[0].appendChild(p);
+	var pupil = JSON.parse(pupil_json);
+	document.querySelectorAll("h1")[0].innerHTML = pupil["surname"] + " " + pupil["name"] + " " + pupil["secondname"];
+	make_info_element(pupil, "email");
+	make_info_element(pupil, "phone");
+	make_info_element(pupil, "datebirth");
+	make_info_element(pupil, "school");
+	make_info_element(pupil, "grade");
+	make_info_element(pupil, "division");
+
+
+}
+
+function make_info_element(pupil, value)
+{
+	document.getElementById(value).innerHTML += pupil[value];
 }
 
 function getJson_students_divs()
@@ -79,66 +86,14 @@ function getJson_students_divs()
 
 function show_student(student_info)
 {
-	alert(student_info)
-	// console.log("show");
-	// let dv = document.querySelectorAll(".header_empty");
-	// let header = document.createElement("h1");
-	// var nickName = localStorage.getItem('nicknameToShow');
-	// header.innerHTML = "Профиль школьника: " + nickName;
-	// dv[0].appendChild(header);
-
-	// console.log(student_info);
-	// const info = JSON.parse(student_info);
-
-	// make_info_element(info["surname"], "Фамилия");
-	// make_info_element(info["name"], "Имя");
-	// make_info_element(info["secondname"], "Отчество");
-	// make_info_element(info["div"], "Дивизион");
-	// make_info_element(info["nickname"], "Ник на Codeforces");
-	// make_info_element(info["datebirth"], "Дата рождения");
-	// make_info_element(info["school"], "Школа");
-	// make_info_element(info["form"], "Класс");
+	document.location="student_profile?nickname=" + encodeURIComponent(student_info);
+	
 }
 
-function set_new_div(name, div)
-{
-	var params = 'nickname=' + encodeURIComponent(name) + '&div=' + encodeURIComponent(div);
-	var xhr = new XMLHttpRequest();
-	alert(name, div);
-	xhr.onload = function(){
-		if (xhr.status != 200){
-			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-		} 
-		else
-		{
-			console.log(xhr.responseText)
-		}
-	}
-	xhr.open("POST", 'http://127.0.0.1:8000/сhangeDiv?', true);
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send(params);
-}
-
-function save_division_update()
-{
-	var students_list = localStorage.getItem('studentList');
-	var div_list = localStorage.getItem('divList');
-	const students = JSON.parse(students_list);
-	for (var i = 0; i < students["students"].length; i++)
-	{
-		var nickname = students["students"][i]["nickname"];
-		var sel = document.getElementById('nickname_' + nickname);
-		if (sel.value != students["students"][i]["div"])
-		{
-		    alert(nickname, sel.value);
-		    set_new_div(nickname, sel.value);
-		}
-	}
-	document.location="students";
-}
 
 function show()
 {
+	alert("show");
 	var xhr_d = new XMLHttpRequest();
 
 	xhr_d.onload = function(){
@@ -205,10 +160,13 @@ function show_students_list(json_students, curDiv, divs)
 		for (var j = 0; j < divs.length; j++)
 		{
 			var opt = document.createElement("option");
+			if (divs[j] == curDiv)
+				opt.setAttribute("selected", "selected");
+			opt.setAttribute("value", divs[j]);
 			opt.innerHTML = divs[j];
 			sel.appendChild(opt);
 		}
-		sel.setAttribute("selected", curDiv);
+		// sel.setAttribute("selected", curDiv);
 		sel.setAttribute("name", curDiv);
 		sel.setAttribute("class", "div_selector");
 
@@ -224,9 +182,78 @@ function show_students_list(json_students, curDiv, divs)
 
 function save_changes()
 {
+	var params = "";
+	var cnt = 0;
 	var pupils = document.querySelectorAll(".pupil");
 	for (var i = 0; i < pupils.length; i++)
 	{
-		if ()
+		var sel = pupils[i].querySelectorAll("select")[0];
+		var a = pupils[i].querySelectorAll("a")[0];
+
+		var nickname = a.getAttribute("name");
+		var oldDiv = sel.getAttribute("name");
+
+		var newDiv = sel.value;
+
+		if (oldDiv != newDiv)
+		{
+			console.log(nickname);
+			console.log(newDiv);
+			console.log(oldDiv);
+
+			cnt = cnt + 1;
+			if (cnt == 1)
+			{
+				params = "pupil1=" + encodeURIComponent(nickname) + "&division1=" + encodeURIComponent(newDiv);
+			}
+			else
+			{
+				params = params + "&pupil" + cnt + "=" + encodeURIComponent(nickname) + "&division" + cnt + "=" + encodeURIComponent(newDiv);
+			}
+		}
 	}
+
+	// var xhr_d = new XMLHttpRequest();
+
+	// xhr_d.onload = function(){
+	// 	if (xhr_d.status != 200){
+	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+	// 	}
+	// 	else 
+	// 	{
+			// document.location="students";
+	// 	}
+	// }
+	// xhr_d.open("POST", 'http://127.0.0.1:8000/updatePupilDivision?', true);
+	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	// xhr_d.send(params);
+}
+
+function showPupilStats()
+{
+	var nickname = window.location.href.split('?')[1].split('=')[1];
+	var params = "nickname=" + encodeURIComponent(nickname);
+	var str = '"stats" : [{"name" : "Дерево отрезков", "solved" : "6", "count" : "10"}, {"name" : "Графы", "solved" : "4", "count" : "12"}]';
+	showStats(str);
+	// var xhr_d = new XMLHttpRequest();
+
+	// xhr_d.onload = function(){
+	// 	if (xhr_d.status != 200){
+	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+	// 	}
+	// 	else 
+	// 	{
+			// var get_json = xhr_d.responseText;
+			// showStats(get_json);
+	// 	}
+	// }
+	// xhr_d.open("POST", 'http://127.0.0.1:8000/pupilStats?', true);
+	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	// xhr_d.send(params);
+}
+
+function showStats(json_stats)
+{
+	var stats = JSON.parse(json_divs)["stats"];
+	for (int i = 0; )
 }
