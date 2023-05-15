@@ -78,6 +78,7 @@ function show_divisions(divisions)
 		block.appendChild(p);
 		console.log(document.querySelectorAll(".block")[0]);
 		document.querySelectorAll(".block")[0].appendChild(block);
+		get_contests(divs["divisions"][i], block);
 	}
 }
 
@@ -92,21 +93,22 @@ function showContests(sender)
 		let img = blocks[i].querySelectorAll("img")[0];
 		img["src"] = "/static/main/images/minus.png";
 
-		var name = sender["name"];
+		var name = sender;//["name"];
 
-		if (img["name"] == "plus")
-		{
+
+		// if (img["name"] == "plus")
+		// {
 			img.setAttribute("name", "minus");
 			get_contests(name, blocks[i]);
-		}
-		else
-		{
-			var el = blocks[i].querySelectorAll(".contestLink");
-			for (var i = 0; i < el.length; i++)
-				el[i].remove();
-			img.setAttribute("name", "plus");
-			img["src"] = "/static/main/images/plus.png";
-		}
+		// }
+		// else
+		// {
+		// 	var el = blocks[i].querySelectorAll(".contestLink");
+		// 	for (var i = 0; i < el.length; i++)
+		// 		el[i].remove();
+		// 	img.setAttribute("name", "plus");
+		// 	img["src"] = "/static/main/images/plus.png";
+		// }
 		
 	}
 }
@@ -117,13 +119,14 @@ function get_contests(name, block)
 	// return show_contests(str, block); 
 
 	alert(name);
-	var params = 'division='+ encodeURIComponent(name);
+	// name = "A";
+	var params = 'div='+ encodeURIComponent(name);
 	var xhr_d = new XMLHttpRequest();
 
 	console.log(params);
 	xhr_d.onload = function(){
 		if (xhr_d.status != 200){
-			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+			alert(xhr.status + " " + xhr.statusText);
 		}
 		else 
 		{
@@ -131,7 +134,7 @@ function get_contests(name, block)
 			return show_contests(get_div_Json);
 		}
 	}
-	xhr_d.open("GET", 'http://127.0.0.1:8000/contestsList?', true);
+	xhr_d.open("POST", 'http://127.0.0.1:8000/contestsList?', true);
 	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr_d.send(params);
 }
