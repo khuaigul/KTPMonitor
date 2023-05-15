@@ -107,7 +107,7 @@ function showStudents(students_json)
 	console.log(document.getElementById("students"));
 
 
-	document.querySelectorAll(".listTitle")[0].appendChild(p);
+	title.appendChild(p);
 	// console.log(document.querySelectorAll(".listTitle"));
 
 
@@ -142,7 +142,7 @@ function showContests(contests_json)
 	document.getElementById("contests").appendChild(title);
 	console.log(document.getElementById("contests"));
 	console.log(document.querySelectorAll(".listTitle"));
-	document.querySelectorAll(".listTitle")[0].appendChild(p);
+	title.appendChild(p);
 
 
 	contests = JSON.parse(contests_json)["contests"];

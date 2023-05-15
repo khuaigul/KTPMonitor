@@ -38,9 +38,9 @@ def depth_detection(info, params):  # Решим надо ли нам глубж
                 if type(parsing_json(info[item], params[item])[0]) == LIST_TYPE:
                     return parsing_json(info[item], params[item])
                 for item2 in parsing_json(info[item], params[item]):
-                    info_pars = info_pars | item2
+                    info_pars = {**info_pars, **item2}
             else:
-                info_pars = info_pars | parsing_json(info[item], params[item])
+                info_pars = {**info_pars , **parsing_json(info[item], params[item])}
         else:
             info_pars[params[item]] = not_deep(info, params, item)
     return info_pars

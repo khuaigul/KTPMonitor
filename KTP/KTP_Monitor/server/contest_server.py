@@ -61,35 +61,28 @@ def get_name_contest(lint):
 
 def add_contestt(link, divison):
 #    while(True):
-    try:
-        with db_mutex('lock_id'):
-            if link == "" or divison == "":
-                return {"status": False}
-            divs = get_all_divs()
-            name = get_name_contest(link)
-            if type(name) == type(False):
-                return {"status": False}
-            print(name)
-            print(link)
-            for item in divs:
-                if item.name == divison:
-                    if not add_contest(name, link, [item]):
-                        print("add contest")
-                        return {"status": True}
-
-                    print("add task!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
-                    while True:
-                        if add_problem(link):
-                            return {"status": True}
-            pass
+    with db_mutex('lock_id'):
+        if link == "" or divison == "":
             return {"status": False}
+        divs = get_all_divs()
+        name = get_name_contest(link)
+        if type(name) == type(False):
+            return {"status": False}
+        print(name)
+        print(link)
+        for item in divs:
+            if item.name == divison:
+                if not add_contest(name, link, [item]):
+                    print("add contest")
+                    return {"status": True}
+
+                print("add task!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
+                while True:
+                    if add_problem(link):
+                        return {"status": True}
+        return {"status": False}
 #            break
-    except DBMutexError:
-        print('Could not obtain lock')
-    except DBMutexTimeoutError:
-        print('Task completed but the lock timed out')
-    except Exception as e:
-        print(0)
+    return {"status": True}
 
 
 def remove_contest(id_contest):  # удаление конкретного Contest
