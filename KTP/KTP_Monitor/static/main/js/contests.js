@@ -78,7 +78,6 @@ function show_divisions(divisions)
 		block.appendChild(p);
 		console.log(document.querySelectorAll(".block")[0]);
 		document.querySelectorAll(".block")[0].appendChild(block);
-		get_contests(divs["divisions"][i], block);
 	}
 }
 
@@ -93,22 +92,22 @@ function showContests(sender)
 		let img = blocks[i].querySelectorAll("img")[0];
 		img["src"] = "/static/main/images/minus.png";
 
-		var name = sender;//["name"];
+		var name = sender["name"];
 
 
-		// if (img["name"] == "plus")
-		// {
+		if (img["name"] == "plus")
+		{
 			img.setAttribute("name", "minus");
 			get_contests(name, blocks[i]);
-		// }
-		// else
-		// {
-		// 	var el = blocks[i].querySelectorAll(".contestLink");
-		// 	for (var i = 0; i < el.length; i++)
-		// 		el[i].remove();
-		// 	img.setAttribute("name", "plus");
-		// 	img["src"] = "/static/main/images/plus.png";
-		// }
+		}
+		else
+		{
+			var el = blocks[i].querySelectorAll(".contestLink");
+			for (var i = 0; i < el.length; i++)
+				el[i].remove();
+			img.setAttribute("name", "plus");
+			img["src"] = "/static/main/images/plus.png";
+		}
 		
 	}
 }
