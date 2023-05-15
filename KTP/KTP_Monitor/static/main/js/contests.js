@@ -28,7 +28,7 @@ function toNotifications()
 }
 function toExit()
 {
-	alert("Выйти из профиляесть ?");
+	alert("Выйти из профиля?");
 	document.location="main";
 }
 
@@ -45,9 +45,9 @@ function getJson_divs()
 		else 
 		{
 			get_div_Json = xhr_d.responseText;
-			alert(get_div_Json)
+//			alert(get_div_Json)
 			// localStorage.setItem('divList', get_div_Json);
-			return show_divisions(get_div_Json);
+			show_divisions(get_div_Json);
 		}
 	}
 	xhr_d.open("GET", 'http://127.0.0.1:8000/divisionsRe?', true);
@@ -117,7 +117,7 @@ function get_contests(name, block)
 	// var str = '{"contests" : [{"name" : "Дерево отрезков", "id" : "1234"}, {"name" : "Геометрия", "id" : "2354"}, {"name" : "Графы", "id" : "7544"}]}';
 	// return show_contests(str, block); 
 
-	alert(name);
+//	alert(name);
 	// name = "A";
 	var params = 'div='+ encodeURIComponent(name);
 	var xhr_d = new XMLHttpRequest();
@@ -130,7 +130,7 @@ function get_contests(name, block)
 		else 
 		{
 			get_div_Json = xhr_d.responseText;
-			alert(get_div_Json);
+//			alert(get_div_Json);
 			show_contests(get_div_Json, block);
 		}
 	}
@@ -141,9 +141,9 @@ function get_contests(name, block)
 
 function show_contests(contests_json, block)
 {
-    alert("AAAA");
+ //   alert("AAAA");
 	contests = JSON.parse(contests_json);
-	alert(contests["contests"].length);
+	//alert(contests["contests"].length);
 	for (var i = 0; i < contests["contests"].length; i++)
 	{
 		var p = document.createElement("p");
@@ -238,7 +238,7 @@ function addNewContest()
 	var link = document.getElementById("link").value;
 	link = link.split('/');
 	link = link[link.length-1];
-	alert(link);
+	//alert(link);
 
 	var divs = document.querySelectorAll(".movedCheckbox");
 	for (var i = 0; i < divs.length; i++)
