@@ -149,6 +149,7 @@ def divisionsRe(request):
 @csrf_exempt
 def students_by_div(request):
     if request.method == 'POST':
+        print(request.POST['name'])
         return JsonResponse(people.people_write_div(request.POST['name']))
     else:
         return JsonResponse({"status": False})
@@ -162,9 +163,8 @@ def teachers_by_div(request):
 
 @csrf_exempt
 def pupilInfo(request):
-    if request.method == 'GET':
-
-        return JsonResponse(people.profile_write(request.GET['nickname']))
+    if request.method == 'POST':
+        return JsonResponse(people.profile_write(request.POST['nickname']))
     return JsonResponse({"status": False})
 
 @csrf_exempt
@@ -239,5 +239,6 @@ def deleteContest(request):
 @csrf_exempt
 def updatePupilDivison(request):
     if request.method == 'POST':
+        print(request.POST["pupil1"])
         return JsonResponse(div.change_div_people(list(request.POST.items())))
     return JsonResponse({"status": False})
