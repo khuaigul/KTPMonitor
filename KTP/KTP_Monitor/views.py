@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from .server import contest_server
 from .server import div
 from .server import people
+from .server import stats
 from django.views.decorators.csrf import csrf_exempt
 from . import tokens
 from django.utils.encoding import force_str
@@ -199,7 +200,7 @@ def divisionStats(request):
 @csrf_exempt
 def contestStats(request):
     if request.method == 'GET':
-        return JsonResponse({"status": False})
+        return JsonResponse(stats.contest_stats)
     return JsonResponse({"status": False})
 
 
