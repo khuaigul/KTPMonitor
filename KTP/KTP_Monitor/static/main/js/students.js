@@ -75,6 +75,11 @@ function show()
 function showPupils(json_divs)
 {
 	var inf = JSON.parse(json_divs)["divisions"];
+	var divlist = [];
+	for (var i = 0; i < inf.length; i++)
+	{
+		divlist.appendChild(inf[i]["name"]);
+	}
 	for (var i = 0; i < inf.length; i++)
 	{
 		var div = document.createElement("p");
@@ -88,6 +93,7 @@ function showPupils(json_divs)
 			a.setAttribute("name", pupils[j]["nickname"]);
 			a.setAttribute("onclick", 'showStudent(this["name"]');
 			a.innerHTML = pupils[j]["surname"] + " " + pupils[j]["name"] + " " + pupils["secondname"];
+			var sel = document.createElement("select");
 		}
 	}
 }
