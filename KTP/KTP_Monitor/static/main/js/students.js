@@ -229,6 +229,12 @@ function save_changes()
 	// xhr_d.send(params);
 }
 
+function toShowPupilStat()
+{
+	var nickname = window.location.href.split('?')[1].split('=')[1];
+	document.location="studentStatsPage?nickname=" + encodeURIComponent(nickname);
+}
+
 function showPupilStats()
 {
 	var nickname = window.location.href.split('?')[1].split('=')[1];
@@ -255,5 +261,28 @@ function showPupilStats()
 function showStats(json_stats)
 {
 	var stats = JSON.parse(json_divs)["stats"];
-	for (int i = 0; )
+	var table = document.querySelectorAll(".main-table")[0];
+
+	var thead = document.createElement("thead");
+	var tr = document.createElement("tr");
+	// var th = document.createElement("th");
+	// th.setAttribute("class", "fixed-side");
+	// th.setAttribute("scope", "col")
+
+	tr.appendChild(th);
+
+	var cur_th = document.createElement("th");
+	cur_th.setAttribute("class", "col");
+	cur_th.innerHTML = "Контест";
+	tr.appendChild(cur_th);
+
+	var cur_th1 = document.createElement("th");
+	cur_th1.setAttribute("class", "col");
+	cur_th1.innerHTML = "Контест";
+	tr.appendChild(cur_th1);	
+
+	thead.appendChild(tr);
+	table.appendChild(thead);
+
+
 }

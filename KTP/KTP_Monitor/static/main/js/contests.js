@@ -94,6 +94,7 @@ function showContests(sender)
 
 		var name = sender["name"];
 
+
 		if (img["name"] == "plus")
 		{
 			img.setAttribute("name", "minus");
@@ -117,13 +118,14 @@ function get_contests(name, block)
 	// return show_contests(str, block); 
 
 	alert(name);
-	var params = 'division='+ encodeURIComponent(name);
+	// name = "A";
+	var params = 'div='+ encodeURIComponent(name);
 	var xhr_d = new XMLHttpRequest();
 
 	console.log(params);
 	xhr_d.onload = function(){
 		if (xhr_d.status != 200){
-			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+			alert(xhr.status + " " + xhr.statusText);
 		}
 		else 
 		{
@@ -131,7 +133,7 @@ function get_contests(name, block)
 			return show_contests(get_div_Json);
 		}
 	}
-	xhr_d.open("GET", 'http://127.0.0.1:8000/contestsList?', true);
+	xhr_d.open("POST", 'http://127.0.0.1:8000/contestsList?', true);
 	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr_d.send(params);
 }

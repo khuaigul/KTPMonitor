@@ -80,6 +80,9 @@ def addContest(request):
 def edit_pupil_profile(request):
     return render(request, 'main/edit_pupil_profile.html')
 
+def studentStatsPage(request):
+    return render(request, 'main/studentStatsPage.html')
+
 @csrf_exempt 
 def signin(request):
     if request.method=='POST':
@@ -206,8 +209,8 @@ def contestStats(request):
 
 @csrf_exempt
 def contestsList(request):
-    if request.method == 'GET':
-        print("запрос пришёл таким :", request.GET.get('division', None))
+    if request.method == 'POST':
+        print("запрос пришёл таким :", request.POST.get('div'))
         # print("запрос пришёл таким :", request.POST)
         return JsonResponse({"status": False})
         return JsonResponse(contest_server.write_contest_list(request.GET["division"]))
