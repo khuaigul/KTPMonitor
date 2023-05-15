@@ -45,5 +45,7 @@ urlpatterns = [
     path('deleteContest', views.deleteContest, name='deleteContest'),
     path('updatePupilDivison', views.updatePupilDivison, name='updatePupilDivison'),
     path('studentStatsPage', views.studentStatsPage, name='studentStatsPage'),
+    path('divs_with_pupil', views.divs_with_pupil, name='divs_with_pupil'),
+    path('divs_with_contests', views.divs_with_contests, name='divs_with_contests'),
 ]
   

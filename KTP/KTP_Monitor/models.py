@@ -60,7 +60,7 @@ class Teacher_Info(models.Model):
 class Contest_Info(models.Model):
     name = models.CharField(max_length=100)
     link = models.CharField(max_length=100)
-    last_update = models.CharField(max_length=100)
+    # last_update = models.CharField(max_length=100)
     divs = models.ManyToManyField(Div_Info, through="Contest_Div")
     
        

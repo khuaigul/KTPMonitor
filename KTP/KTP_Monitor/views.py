@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from .server import contest_server
 from .server import div
 from .server import people
+from .server import stats
+from .server import new_functions
 from django.views.decorators.csrf import csrf_exempt
 from . import tokens
 from django.utils.encoding import force_str
@@ -165,6 +167,10 @@ def teachers_by_div(request):
 def pupilInfo(request):
     if request.method == 'POST':
         return JsonResponse(people.profile_write(request.POST['nickname']))
+# =======
+#     if request.method == 'GET':
+#         return JsonResponse(people.profile_write(request.GET['nickname']))
+# >>>>>>> ea68e69396a3833d50255cc8d3ed38f0ae8cf391
     return JsonResponse({"status": False})
 
 @csrf_exempt
@@ -202,17 +208,15 @@ def divisionStats(request):
 @csrf_exempt
 def contestStats(request):
     if request.method == 'GET':
-        return JsonResponse({"status": False})
+        return JsonResponse(stats.contest_stats)
     return JsonResponse({"status": False})
 
 
 @csrf_exempt
 def contestsList(request):
     if request.method == 'POST':
-        print("запрос пришёл таким :", request.POST.get('div'))
-        # print("запрос пришёл таким :", request.POST)
-        return JsonResponse({"status": False})
-        return JsonResponse(contest_server.write_contest_list(request.GET["division"]))
+        print("запрос пришёл таким :", request.POST["div"])
+        return JsonResponse(contest_server.write_contest_list(request.POST["div"]))
     return JsonResponse({"status": False})
 
 
@@ -242,3 +246,17 @@ def updatePupilDivison(request):
         print(request.POST["pupil1"])
         return JsonResponse(div.change_div_people(list(request.POST.items())))
     return JsonResponse({"status": False})
+
+
+@csrf_exempt
+def divs_with_pupil(request):
+    if request.method == 'GET':
+        return JsonResponse(new_functions.all_people_and_div())
+    return JsonResponse({"status": False})
+
+def divs_with_contests(request):
+    if request.method == 'GET':
+        return JsonResponse(new_functions.all_contest_and_div())
+    return JsonResponse({"status": False})
+
+
