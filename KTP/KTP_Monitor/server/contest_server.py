@@ -29,6 +29,7 @@ def write_contest_list(info):  # вывод конкретного Contest
                 info_contests["link"] = item2.link
                 name_contests.append(info_contests)
             write_contests["contests"] = name_contests
+            print(write_contests)
             return write_contests
     return {"status": False}
 

@@ -18,6 +18,10 @@ from .server.signin import sign_in
 from .server.registrationRe import registration_Re
 from .server.currentProfileData import current_profile_data
 from .server.updateTeacherProfileData import update_teacher_profile_data
+
+
+
+
 def main(request):     
     return render(request, 'main/main.html')
 
@@ -167,10 +171,6 @@ def teachers_by_div(request):
 def pupilInfo(request):
     if request.method == 'POST':
         return JsonResponse(people.profile_write(request.POST['nickname']))
-# =======
-#     if request.method == 'GET':
-#         return JsonResponse(people.profile_write(request.GET['nickname']))
-# >>>>>>> ea68e69396a3833d50255cc8d3ed38f0ae8cf391
     return JsonResponse({"status": False})
 
 @csrf_exempt

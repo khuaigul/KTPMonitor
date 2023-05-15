@@ -20,7 +20,7 @@ def send_profile_data(request):
     if myUser.role == 'pupil':     
         user.user_permissions.add(Permission.objects.get(codename="/pupilProfile"))                   
         if add_new_pupil(user, request.POST['surname'], request.POST['firstname'], request.POST['secondname'], 
-            request.POST['nickname'], request.POST['datebirth'], request.POST['school'], request.POST['grade'], request.POST['phone']) is False:
+            request.POST['nickname'], request.POST['datebirth'], request.POST['school'], request.POST['grade'], request.POST['phone'], user.email) is False:
             return {'status': 'nicknameExists'}
     else:            
         user.user_permissions.add(Permission.objects.get(codename="/teacherProfile"))
