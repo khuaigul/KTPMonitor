@@ -57,7 +57,7 @@ def profile_write(nickname):
 			write_people["phone"] = item.phone
 			write_people["grade"] = item.grade
 			write_people["division"] = item.div.name
-			write_people["datebitrh"] = item.birthday
+			write_people["datebirth"] = item.birthday
 			break
 	return write_people
 
