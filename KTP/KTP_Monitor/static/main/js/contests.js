@@ -130,7 +130,8 @@ function get_contests(name, block)
 		else 
 		{
 			get_div_Json = xhr_d.responseText;
-			return show_contests(get_div_Json);
+			alert(get_div_Json);
+			show_contests(get_div_Json, block);
 		}
 	}
 	xhr_d.open("POST", 'http://127.0.0.1:8000/contestsList?', true);
@@ -140,7 +141,9 @@ function get_contests(name, block)
 
 function show_contests(contests_json, block)
 {
+    alert("AAAA");
 	contests = JSON.parse(contests_json);
+	alert(contests["contests"].length);
 	for (var i = 0; i < contests["contests"].length; i++)
 	{
 		var p = document.createElement("p");

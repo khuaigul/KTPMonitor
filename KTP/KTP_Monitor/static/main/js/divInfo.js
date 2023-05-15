@@ -68,25 +68,27 @@ function getStudents()
 
 function getContests()
 {
-	var str = '{"contests" : [{"name" : "Динамика", "id" : "4345"}, {"name" : "Дерево отрезков", "id" : "76543"}] }'
-	return showContests(str);
+//	var str = '{"contests" : [{"name" : "Динамика", "id" : "4345"}, {"name" : "Дерево отрезков", "id" : "76543"}] }'
+//	return showContests(str);
 	var div = window.location.href.split("?")[1].split("=")[1];
-	var params = "name=" + div;  
-	// var xhr_d = new XMLHttpRequest();
+	var params = "div=" + div;
+	var xhr_d = new XMLHttpRequest();
 
-	// xhr_d.onload = function(){
-	// 	if (xhr_d.status != 200){
-	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-	// 	}
-	// 	else 
-	// 	{
-	// 		get_contests_Json = xhr_d.responseText;
-	// 		showContests(get_contests_Json);
-	// 	}
-	// }
-	// xhr_d.open("GET", 'http://127.0.0.1:8000/contests_by_div?', true);
-	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// xhr_d.send(params);
+	console.log(params);
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert(xhr.status + " " + xhr.statusText);
+		}
+		else
+		{
+			get_div_Json = xhr_d.responseText;
+			alert(get_div_Json);
+			showContests(get_div_Json);
+		}
+	}
+	xhr_d.open("POST", 'http://127.0.0.1:8000/contestsList?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(params);
 }
 
 function showStudents(students_json)
