@@ -17,8 +17,9 @@ def write_contest_list(info):  # вывод конкретного Contest
     divs = get_all_divs()
     for item in divs:
         if item.name == info:
-            print("tyt")
+            print("tyttyttyttyttyttyttyttyt")
             contests = get_all_contests([item])
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             write_contests = dict()
             write_contests["status"] = True
             name_contests = []

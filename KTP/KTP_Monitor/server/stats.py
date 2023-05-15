@@ -37,7 +37,7 @@ def div_stats(division):
             pupils = []
             for contest_link in r:
                 for pupil_nick in r[contest_link]:
-                    info = r[contest_link][pupil_nick].split()
+                    info = r[contest_link][pupil_nick]
                     count_contest[contest_link] = info[1]
                     if people in pupil_nick:
                         people[pupil_nick].append({contest_link: info[0]})
@@ -83,7 +83,7 @@ def contest_stats(link):
     for task in result:
         all_problem.append({'name': task.name})
         for pupil in result[task]:
-            info = result[task][pupil].split()
+            info = result[task][pupil]
             if pupil.CF in name:
                 problem = all_people[people[pupil.CF]]['problems']
                 problem.append({task.name: info[1]})
@@ -106,7 +106,33 @@ def contest_stats(link):
     return write_stat
 
 
-def pupil_stats(nicknane):
-    return False
+def pupil_stats(nickname):
+
+    result = dict()
+    pupils = get_all_pupils()
+    id_people = None
+    for item in pupils:
+        if item.CF == nickname:
+            id_people = nickname
+            break
+
+    divs = get_all_divs()
+    div = None
+    for it in divs:
+        if id_people.div.name == it.name:
+            div = it
+            break
+
+    contest = get_all_contests([div])
+    for it in contest:
+        info = dict()
+        info['name'] = it.name
+        r = get_statistic_pupil_contest([pupils], [it.link])
+        info['solved'] = r[it.link][pupils.CF][0]
+        info['count'] = r[it.link][pupils.CF][1]
+
+        contest.append(info)
+    result['stats'] = contest
+    return result
 
 

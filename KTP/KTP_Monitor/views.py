@@ -7,6 +7,7 @@ from .server import contest_server
 from .server import div
 from .server import people
 from .server import stats
+from .server import new_functions
 from django.views.decorators.csrf import csrf_exempt
 from . import tokens
 from django.utils.encoding import force_str
@@ -239,3 +240,11 @@ def updatePupilDivison(request):
     if request.method == 'POST':
         return JsonResponse(div.change_div_people(list(request.POST.items())))
     return JsonResponse({"status": False})
+
+
+@csrf_exempt
+def divs_with_pupil(request):
+    if request.method == 'GET':
+        return JsonResponse(new_functions.all_people_and_div())
+    return JsonResponse({"status": False})
+
