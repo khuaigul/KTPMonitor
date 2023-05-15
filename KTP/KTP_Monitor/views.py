@@ -18,6 +18,22 @@ from .server.signin import sign_in
 from .server.registrationRe import registration_Re
 from .server.currentProfileData import current_profile_data
 from .server.updateTeacherProfileData import update_teacher_profile_data
+
+divs = get_all_divs()
+add_contest("fff", "link", divs)
+
+divs1 = []
+divs1.append(divs[0])
+print(divs1)
+add_contest("aaa", "link1", divs1)
+
+
+r = get_all_contests([divs[0]])
+print("result")
+print(r)
+
+
+
 def main(request):     
     return render(request, 'main/main.html')
 
