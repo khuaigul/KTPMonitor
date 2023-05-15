@@ -248,3 +248,9 @@ def divs_with_pupil(request):
         return JsonResponse(new_functions.all_people_and_div())
     return JsonResponse({"status": False})
 
+def divs_with_contests(request):
+    if request.method == 'GET':
+        return JsonResponse(new_functions.all_contest_and_div())
+    return JsonResponse({"status": False})
+
+
