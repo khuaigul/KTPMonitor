@@ -58,9 +58,9 @@ def change_div_people(info):
 	for item in info:
 		if item[0][0] == 'p':
 			ch = ch + 1
-			people.append(info[1])
+			people.append(item[1])
 		else:
-			div.append(info[1])
+			div.append(item[1])
 	while ch:
 		ch = ch - 1
 		change_people_div(div[ch], people[ch])

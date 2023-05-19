@@ -54,7 +54,7 @@ function show_student(student_info)
 
 function show()
 {
-	alert("show");
+	//alert("show");
 	var xhr_d = new XMLHttpRequest();
 
 	xhr_d.onload = function(){
@@ -87,8 +87,8 @@ function showPupils(json_divs)
 		var div = document.createElement("p");
 		div.innerHTML = "Дивизион " + inf[i]["name"];
 		var pupils = inf[i]["pupils"];
-		alert(div);
-		alert(pupils);
+	//	alert(div);
+	//	alert(pupils);
 
 		document.querySelectorAll(".block")[0].appendChild(div);
 
