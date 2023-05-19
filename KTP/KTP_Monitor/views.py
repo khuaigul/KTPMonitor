@@ -18,19 +18,25 @@ from .server.registrationRe import registration_Re
 from .server.currentProfileData import current_profile_data
 from .server.updateTeacherProfileData import update_teacher_profile_data
 
-divs = get_all_divs()
-add_contest("fff", "link", divs)
+# divs = get_all_divs()
+# add_contest("fff", "link", divs)
 
-divs1 = []
-divs1.append(divs[0])
-print(divs1)
-add_contest("aaa", "link1", divs1)
+# divs1 = []
+# divs1.append(divs[0])
+# print(divs1)
+# add_contest("aaa", "link1", divs1)
+add_task("link", 'A', "uuu")
 
 
-r = get_all_contests([divs[0]])
-print("result")
-print(r)
+c = get_all_contests()
+print("contest:")
+print(c[0].link)
+p = get_all_pupils()
+print("pupils:")
+print(p[0].CF)
 
+print(add_new_send(c[0].link, 'A', p[0].CF, 5, "OK"))
+print(add_new_send(c[0].link, 'A', p[0].CF, 3, "OK"))
 
 
 def main(request):     

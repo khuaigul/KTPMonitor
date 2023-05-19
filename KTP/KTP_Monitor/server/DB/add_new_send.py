@@ -12,9 +12,13 @@ def add_new_send(link, letter, cf, cnt_try, result):
     
     Pupil_Task.objects.get_or_create(task = task, pupil = pupil)
 
-    Pupil_Task.objects.filter(task = task, pupil = pupil).update(cnt_try = F('cnt_try')+cnt_try, result = result)
+    r = list(Pupil_Task.objects.filter(task = task, pupil = pupil))
+    if (r[0].result != 'OK'):
+        Pupil_Task.objects.filter(task = task, pupil = pupil).update(cnt_try = F('cnt_try')+cnt_try, result = result)
+        return True
+    else:
+        return False
 
-    print("new send added")
 
 	
 	
