@@ -88,6 +88,9 @@ def edit_pupil_profile(request):
 def studentStatsPage(request):
     return render(request, 'main/studentStatsPage.html')
 
+def pupilDivision(request):
+    return render(request, 'main/pupilDivision.html')
+
 @csrf_exempt 
 def signin(request):
     if request.method=='POST':

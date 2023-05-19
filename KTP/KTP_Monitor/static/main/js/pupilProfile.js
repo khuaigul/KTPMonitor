@@ -42,6 +42,14 @@ function showProfile(profileJson)
 	document.getElementById("school").innerHTML = "Школа: " + data["school"];
 	document.getElementById("grade").innerHTML = "Класс: " + data["grade"];
 
+
+	document.getElementById("mydiv").setAttribute("onclick", 'toDivision("' + data["division"] +'")');
+  console.log(document.getElementById("mydiv"));
+}
+
+function toDivision(division)
+{
+	document.location = "pupilDivision?division=" + encodeURIComponent(division);
 }
 
 
