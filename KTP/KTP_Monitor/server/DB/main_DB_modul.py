@@ -15,6 +15,8 @@ from .get_all_pupils import *
 from .get_all_teachers import *
 from .get_statistic_contest import *
 from .get_statistic_pupil_contest import *
+from .update_contest_time import *
+
 
 
 
