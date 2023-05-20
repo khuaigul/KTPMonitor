@@ -1,4 +1,3 @@
-
 from .parsing import parsing_json_with_parameter
 from .API_CF import authorized_request
 from .chek import *
@@ -77,3 +76,6 @@ def add_new_human(human):  # добавление данных человека 
     if add_new_human_in_contest(id_contest, human, last):
         return True
     return False
+
+def launch_all():
+    print('Hello')
