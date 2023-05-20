@@ -254,9 +254,33 @@ def divs_with_pupil(request):
         return JsonResponse(new_functions.all_people_and_div())
     return JsonResponse({"status": False})
 
+
+@csrf_exempt
 def divs_with_contests(request):
     if request.method == 'GET':
         return JsonResponse(new_functions.all_contest_and_div())
+    return JsonResponse({"status": False})
+
+
+@csrf_exempt
+def divs_full(request):
+    if request.method == 'GET':
+        return JsonResponse(new_functions.all_people_and_div_and_contest())
+    return JsonResponse({"status": False})
+
+
+@csrf_exempt
+def fullStats(request):
+    if request.method == 'POST':
+        info = list(request.POST.items())
+        pupils_info =[]
+        contest_info = []
+        for item in info:
+            if item[0][1] == 'p':
+                pupils_info.append(item[0])
+            else:
+                contest_info.append(item[0])
+        return JsonResponse(stats.full_Stats(contest_info, pupils_info))
     return JsonResponse({"status": False})
 
 
