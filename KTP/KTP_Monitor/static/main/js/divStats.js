@@ -7,24 +7,25 @@ function setName()
 function getStats()
 {
 	var div = window.location.href.split("?")[1].split("=")[1];
-	var str = '{"stat" : {"pupils" : [{"nickname" : "aaa", "name" : "Nikita", "surname" : "Anisimov", "secondname" : "Nikolayevich", "results" : [{"id" : "123", "solved" : "6"}, {"id" : "321", "solved" : "5"}]}, {"nickname" : "bbb", "name" : "Natalya", "surname" : "Sobyanina", "secondname" : "Nikolayevna", "results" : [{"id" : "123", "solved" : "4"}, {"id" : "321", "solved" : "2"}]}], "contests" : [{"name" : "DO", "id" : "123", "count" : "10"}, {"name" : "DP", "id" : "321", "count" : "10"}]}}';
-	return showStats(str);
+	// var str = '{"stat" : {"pupils" : [{"nickname" : "aaa", "name" : "Nikita", "surname" : "Anisimov", "secondname" : "Nikolayevich", "results" : [{"id" : "123", "solved" : "6"}, {"id" : "321", "solved" : "5"}]}, {"nickname" : "bbb", "name" : "Natalya", "surname" : "Sobyanina", "secondname" : "Nikolayevna", "results" : [{"id" : "123", "solved" : "4"}, {"id" : "321", "solved" : "2"}]}], "contests" : [{"name" : "DO", "id" : "123", "count" : "10"}, {"name" : "DP", "id" : "321", "count" : "10"}]}}';
+	// return showStats(str);
 	var params = "name=" + div;
-	// var xhr_d = new XMLHttpRequest();
+	var xhr_d = new XMLHttpRequest();
 
-	// xhr_d.onload = function(){
-	// 	if (xhr_d.status != 200){
-	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-	// 	}
-	// 	else 
-	// 	{
-	// 		get_Json = xhr_d.responseText;
-	// 		showStats(get_Json);
-	// 	}
-	// }
-	// xhr_d.open("GET", 'http://127.0.0.1:8000/divisionStats?', true);
-	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// xhr_d.send(params);
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_Json = xhr_d.responseText;
+			showStats(get_Json);
+			alert(get_Json);
+		}
+	}
+	xhr_d.open("POST", 'http://127.0.0.1:8000/divisionStats?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(params);
 }
 
 function showStats(stats_json)

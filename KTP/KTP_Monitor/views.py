@@ -206,8 +206,8 @@ def newDivisionRe(request):  #
 
 @csrf_exempt
 def divisionStats(request):
-    if request.method == 'GET':
-        return JsonResponse(stats_s.div_stats(request.GET['division']))
+    if request.method == 'POST':
+        return JsonResponse(stats_s.div_stats(request.POST['name']))
     return JsonResponse({"status": False})
 
 
