@@ -52,7 +52,7 @@ def up_contest(id_contest, last_submit):  # обновление данных в
         else:
             if check_human(handle, id_contest):
                 add_new_send(id_contest, problem, handle, 1, verdict)
-        # тут ещё надо написать обновление ласт посылки
+        update_contest_time(id_contest, last)
     return True
 
 
@@ -89,5 +89,13 @@ def up_contest(id_contest, last_submit):  # обновление данных в
 #     return False
 
 def launch_all():
+    pupils_ = get_all_pupils()
+    for item in pupils_:
+        pupils.add(item.CF)
+    contest = get_all_contests()
+    for item in contest:
+        cnt = 0
+        while cnt < 100 and (not up_contest(item.link, item.last_update)):
+            cnt = cnt + 1
     return
 

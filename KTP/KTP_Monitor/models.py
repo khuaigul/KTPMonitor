@@ -46,7 +46,7 @@ class Permissions(models.Model):
             ('/studentStatsPage', ''),
             ('/divs_with_pupil' , ''),
             ('/divs_with_contests', ''),
-            ('/updateTeacherProfileData', ''),
+            ('/updatePupilProfileData', ''),
         )
 
 class MyUser(models.Model):
@@ -91,7 +91,7 @@ class Teacher_Info(models.Model):
 class Contest_Info(models.Model):
     name = models.CharField(max_length=100)
     link = models.CharField(max_length=100)
-    # last_update = models.CharField(max_length=100)
+    last_update = models.CharField(max_length=100, default='')
     divs = models.ManyToManyField(Div_Info, through="Contest_Div")
     
        
