@@ -79,18 +79,18 @@ def contest_stats(link):
     ch = 0
     result = get_statistic_contest(link)
     for task in result:
-        all_problem.append({'name': task.letter})
+        all_problem.append({'name': task.link})
         for pupil in result[task]:
             info = result[task][pupil]
             if pupil.CF in name:
                 problem = all_people[people[pupil.CF]]['problems']
                 if info[1] == "OK":
                     if info[1] == 1:
-                        problem.append({'name': task.letter, "status": "+"})
+                        problem.append({'name': task.link, "status": "+"})
                     else:
-                        problem.append({'name': task.letter, "status": "+"+str(info[1]-1)})
+                        problem.append({'name': task.link, "status": "+"+str(info[1]-1)})
                 else:
-                    problem.append({'name': task.letter, "status": ""})
+                    problem.append({'name': task.link, "status": ""})
                 all_people[people[pupil.CF]]['problems'] = problem
             else:
                 info_people = dict()
@@ -101,11 +101,11 @@ def contest_stats(link):
                 info_people['nickname'] = pupil.CF
                 if info[1] == "OK":
                     if info[1] == 1:
-                        problem.append({'name': task.letter, "status": "+"})
+                        problem.append({'name': task.link, "status": "+"})
                     else:
-                        problem.append({'name': task.letter, "status": "+"+str(info[1]-1)})
+                        problem.append({'name': task.link, "status": "+"+str(info[1]-1)})
                 else:
-                    problem.append({'name': task.letter, "status": ""})
+                    problem.append({'name': task.link, "status": ""})
 
                 info_people['problems'] = problem
                 all_people.append(info_people)
@@ -164,7 +164,7 @@ def full_Stats(pupils, contest):
 
     ch = 0
     for item in contest_info_all:
-        if item.letter in set_contest:
+        if item.link in set_contest:
             info_contest = dict()
             info_contest['name'] = item.name
             info_contest['id'] = item.link

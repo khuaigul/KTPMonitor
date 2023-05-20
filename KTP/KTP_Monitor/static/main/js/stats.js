@@ -53,7 +53,7 @@ function showInfo(info)
         var j = 0;
         while(true)
         {
-            if (j >= divs[i]["pupils"].length && j >= divs[i]["contests"].length)
+            if (j >= divs[i]["pupils"].length && j >= divs[i]["contest"].length)
             {
                 break;
             }
@@ -87,7 +87,7 @@ function showInfo(info)
                 tdP.setAttribute("class", "empty");
             }
 
-            if (j < divs[i]["contests"].length)
+            if (j < divs[i]["contest"].length)
             {
                 var p1 = document.createElement("p");
                 p1.setAttribute("name", "contest");
@@ -98,10 +98,10 @@ function showInfo(info)
                 check1.addEventListener('click', function(){
                     checkBt(this);
                 });
-                a1.innerHTML = divs[i]["contests"][j]["name"];
-                a1.setAttribute("name", divs[i]["contests"][j]["id"]);
+                a1.innerHTML = divs[i]["contest"][j]["name"];
+                a1.setAttribute("name", divs[i]["contest"][j]["id"]);
                 a1.setAttribute("class", "link");
-
+                // stics
     
                 p1.appendChild(check1);
                 p1.appendChild(a1);
@@ -211,23 +211,32 @@ function getStats()
         return;
     }
 
+    document.location = "statsTable?" + params;
+
     
+}
 
-    // var xhr_d = new XMLHttpRequest();
+function getTableStats()
+{
+    var params = window.location.href.split("?")[1];
+    var xhr_d = new XMLHttpRequest();
 
-	// xhr_d.onload = function(){
-	// 	if (xhr_d.status != 200){
-	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-	// 	}
-	// 	else 
-	// 	{
-	// 		get_Json = xhr_d.responseText;
-	// 		showStats(get_Json);
-	// 	}
-	// }
-	// xhr_d.open("POST", 'http://127.0.0.1:8000/fullStats?', true);
-	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// xhr_d.send(params);  
+    alert(params);
+
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_Json = xhr_d.responseText;
+            console.log(get_Json);
+			fullStats(get_Json);
+		}
+	}
+	xhr_d.open("POST", 'http://127.0.0.1:8000/fullStats?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(params);  
 }
 
 function fullStats(json_stats)
