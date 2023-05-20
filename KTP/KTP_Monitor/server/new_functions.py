@@ -51,7 +51,6 @@ def all_people_and_div_and_contest():
 
         info.append(item)
     result['divisions'] = info
-    print(result)
     return result
 
 
