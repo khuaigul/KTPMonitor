@@ -33,16 +33,16 @@ function showInfo(info)
         var td = document.createElement("td");
         td.setAttribute("colspan", "2");
 
-        var check = document.createElement("input");
-        check.setAttribute("type", "checkbox")
-        check.setAttribute("class", "checkbox");
-        check.setAttribute("id", divs[i]["name"]);
-        check.addEventListener("click", function(){
-            clickDiv(this["id"]);
-        });
+        // var check = document.createElement("input");
+        // check.setAttribute("type", "checkbox")
+        // check.setAttribute("class", "checkbox");
+        // check.setAttribute("id", divs[i]["name"]);
+        // check.addEventListener("click", function(){
+        //     clickDiv(this["id"], this.checked);
+        // });
         var a = document.createElement("a");
         a.innerHTML = "Дивизион " + divs[i]["name"];
-        td.appendChild(check);
+        // td.appendChild(check);
         td.appendChild(a);
 
 
@@ -67,6 +67,9 @@ function showInfo(info)
                 var check = document.createElement("input");
                 check.setAttribute("type", "checkbox");
                 check.setAttribute("class", "checkbox");
+                check.addEventListener('click', function(){
+                    checkBt(this);
+                });
                 var a = document.createElement("a");
                 a.innerHTML = divs[i]["pupils"][j]["surname"] + " " + divs[i]["pupils"][j]["name"] + " " + divs[i]["pupils"][j]["secondname"];
 
@@ -87,10 +90,16 @@ function showInfo(info)
                 check1.setAttribute("class", "checkbox");
                 check1.setAttribute("type", "checkbox");
                 var a1 = document.createElement("a");
+                check1.addEventListener('click', function(){
+                    checkBt(this);
+                });
                 a1.innerHTML = divs[i]["contests"][j]["name"];
     
                 p1.appendChild(check1);
                 p1.appendChild(a1);
+
+                tdC.setAttribute("class", divs[i]["name"]);
+
 
                 tdC.appendChild(p1);
             }
@@ -109,12 +118,38 @@ function showInfo(info)
     table.appendChild(tbody);
 }
 
-function clickDiv(div)
+function clickDiv(div, status)
 {
     // var td = document.querySelectorAll("." + div);
     var checkers = document.querySelectorAll("." + div + " input");
     for (var i = 0; i < checkers.length; i++)
     {
-        checkers.setAttribute("onclicked", "onclicked");
+        // alert("1");
+        alert(checkers[i].checked);
+        if (status)
+        {
+            checkers[i].removeAttribute("checked");
+            checkers[i].setAttribute("checked", true);
+        }
+        else
+        {
+            checkers[i].removeAttribute("checked");
+            // checkers[i].setAttribute("checked", false);
+        }
+
+    }
+}
+
+function checkBt(bt)
+{
+    alert(bt.checked);
+    if (bt.checked)
+    {
+        bt.removeAttribute("checked");
+        bt.setAttribute("checked", true);
+    }
+    else
+    {
+        bt.removeAttribute("checked");
     }
 }
