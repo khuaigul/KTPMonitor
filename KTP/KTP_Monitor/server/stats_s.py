@@ -6,10 +6,9 @@ def div_stats(division):
     for div in divs:
         if div.name == division:
             result = dict()
-            result['status'] = True
             pupils = []
             contest = []
-            contests = get_all_contests(div)
+            contests = get_all_contests([div])
             for c in contests:
                 contest.append(c.link)
             all_people = get_all_pupils([div])
@@ -26,9 +25,9 @@ def div_stats(division):
             people_secondname = dict()
             people_cf = []
             for c in all_people:
-                people_name[c.CF] = c.name
+                people_name[c.CF] = c.firstname
                 people_surname[c.CF] = c.secondname
-                people_secondname[c.CF] = c.surname
+                people_secondname[c.CF] = c.lastname
 
             for c in contests:
                 name_contest[c.link] = c.name
@@ -39,7 +38,7 @@ def div_stats(division):
                 for pupil_nick in r[contest_link]:
                     info = r[contest_link][pupil_nick]
                     count_contest[contest_link] = info[1]
-                    if people in pupil_nick:
+                    if pupil_nick in people:
                         people[pupil_nick].append({contest_link: info[0]})
                     else:
                         people_cf.append(pupil_nick)
@@ -65,7 +64,8 @@ def div_stats(division):
             result['contest'] = contest
             result['pupils'] = pupils
             qwe = dict()
-            qwe['stat'] = [pupils]
+            qwe['stat'] = [result]
+            print(qwe)
             return qwe
 
     return {"status": False}
