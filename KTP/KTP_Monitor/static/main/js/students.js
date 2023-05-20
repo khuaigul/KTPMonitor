@@ -188,24 +188,24 @@ function showPupilStats()
 {
 	var nickname = window.location.href.split('?')[1].split('=')[1];
 	var params = "nickname=" + encodeURIComponent(nickname);
-	// var str = '"stats" : [{"name" : "Дерево отрезков", "solved" : "6", "count" : "10"}, {"name" : "Графы", "solved" : "4", "count" : "12"}]';
-	// showStats(str);
-	var xhr_d = new XMLHttpRequest();
+	var str = '{"stats" : [{"name" : "Дерево отрезков", "solved" : "6", "count" : "10"}, {"name" : "Графы", "solved" : "4", "count" : "12"}]}';
+	showStats(str);
+	// var xhr_d = new XMLHttpRequest();
 
-	xhr_d.onload = function(){
-		if (xhr_d.status != 200){
-			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-		}
-		else 
-		{
-			var get_json = xhr_d.responseText;
-			console.log(get_json);
-			showStats(get_json);
-		}
-	}
-	xhr_d.open("POST", 'http://127.0.0.1:8000/pupilStats?', true);
-	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr_d.send(params);
+	// xhr_d.onload = function(){
+	// 	if (xhr_d.status != 200){
+	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+	// 	}
+	// 	else 
+	// 	{
+	// 		var get_json = xhr_d.responseText;
+	// 		console.log(get_json);
+	// 		showStats(get_json);
+	// 	}
+	// }
+	// xhr_d.open("POST", 'http://127.0.0.1:8000/pupilStats?', true);
+	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	// xhr_d.send(params);
 }
 
 function showStats(json_stats)
@@ -216,26 +216,41 @@ function showStats(json_stats)
 	console.log(stats);
 
 	var thead = document.createElement("thead");
+
 	var tr = document.createElement("tr");
-	var th = document.createElement("th");
-	// th.setAttribute("class", "fixed-side");
-	// th.setAttribute("scope", "col")
+	var th1 = document.createElement("th");
+	var th2 = document.createElement("th");
 
-	tr.appendChild(th);
+	th1.innerHTML = 'Контесты';
+	th2.innerHTML = 'Решено';
 
-	var cur_th = document.createElement("th");
-	cur_th.setAttribute("class", "col");
-	cur_th.innerHTML = "Контест";
-	tr.appendChild(cur_th);
-
-	var cur_th1 = document.createElement("th");
-	cur_th1.setAttribute("class", "col");
-	cur_th1.innerHTML = "Контест";
-	tr.appendChild(cur_th1);	
-
-	thead.appendChild(tr);
-
+	tr.appendChild(th1);
+	tr.appendChild(th2);
 	table.appendChild(thead);
 
 
+	thead.appendChild(tr);
+
+	var tbody = document.createElement("tbody");
+
+	for (var i = 0; i < stats.length; i++)
+	{
+		var tr_cur = document.createElement("tr");
+		var tdC = document.createElement("td");
+		var tdP = document.createElement("td");
+
+		var a = document.createElement("a");
+		a.innerHTML = stats[i]["name"];
+		a.addEventListener("click", function(){
+			document.location("contest?id=" + encodeURIComponent(stats[i]["id"] + "&name=" + encodeURIComponent(stats[i]["name"])));
+		});
+		tdC.appendChild(a);
+		tdP.innerHTML = stats[i]["solved"] + "/" + stats[i]["count"];
+
+		tr_cur.appendChild(tdC);
+		tr_cur.appendChild(tdP);
+
+		tbody.appendChild(tr_cur);
+	}
+	table.appendChild(tbody);
 }

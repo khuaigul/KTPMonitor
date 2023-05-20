@@ -71,4 +71,4 @@ function showStats(stats_json)
 		tbody.appendChild(cur_tr);
 	}
 	table.appendChild(tbody);
-}
+} 
