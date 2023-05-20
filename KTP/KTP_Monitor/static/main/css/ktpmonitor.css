@@ -45,6 +45,10 @@ input{
 	font-size: 20px;
 }
 
+.main input{
+	width: 400px;
+}
+
 
 .header_empty h1{
 	margin: 0px;

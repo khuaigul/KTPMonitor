@@ -92,6 +92,9 @@ def pupilDivision(request):
 def stats(request):
     return render(request, 'main/stats.html')
 
+def statsTable(request):
+    return render(request, 'main/statsTable.html')
+
 @csrf_exempt 
 def signin(request):
     if request.method=='POST':
