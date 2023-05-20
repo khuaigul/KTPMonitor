@@ -50,4 +50,6 @@ urlpatterns = [
     path('pupilDivision', views.pupilDivision, name='pupilDivision'),
     path('stats', views.stats, name='stats'),
     path('fullStats', views.fullStats, name='fullStats'),
+    path('divs_full', views.divs_full, name='divs_full'),
+
 ]

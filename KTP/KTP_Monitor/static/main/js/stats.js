@@ -1,22 +1,23 @@
 function show()
 {
-    var str = '{"divisions":[{"name":"A","contests":[{"id":"1","name":"Дерево отрезков"},{"id":"2","name":"Динамика"},{"id":"3","name":"Графы"}],"pupils":[{"nickname":"aaa","name":"Никита","surname":"Анисимов","secondname":"Николаевич"},{"nickname":"ccc","name":"Дан","surname":"Ройтбурд","secondname":"Дмитриевич"}]},{"name":"B","contests":[{"id":"1","name":"Дерево отрезков"},{"id":"2","name":"Динамика"}],"pupils":[{"nickname":"aaa","name":"Никита","surname":"Анисимов","secondname":"Николаевич"},{"nickname":"bbb","name":"Наталья","surname":"Собянина","secondname":"Николаевна"},{"nickname":"ccc","name":"Дан","surname":"Ройтбурд","secondname":"Дмитриевич"}]}]}';
-    showInfo(str);
-    // var xhr_d = new XMLHttpRequest();
+    // var str = '{"divisions":[{"name":"A","contests":[{"id":"1","name":"Дерево отрезков"},{"id":"2","name":"Динамика"},{"id":"3","name":"Графы"}],"pupils":[{"nickname":"aaa","name":"Никита","surname":"Анисимов","secondname":"Николаевич"},{"nickname":"ccc","name":"Дан","surname":"Ройтбурд","secondname":"Дмитриевич"}]},{"name":"B","contests":[{"id":"1","name":"Дерево отрезков"},{"id":"2","name":"Динамика"}],"pupils":[{"nickname":"aaa","name":"Никита","surname":"Анисимов","secondname":"Николаевич"},{"nickname":"bbb","name":"Наталья","surname":"Собянина","secondname":"Николаевна"},{"nickname":"ccc","name":"Дан","surname":"Ройтбурд","secondname":"Дмитриевич"}]}]}';
+    // showInfo(str);
+    var xhr_d = new XMLHttpRequest();
 
-	// xhr_d.onload = function(){
-	// 	if (xhr_d.status != 200){
-	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-	// 	}
-	// 	else 
-	// 	{
-	// 		get_Json = xhr_d.responseText;
-	// 		showInfo(get_Json);
-	// 	}
-	// }
-	// xhr_d.open("POST", 'http://127.0.0.1:8000/divs_full?', true);
-	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// xhr_d.send(null);   
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_Json = xhr_d.responseText;
+            console.log(get_Json);
+			showInfo(get_Json);
+		}
+	}
+	xhr_d.open("GET", 'http://127.0.0.1:8000/divs_full?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(null);   
 }
 
 function showInfo(info)
