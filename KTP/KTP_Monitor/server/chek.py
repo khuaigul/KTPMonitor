@@ -51,21 +51,5 @@ def check_form(form):
     return form
 
 
-def check_nickname(nickname):
-    if nickname == '' or nickname == None:
-        return False
-    return True
-
-
-def check_human(handle, id_contest):  # проверка на наличие человека в Contest
-    if handle == "" or id_contest == "":
-        return False
-    return True
-
-
-def check_verdict(handle, id_contest, problem):  # проверка на ранний вердикт в Contest
-    if handle == "" or id_contest == "" or problem == "":
-        return False
-    return True
 
 

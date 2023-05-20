@@ -1,12 +1,29 @@
 
 from .parsing import parsing_json_with_parameter
 from .API_CF import authorized_request
-from .chek import *
-from .DB.main_DB_modul import *
+# from .DB.main_DB_modul import *
 
 
 STR_TYPE = type("qwe")
 info = {}
+
+
+def check_nickname(nickname):
+    if nickname == '' or nickname == None:
+        return False
+    return True
+
+
+def check_human(handle, id_contest):  # проверка на наличие человека в Contest
+    if handle == "" or id_contest == "":
+        return False
+    return True
+
+
+def check_verdict(handle, id_contest, problem):  # проверка на ранний вердикт в Contest
+    if handle == "" or id_contest == "" or problem == "":
+        return False
+    return True
 
 
 def give_json(id_contest):  # получение json надо сь которым дальше будем работать
@@ -77,3 +94,6 @@ def add_new_human(human):  # добавление данных человека 
     if add_new_human_in_contest(id_contest, human, last):
         return True
     return False
+
+
+up_contest(104363, 0)
