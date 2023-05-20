@@ -65,7 +65,6 @@ def div_stats(division):
             result['pupils'] = pupils
             qwe = dict()
             qwe['stat'] = result
-            print(qwe)
             return qwe
     return {"status": False}
 
@@ -73,12 +72,14 @@ def div_stats(division):
 def contest_stats(link):
     all_problem = []
     all_people = []
-    result = get_statistic_contest([link])
     people = dict()
     write_stat = dict()
     write_stat["status"] = True
     name = set()
     ch = 0
+    print(link, "!!!!!!!!!!")
+    result = get_statistic_contest(link)
+    print("qwewqeqweqweqweqweqw")
     for task in result:
         all_problem.append({'name': task.name})
         for pupil in result[task]:

@@ -1,7 +1,7 @@
 
 from .parsing import parsing_json_with_parameter
 from .API_CF import authorized_request
-# from .DB.main_DB_modul import *
+from .DB.main_DB_modul import *
 
 
 STR_TYPE = type("qwe")
@@ -56,14 +56,13 @@ def up_contest(id_contest, last_submit):  # обновление данных в
         verdict = item[3]['verdict']
         handle = item[0]['handle']
         problem = item[1]['index']
-        name = item[2]['name']
         if type(handle) == type([]):
             for handle_1 in handle:
-                if check_human(handle_1, id_contest) and check_verdict(handle_1, id_contest, problem):
-                    print(verdict, " ", handle, " ", problem, " ", name)
+                if check_human(handle_1, id_contest):
+                    add_new_send(id_contest, problem, handle_1, 1, verdict)
         else:
-            if check_human(handle, id_contest) and check_verdict(handle, id_contest, problem):
-                print(verdict, " ", handle, " ", problem, " ", name)
+            if check_human(handle, id_contest):
+                add_new_send(id_contest, problem, handle, 1, verdict)
         # тут ещё надо написать обновление ласт посылки
     return True
 
