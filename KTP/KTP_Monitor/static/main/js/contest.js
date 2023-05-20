@@ -18,7 +18,7 @@ function show()
 			showStats(get_Json);
 		}
 	}
-	xhr_d.open("GET", 'http://127.0.0.1:8000/contestStats?', true);
+	xhr_d.open("POST", 'http://127.0.0.1:8000/contestStats?', true);
 	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr_d.send(params);
 }

@@ -209,8 +209,8 @@ def divisionStats(request):
 
 @csrf_exempt
 def contestStats(request):
-    if request.method == 'GET':
-        return JsonResponse(stats_s.contest_stats(request.GET['id']))
+    if request.method == 'POST':
+        return JsonResponse(stats_s.contest_stats(request.POST['id']))
     return JsonResponse({"status": False})
 
 

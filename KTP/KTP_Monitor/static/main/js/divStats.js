@@ -58,7 +58,7 @@ function showStats(stats_json)
 		var cur_tr = document.createElement("tr");
 		var cur_th = document.createElement("th");
 		cur_th.setAttribute("class", "fixed-side");
-		cur_th.innerHTML = stats["pupils"][i]["surname"] + " ghg" + stats["pupils"][i]["name"] + " " + stats["pupils"][i]["secondname"];
+		cur_th.innerHTML = stats["pupils"][i]["surname"] + " " + stats["pupils"][i]["name"] + " " + stats["pupils"][i]["secondname"];
 		cur_tr.appendChild(cur_th);
 
 		for (var j = 0; j < stats["pupils"][i]["results"].length; j++)
