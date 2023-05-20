@@ -8,10 +8,11 @@ info = {}
 pupils = set()
 
 
-def check_human(handle, id_contest):  # проверка на наличие человека в Contest
-    if handle == "" or id_contest == "":
+def check_human(handle):  # проверка на наличие человека в Contest
+    if handle == "":
         return False
-
+    if handle in pupils:
+        return False
     return True
 
 
@@ -47,10 +48,10 @@ def up_contest(id_contest, last_submit):  # обновление данных в
         problem = item[1]['index']
         if type(handle) == type([]):
             for handle_1 in handle:
-                if check_human(handle_1, id_contest):
+                if check_human(handle_1):
                     add_new_send(id_contest, problem, handle_1, 1, verdict)
         else:
-            if check_human(handle, id_contest):
+            if check_human(handle):
                 add_new_send(id_contest, problem, handle, 1, verdict)
         update_contest_time(id_contest, last)
     return True
