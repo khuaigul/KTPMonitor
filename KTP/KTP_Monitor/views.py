@@ -210,7 +210,8 @@ def divisionStats(request):
 @csrf_exempt
 def contestStats(request):
     if request.method == 'POST':
-        return JsonResponse(stats_s.contest_stats(request.POST['id']))
+        print(request.POST['id']);
+        # return JsonResponse(stats_s.contest_stats(request.POST['id']))
     return JsonResponse({"status": False})
 
 
