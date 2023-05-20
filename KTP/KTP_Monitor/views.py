@@ -270,14 +270,14 @@ def divs_full(request):
 def fullStats(request):
     if request.method == 'POST':
         info = list(request.POST.items())
-        pupils_info =[]
+        pupils_info = []
         contest_info = []
         for item in info:
-            if item[0][1] == 'p':
-                pupils_info.append(item[0])
+            if item[0][0] == 'p':
+                pupils_info.append(item[1])
             else:
-                contest_info.append(item[0])
-        return JsonResponse(stats_s.full_Stats(contest_info, pupils_info))
+                contest_info.append(item[1])
+        return JsonResponse(stats_s.full_Stats(pupils_info, contest_info))
     return JsonResponse({"status": False})
 
 
