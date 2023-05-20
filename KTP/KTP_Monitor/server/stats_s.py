@@ -65,7 +65,6 @@ def div_stats(division):
             result['pupils'] = pupils
             qwe = dict()
             qwe['stat'] = result
-            print(qwe)
             return qwe
     return {"status": False}
 
@@ -73,28 +72,41 @@ def div_stats(division):
 def contest_stats(link):
     all_problem = []
     all_people = []
-    result = get_statistic_contest([link])
     people = dict()
     write_stat = dict()
     write_stat["status"] = True
     name = set()
     ch = 0
+    result = get_statistic_contest(link)
     for task in result:
-        all_problem.append({'name': task.name})
+        all_problem.append({'name': task.letter})
         for pupil in result[task]:
             info = result[task][pupil]
             if pupil.CF in name:
                 problem = all_people[people[pupil.CF]]['problems']
-                problem.append({task.name: info[1]})
+                if info[1] == "OK":
+                    if info[1] == 1:
+                        problem.append({'name': task.letter, "status": "+"})
+                    else:
+                        problem.append({'name': task.letter, "status": "+"+str(info[1]-1)})
+                else:
+                    problem.append({'name': task.letter, "status": ""})
                 all_people[people[pupil.CF]]['problems'] = problem
             else:
                 info_people = dict()
                 problem = []
                 info_people['name'] = pupil.firstname
                 info_people['secondname'] = pupil.secondname
-                info_people['surname'] = pupil.secondname
+                info_people['surname'] = pupil.lastname
                 info_people['nickname'] = pupil.CF
-                problem.append({task.name: info[1]})
+                if info[1] == "OK":
+                    if info[1] == 1:
+                        problem.append({'name': task.letter, "status": "+"})
+                    else:
+                        problem.append({'name': task.letter, "status": "+"+str(info[1]-1)})
+                else:
+                    problem.append({'name': task.letter, "status": ""})
+
                 info_people['problems'] = problem
                 all_people.append(info_people)
                 people[pupil.CF] = ch
@@ -135,26 +147,58 @@ def pupil_stats(nickname):
 
 
 def full_Stats(pupils, contest):
-    result = dict()
-    info = dict()
     all_contest = []
     all_pupils = []
     set_pupils = set()
+    set_contest = set()
     name_pupils = dict()
+    name_contest = dict()
+    pupils_info_all = get_all_pupils()
+    contest_info_all = get_all_contests()
 
     for item in pupils:
         set_pupils.add(item)
-        name_pupils[item] =[]
 
     for item in contest:
-        result_c = get_statistic_contest(item)
+        set_contest.add(item)
 
-        for task in result_c:
-            if result_c[task].CF in set_pupils:
-                info['contest'] = all_contest
+    ch = 0
+    for item in contest_info_all:
+        if item.letter in set_contest:
+            info_contest = dict()
+            info_contest['name'] = item.name
+            info_contest['id'] = item.link
+            info_contest['count'] = 0
+            all_contest.append(info_contest)
+            name_contest[item.link] = ch
+            ch = ch + 1
 
+    ch = 0
+    for item in pupils_info_all:
+        if item in set_pupils:
+            info_human = dict()
+            info_human['name'] = item.firstname
+            info_human['secondname'] = item.secondname
+            info_human['surname'] = item.lastname
+            info_human['nickname'] = item.CF
+            info_human['results'] = []
+            all_pupils.append(info_human)
+            name_pupils[item.CF] = ch
+            ch = ch + 1
+
+    r = get_statistic_pupil_contest([pupils], contest)
+    for contest_link in r:
+        for pupil_nick in r[contest_link]:
+            info = dict()
+            info['id'] = contest_link
+            info['solved'] = r[contest_link][pupil_nick][0]
+            all_pupils[name_pupils[pupil_nick]]['results'].append(info)
+            all_contest[name_contest[contest_link]]['count'] = r[contest_link][pupil_nick][1]
+
+    result = dict()
+    info = dict()
     info['contest'] = all_contest
     info['pupils'] = all_pupils
-    result['stat'] = [info]
+    result['stat'] = info
     return result
 
