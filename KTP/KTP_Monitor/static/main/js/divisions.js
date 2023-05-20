@@ -1,36 +1,4 @@
-function toProfile()
-{
-	document.location="teacherProfile";
-}
-function toDivisions()
-{
-	document.location="divisions";
-}
-function toContests()
-{
-	document.location="contests";
-}
-function toStudents()
-{
-	document.location="students";
-}
-function toStats()
-{
-	document.location="statistics";
-}
-function toController()
-{
-	document.location="controller";
-}
-function toNotifications()
-{
-	document.location="notifications";
-}
-function toExit()
-{
-	alert("Выйти из профиля?");
-	document.location="main";
-}
+
 function getJson_divs()
 {
 	// var str = '{"divisions" : ["A", "B", "C"]}';

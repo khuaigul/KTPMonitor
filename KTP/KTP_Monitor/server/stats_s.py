@@ -79,18 +79,18 @@ def contest_stats(link):
     ch = 0
     result = get_statistic_contest(link)
     for task in result:
-        all_problem.append({'name': task.link})
+        all_problem.append({'name': task.letter})
         for pupil in result[task]:
             info = result[task][pupil]
             if pupil.CF in name:
                 problem = all_people[people[pupil.CF]]['problems']
                 if info[1] == "OK":
                     if info[1] == 1:
-                        problem.append({'name': task.link, "status": "+"})
+                        problem.append({'name': task.letter, "status": "+"})
                     else:
-                        problem.append({'name': task.link, "status": "+"+str(info[1]-1)})
+                        problem.append({'name': task.letter, "status": "+"+str(info[1]-1)})
                 else:
-                    problem.append({'name': task.link, "status": ""})
+                    problem.append({'name': task.letter, "status": ""})
                 all_people[people[pupil.CF]]['problems'] = problem
             else:
                 info_people = dict()
@@ -101,11 +101,11 @@ def contest_stats(link):
                 info_people['nickname'] = pupil.CF
                 if info[1] == "OK":
                     if info[1] == 1:
-                        problem.append({'name': task.link, "status": "+"})
+                        problem.append({'name': task.letter, "status": "+"})
                     else:
-                        problem.append({'name': task.link, "status": "+"+str(info[1]-1)})
+                        problem.append({'name': task.letter, "status": "+"+str(info[1]-1)})
                 else:
-                    problem.append({'name': task.link, "status": ""})
+                    problem.append({'name': task.letter, "status": ""})
 
                 info_people['problems'] = problem
                 all_people.append(info_people)
