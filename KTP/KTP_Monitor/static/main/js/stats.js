@@ -64,6 +64,7 @@ function showInfo(info)
             if (j < divs[i]["pupils"].length)
             {
                 var p = document.createElement("p");
+                p.setAttribute("name", "pupil");
                 var check = document.createElement("input");
                 check.setAttribute("type", "checkbox");
                 check.setAttribute("class", "checkbox");
@@ -72,6 +73,8 @@ function showInfo(info)
                 });
                 var a = document.createElement("a");
                 a.innerHTML = divs[i]["pupils"][j]["surname"] + " " + divs[i]["pupils"][j]["name"] + " " + divs[i]["pupils"][j]["secondname"];
+                a.setAttribute("name", divs[i]["pupils"][j]["nickname"]);
+                a.setAttribute("class", "link");
 
                 p.appendChild(check);
                 p.appendChild(a);
@@ -86,6 +89,7 @@ function showInfo(info)
             if (j < divs[i]["contests"].length)
             {
                 var p1 = document.createElement("p");
+                p1.setAttribute("name", "contest");
                 var check1 = document.createElement("input");
                 check1.setAttribute("class", "checkbox");
                 check1.setAttribute("type", "checkbox");
@@ -94,6 +98,9 @@ function showInfo(info)
                     checkBt(this);
                 });
                 a1.innerHTML = divs[i]["contests"][j]["name"];
+                a1.setAttribute("name", divs[i]["pupils"][j]["nickname"]);
+                a1.setAttribute("class", "link");
+
     
                 p1.appendChild(check1);
                 p1.appendChild(a1);
@@ -116,6 +123,12 @@ function showInfo(info)
         }
     }
     table.appendChild(tbody);
+
+    bt = document.createElement("button");
+    bt.innerHTML = "Показать";
+
+    bt.setAttribute("class", "usual_button");
+    bt.setAttribute("onclick", "getStats()");
 }
 
 function clickDiv(div, status)
@@ -142,7 +155,7 @@ function clickDiv(div, status)
 
 function checkBt(bt)
 {
-    alert(bt.checked);
+    // alert(bt.checked);
     if (bt.checked)
     {
         bt.removeAttribute("checked");
@@ -151,5 +164,23 @@ function checkBt(bt)
     else
     {
         bt.removeAttribute("checked");
+    }
+}
+
+function getStats()
+{
+    var el = document.querySelectorAll("td p");
+    var pupil_cnt = 0;
+    var contest_cnt = 0;
+    for (var i = 0; i < el.length; i++)
+    {
+        var status = el[i].querySelectorAll("input")[0];
+            if (!status.checked)
+                continue;
+        if (el[i]["name"] == "pupil")
+        {
+            
+        }
+
     }
 }

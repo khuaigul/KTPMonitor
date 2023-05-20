@@ -5,7 +5,9 @@ function show()
 
 	// var str = '{"problems":[{"name":"A"},{"name":"B"},{"name":"C"}],"pupils":[{"name":"Nikita","surname":"Anisimov","secondname":"Nikolayevich","nickname":"aaa","problems":[{"name":"A","status":"+2"},{"name":"B","status":"+"},{"name":"A","status":"-1"}]},{"name":"Dan","surname":"Roytburd","secondname":"Dmitrievich","nickname":"bbb","problems":[{"name":"A","status":"+"},{"name":"B","status":"0"},{"name":"A","status":"-"}]},{"name":"Natalya","surname":"Sobyanina","secondname":"Nikolayevna","nickname":"ccc","problems":[{"name":"A","status":"0"},{"name":"B","status":"+"},{"name":"A","status":"-"}]}]}';
 	// return showStats(str);
-	var params = "id=" + window.location.href.split("?")[1].split("&")[0].split("=")[1];
+	var params = "id=" + encodeURIComponent(window.location.href.split("?")[1].split("&")[0].split("=")[1]);
+	
+	alert(params);
 	var xhr_d = new XMLHttpRequest();
 
 	xhr_d.onload = function(){
