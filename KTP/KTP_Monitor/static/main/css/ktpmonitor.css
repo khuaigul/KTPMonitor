@@ -397,3 +397,22 @@ h2{
 	border: 1px solid #FFFFFF;
 	border-color: white;
 }
+
+table{
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th{
+	border: 1px solid black;
+	border-color: #000;
+	background-color: #E2B9FF;
+	padding: 4px;
+
+}
+
+td{
+	border: 1px solid black;
+	padding: 4px;
+
+}
