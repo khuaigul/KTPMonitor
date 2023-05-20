@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'KTP_Monitor',
-    'db_mutex'
+    'db_mutex',
+    'huey.contrib.djhuey'
 ]
 
 SESSION_COOKIE_AGE = 10000

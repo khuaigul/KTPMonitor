@@ -1,4 +1,3 @@
-
 from .parsing import parsing_json_with_parameter
 from .API_CF import authorized_request
 from .DB.main_DB_modul import *
@@ -91,5 +90,4 @@ def up_contest(id_contest, last_submit):  # обновление данных в
 
 def launch_all():
     return
-
 

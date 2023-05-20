@@ -18,7 +18,7 @@ from .server.signin import sign_in
 from .server.registrationRe import registration_Re
 from .server.currentProfileData import current_profile_data
 from .server.updateTeacherProfileData import update_teacher_profile_data
-
+from .server.updatePupilProfileData import update_pupil_profile_data
 
 def main(request):     
     return render(request, 'main/main.html')
@@ -141,6 +141,12 @@ def currentProfileData(request):
 def updateTeacherProfileData(request):
     if request.method == 'POST':
         return JsonResponse(update_teacher_profile_data(request))
+    return JsonResponse({'status': False})
+
+@csrf_exempt
+def updatePupilProfileData(request):
+    if request.method == 'POST':
+        return JsonResponse(update_pupil_profile_data(request))
     return JsonResponse({'status': False})
 
 

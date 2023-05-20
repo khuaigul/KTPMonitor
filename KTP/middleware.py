@@ -14,11 +14,7 @@ class SimpleMiddleware:
         #     return response        
         # if request.user.has_perm('KTP_Monitor.' + request.path):        
         #    return response
-        # else:   
-        #     print("cringe")        
-        #     return render(request, 'main/main.html')
-
-        # Code to be executed for each request/response after
-        # the view is called.
+        # else:             
+        #     return render(request, 'main/main.html')        
 
         return response
