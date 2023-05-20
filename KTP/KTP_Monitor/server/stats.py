@@ -153,6 +153,7 @@ def full_Stats(pupils, contest):
 
         for task in result_c:
             if result_c[task].CF in set_pupils:
+                a = 0
                
 
     info['contest'] = all_contest
