@@ -64,7 +64,7 @@ def div_stats(division):
             result['contest'] = contest
             result['pupils'] = pupils
             qwe = dict()
-            qwe['stat'] = [result]
+            qwe['stat'] = result
             print(qwe)
             return qwe
 

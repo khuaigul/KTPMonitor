@@ -19,8 +19,8 @@ function getStats()
 		else 
 		{
 			get_Json = xhr_d.responseText;
+			console.log(get_Json);
 			showStats(get_Json);
-			alert(get_Json);
 		}
 	}
 	xhr_d.open("POST", 'http://127.0.0.1:8000/divisionStats?', true);
@@ -42,11 +42,11 @@ function showStats(stats_json)
 	tr.appendChild(th);
 	console.log('dfrg');
 	console.log(stats);
-	for (var i = 0; i < stats["contests"].length; i++)
+	for (var i = 0; i < stats["contest"].length; i++)
 	{
 		var cur_th = document.createElement("th");
 		cur_th.setAttribute("class", "col");
-		cur_th.innerHTML = stats["contests"][i]["name"];
+		cur_th.innerHTML = stats["contest"][i]["name"];
 		tr.appendChild(cur_th);
 	}
 	thead.appendChild(tr);
@@ -58,14 +58,14 @@ function showStats(stats_json)
 		var cur_tr = document.createElement("tr");
 		var cur_th = document.createElement("th");
 		cur_th.setAttribute("class", "fixed-side");
-		cur_th.innerHTML = stats["pupils"][i]["surname"] + " " + stats["pupils"][i]["name"] + " " + stats["pupils"][i]["secondname"];
+		cur_th.innerHTML = stats["pupils"][i]["surname"] + " ghg" + stats["pupils"][i]["name"] + " " + stats["pupils"][i]["secondname"];
 		cur_tr.appendChild(cur_th);
 
 		for (var j = 0; j < stats["pupils"][i]["results"].length; j++)
 		{
 			console.log(j);
 			var cur_td = document.createElement("td");
-			cur_td.innerHTML = stats["pupils"][i]["results"][j]["solved"] + "/" + stats["contests"][j]["count"];
+			cur_td.innerHTML = stats["pupils"][i]["results"][j]["solved"] + "/" + stats["contest"][j]["count"];
 			cur_tr.appendChild(cur_td);
 			console.log(cur_td.innerHTML);
 		}
