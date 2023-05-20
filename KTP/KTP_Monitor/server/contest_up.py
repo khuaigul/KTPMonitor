@@ -45,7 +45,7 @@ def up_contest(id_contest, last_submit):  # обновление данных в
     last = last_submit
     i = 1
     for item in info:  # ищем посылку, которая была последней раньше
-        if last < item[4]['creationTimeSeconds'] and check_human(item[0]['handle'], id_contest):
+        if last < item[4]['creationTimeSeconds']:
             last = item[4]['creationTimeSeconds']
         if item[4]['creationTimeSeconds'] == last_submit:
             break
@@ -57,8 +57,13 @@ def up_contest(id_contest, last_submit):  # обновление данных в
         handle = item[0]['handle']
         problem = item[1]['index']
         name = item[2]['name']
-        if check_human(handle, id_contest) and check_verdict(handle, id_contest, problem):
-            print(verdict, " ", handle, " ", problem, " ", name)
+        if type(handle) == type([]):
+            for handle_1 in handle:
+                if check_human(handle_1, id_contest) and check_verdict(handle_1, id_contest, problem):
+                    print(verdict, " ", handle, " ", problem, " ", name)
+        else:
+            if check_human(handle, id_contest) and check_verdict(handle, id_contest, problem):
+                print(verdict, " ", handle, " ", problem, " ", name)
         # тут ещё надо написать обновление ласт посылки
     return True
 

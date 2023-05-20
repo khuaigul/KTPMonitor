@@ -20,8 +20,6 @@ from .server.currentProfileData import current_profile_data
 from .server.updateTeacherProfileData import update_teacher_profile_data
 
 
-
-
 def main(request):     
     return render(request, 'main/main.html')
 
