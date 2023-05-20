@@ -77,25 +77,36 @@ def contest_stats(link):
     write_stat["status"] = True
     name = set()
     ch = 0
-    print(link, "!!!!!!!!!!")
     result = get_statistic_contest(link)
-    print("qwewqeqweqweqweqweqw")
     for task in result:
-        all_problem.append({'name': task.name})
+        all_problem.append({'name': task.letter})
         for pupil in result[task]:
             info = result[task][pupil]
             if pupil.CF in name:
                 problem = all_people[people[pupil.CF]]['problems']
-                problem.append({task.name: info[1]})
+                if info[1] == "OK":
+                    if info[1] == 1:
+                        problem.append({'name': task.letter, "status": "+"})
+                    else:
+                        problem.append({'name': task.letter, "status": "+"+str(info[1]-1)})
+                else:
+                    problem.append({'name': task.letter, "status": ""})
                 all_people[people[pupil.CF]]['problems'] = problem
             else:
                 info_people = dict()
                 problem = []
                 info_people['name'] = pupil.firstname
                 info_people['secondname'] = pupil.secondname
-                info_people['surname'] = pupil.secondname
+                info_people['surname'] = pupil.lastname
                 info_people['nickname'] = pupil.CF
-                problem.append({task.name: info[1]})
+                if info[1] == "OK":
+                    if info[1] == 1:
+                        problem.append({'name': task.letter, "status": "+"})
+                    else:
+                        problem.append({'name': task.letter, "status": "+"+str(info[1]-1)})
+                else:
+                    problem.append({'name': task.letter, "status": ""})
+
                 info_people['problems'] = problem
                 all_people.append(info_people)
                 people[pupil.CF] = ch
@@ -103,6 +114,7 @@ def contest_stats(link):
                 name.add(pupil.CF)
     write_stat["pupils"] = all_people
     write_stat["problems"] = all_problem
+    print(write_stat)
     return write_stat
 
 
