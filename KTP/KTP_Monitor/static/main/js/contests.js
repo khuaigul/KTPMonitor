@@ -144,6 +144,7 @@ function show_contests(contests_json, block)
  //   alert("AAAA");
 	contests = JSON.parse(contests_json);
 	//alert(contests["contests"].length);
+	console.log(contests);
 	for (var i = 0; i < contests["contests"].length; i++)
 	{
 		var p = document.createElement("p");
@@ -151,7 +152,7 @@ function show_contests(contests_json, block)
 		p.setAttribute("class", "contestLink");
 		p.setAttribute("name", contests["contests"][i]);
 		a.innerHTML = contests["contests"][i]["name"];
-		a.setAttribute("name", contests["contests"][i]["id"]);
+		a.setAttribute("name", contests["contests"][i]["link"]);
 		a.setAttribute("onclick", "show_contest(this)");
 		p.appendChild(a);
 		block.appendChild(p);
