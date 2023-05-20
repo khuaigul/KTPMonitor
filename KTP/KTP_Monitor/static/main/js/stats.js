@@ -28,17 +28,23 @@ function showInfo(info)
     for (var i = 0; i < divs.length; i++)
     {
         var tr = document.createElement("tr");
-        tr.setAttribute("class", divs[i]["name"]);
+        // tr.setAttribute("id", divs[i]["name"]);
+        tr.setAttribute("class", "divHeader");
         var td = document.createElement("td");
         td.setAttribute("colspan", "2");
 
         var check = document.createElement("input");
         check.setAttribute("type", "checkbox")
         check.setAttribute("class", "checkbox");
+        check.setAttribute("id", divs[i]["name"]);
+        check.addEventListener("click", function(){
+            clickDiv(this["id"]);
+        });
         var a = document.createElement("a");
         a.innerHTML = "Дивизион " + divs[i]["name"];
         td.appendChild(check);
         td.appendChild(a);
+
 
         tr.appendChild(td);
         tbody.appendChild(tr);
@@ -66,8 +72,12 @@ function showInfo(info)
 
                 p.appendChild(check);
                 p.appendChild(a);
+                tdP.setAttribute("class", divs[i]["name"]);
 
                 tdP.appendChild(p);
+            }
+            else{
+                tdP.setAttribute("class", "empty");
             }
 
             if (j < divs[i]["contests"].length)
@@ -84,6 +94,10 @@ function showInfo(info)
 
                 tdC.appendChild(p1);
             }
+            else
+            {
+                tdC.setAttribute("class", "empty");
+            }
 
             tr.appendChild(tdP);
             tr.appendChild(tdC);
@@ -93,4 +107,14 @@ function showInfo(info)
         }
     }
     table.appendChild(tbody);
+}
+
+function clickDiv(div)
+{
+    // var td = document.querySelectorAll("." + div);
+    var checkers = document.querySelectorAll("." + div + " input");
+    for (var i = 0; i < checkers.length; i++)
+    {
+        checkers.setAttribute("onclicked", "onclicked");
+    }
 }

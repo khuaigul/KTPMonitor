@@ -389,14 +389,22 @@ h2{
 }
 
 .statsInfo{
-	border: 1px solid #FFFFFF;
-	border-color: white;
+	border-collapse: collapse;
+	border: 1px solid white;
+	font-size: 20px;
 }
 
-.statsInfo tr, td{
-	border: 1px solid #FFFFFF;
-	border-color: white;
+.statsInfo td{
+	border: 1px solid black;
+	padding: 4px;
 }
+
+.empty{
+	border: 1px solid white;
+	padding: 4px;
+}
+
+
 
 table{
 	border: 1px solid black;
@@ -415,4 +423,8 @@ td{
 	border: 1px solid black;
 	padding: 4px;
 
+}
+
+.divHeader{
+	background-color: #E2B9FF;
 }
