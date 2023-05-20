@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from .server import contest_server
 from .server import div
 from .server import people
-from .server import stats
+from .server import stats_s
 from .server import new_functions
 from django.views.decorators.csrf import csrf_exempt
 from . import tokens
@@ -193,7 +193,7 @@ def сhangeDiv(request):
 @csrf_exempt
 def pupilStats(request):
     if request.method == 'POST':
-        return JsonResponse(stats.pupil_stats(request.POST['nickname']))
+        return JsonResponse(stats_s.pupil_statssss(request.POST['nickname']))
     return JsonResponse({"status": False})
 
 
@@ -207,21 +207,20 @@ def newDivisionRe(request):  #
 @csrf_exempt
 def divisionStats(request):
     if request.method == 'GET':
-        return JsonResponse(stats.div_stats(request.GET['division']))
+        return JsonResponse(stats_s.div_stats(request.GET['division']))
     return JsonResponse({"status": False})
 
 
 @csrf_exempt
 def contestStats(request):
     if request.method == 'GET':
-        return JsonResponse(stats.contest_stats(request.GET['id']))
+        return JsonResponse(stats_s.contest_stats(request.GET['id']))
     return JsonResponse({"status": False})
 
 
 @csrf_exempt
 def contestsList(request):
     if request.method == 'POST':
-        print("запрос пришёл таким :", request.POST["div"])
         return JsonResponse(contest_server.write_contest_list(request.POST["div"]))
     return JsonResponse({"status": False})
 
@@ -249,7 +248,6 @@ def deleteContest(request):
 @csrf_exempt
 def updatePupilDivison(request):
     if request.method == 'POST':
-        print(request.POST["pupil1"])
         return JsonResponse(div.change_div_people(list(request.POST.items())))
     return JsonResponse({"status": False})
 
@@ -286,7 +284,7 @@ def fullStats(request):
                 pupils_info.append(item[0])
             else:
                 contest_info.append(item[0])
-        return JsonResponse(stats.full_Stats(contest_info, pupils_info))
+        return JsonResponse(stats_s.full_Stats(contest_info, pupils_info))
     return JsonResponse({"status": False})
 
 

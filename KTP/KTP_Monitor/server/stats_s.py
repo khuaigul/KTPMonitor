@@ -106,16 +106,14 @@ def contest_stats(link):
     return write_stat
 
 
-def pupil_stats(nickname):
-    print ("FGBFGBFGGBFGBFGB")
+def pupil_statssss(nickname):
     result = dict()
     pupils = get_all_pupils()
     id_people = None
     for item in pupils:
         if item.CF == nickname:
-            id_people = nickname
+            id_people = item
             break
-
     divs = get_all_divs()
     div = None
     for it in divs:
@@ -124,15 +122,16 @@ def pupil_stats(nickname):
             break
 
     contest = get_all_contests([div])
+    contest_info = []
     for it in contest:
         info = dict()
         info['name'] = it.name
-        r = get_statistic_pupil_contest([pupils], [it.link])
-        info['solved'] = r[it.link][pupils.CF][0]
-        info['count'] = r[it.link][pupils.CF][1]
+        r = get_statistic_pupil_contest([id_people], [it.link])
+        info['solved'] = r[it.link][id_people.CF][0]
+        info['count'] = r[it.link][id_people.CF][1]
 
-        contest.append(info)
-    result['stats'] = contest
+        contest_info.append(info)
+    result['stats'] = contest_info
     return result
 
 
