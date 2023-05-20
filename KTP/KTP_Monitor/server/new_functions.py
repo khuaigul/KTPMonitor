@@ -33,7 +33,7 @@ def all_people_and_div_and_contest():
         item['name'] = it.name
         people = []
 
-        pupils = get_all_pupils(it)
+        pupils = get_all_pupils([it])
         for it2 in pupils:
             human = dict()
             human['nickname'] = it2.CF
@@ -46,11 +46,12 @@ def all_people_and_div_and_contest():
         contest = []
         conests = get_all_contests([it])
         for i in conests:
-            contest.append({i.link, i.name})
+            contest.append({'id': i.link, "name": i.name})
         item['contest'] = contest
 
         info.append(item)
     result['divisions'] = info
+    print(result)
     return result
 
 
