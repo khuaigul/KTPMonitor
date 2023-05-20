@@ -194,8 +194,8 @@ def сhangeDiv(request):
 
 @csrf_exempt
 def pupilStats(request):
-    if request.method == 'GET':
-        return JsonResponse(stats.pupil_stats(request.GET['nickname']))
+    if request.method == 'POST':
+        return JsonResponse(stats.pupil_stats(request.POST['nickname']))
     return JsonResponse({"status": False})
 
 

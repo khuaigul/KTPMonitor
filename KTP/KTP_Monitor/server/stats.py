@@ -107,7 +107,7 @@ def contest_stats(link):
 
 
 def pupil_stats(nickname):
-
+    print ("FGBFGBFGGBFGBFGB")
     result = dict()
     pupils = get_all_pupils()
     id_people = None
