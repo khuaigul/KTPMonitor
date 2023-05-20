@@ -195,7 +195,7 @@ def сhangeDiv(request):
 @csrf_exempt
 def pupilStats(request):
     if request.method == 'GET':
-        return JsonResponse({"status": False})
+        return JsonResponse(stats.pupil_stats(request.GET['nickname']))
     return JsonResponse({"status": False})
 
 
@@ -205,16 +205,18 @@ def newDivisionRe(request):  #
         return JsonResponse(div.add_div(request.POST["name"]))
     return JsonResponse({"status": False})
 
+
 @csrf_exempt
 def divisionStats(request):
     if request.method == 'GET':
-        return JsonResponse({"status": False})
+        return JsonResponse(stats.div_stats(request.GET['division']))
     return JsonResponse({"status": False})
+
 
 @csrf_exempt
 def contestStats(request):
     if request.method == 'GET':
-        return JsonResponse(stats.contest_stats)
+        return JsonResponse(stats.contest_stats(request.GET['id']))
     return JsonResponse({"status": False})
 
 
