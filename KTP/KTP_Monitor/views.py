@@ -91,6 +91,9 @@ def studentStatsPage(request):
 def pupilDivision(request):
     return render(request, 'main/pupilDivision.html')
 
+def stats(request):
+    return render(request, 'main/stats.html')
+
 @csrf_exempt 
 def signin(request):
     if request.method=='POST':

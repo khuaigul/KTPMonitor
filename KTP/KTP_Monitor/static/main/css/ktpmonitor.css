@@ -358,6 +358,42 @@ body{
 	width: 100%;
 }
 
-.h2{
+h2{
 	text-align: center;
+}
+
+.headerDivName{
+	align-items: center;
+	width: 100%;
+	margin: 2px;
+}
+
+.divInfoPupils{
+	width: 500px;
+	margin: 2px;
+	float: left;
+}
+
+.divInfoContests{
+	width: 500px;
+	margin: 2px;
+	float: left;
+}
+
+.checkbox{
+	width: auto;
+}
+
+.divList{
+	width: 1000px;
+}
+
+.statsInfo{
+	border: 1px solid #FFFFFF;
+	border-color: white;
+}
+
+.statsInfo tr, td{
+	border: 1px solid #FFFFFF;
+	border-color: white;
 }

@@ -16,7 +16,7 @@ function toStudents()
 }
 function toStats()
 {
-	document.location="statistics";
+	document.location="stats";
 }
 function toController()
 {
