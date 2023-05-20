@@ -49,6 +49,5 @@ urlpatterns = [
     path('divs_with_contests', views.divs_with_contests, name='divs_with_contests'),
     path('pupilDivision', views.pupilDivision, name='pupilDivision'),
     path('stats', views.stats, name='stats'),
-
+    path('fullStats', views.fullStats, name='fullStats'),
 ]
-  
