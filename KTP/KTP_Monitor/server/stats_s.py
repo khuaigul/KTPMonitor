@@ -148,6 +148,7 @@ def pupil_stats(nickname):
 
 def full_Stats(pupils, contest):
     all_contest = []
+    set_pupils_2 = []
     all_pupils = []
     set_pupils = set()
     set_contest = set()
@@ -161,7 +162,6 @@ def full_Stats(pupils, contest):
 
     for item in contest:
         set_contest.add(item)
-
     ch = 0
     for item in contest_info_all:
         if item.link in set_contest:
@@ -172,11 +172,11 @@ def full_Stats(pupils, contest):
             all_contest.append(info_contest)
             name_contest[item.link] = ch
             ch = ch + 1
-
     ch = 0
     for item in pupils_info_all:
-        if item in set_pupils:
+        if item.CF in set_pupils:
             info_human = dict()
+            set_pupils_2.append(item)
             info_human['name'] = item.firstname
             info_human['secondname'] = item.secondname
             info_human['surname'] = item.lastname
@@ -185,8 +185,7 @@ def full_Stats(pupils, contest):
             all_pupils.append(info_human)
             name_pupils[item.CF] = ch
             ch = ch + 1
-
-    r = get_statistic_pupil_contest([pupils], contest)
+    r = get_statistic_pupil_contest(set_pupils_2, contest)
     for contest_link in r:
         for pupil_nick in r[contest_link]:
             info = dict()
