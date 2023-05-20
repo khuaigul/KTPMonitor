@@ -24,7 +24,7 @@ function showProfileInfo()
 }
 
 function showProfile(profileJson)
-{
+{ 
 	const data = JSON.parse(profileJson);
 	let name = document.getElementById("fullTeacherName");
 	name.innerHTML = data["surname"] + " " + data["firstname"] + " "  + data["secondname"];

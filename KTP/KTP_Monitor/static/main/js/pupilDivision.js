@@ -38,7 +38,7 @@ function showTeachers(teachers_json)
 	for (var i = 0; i < teachers["teachers"].length; i++)
 	{
 		var p = document.createElement("p");
-		p.innerHTML = teachers["teachers"][i]["name"];
+		p.innerHTML = teachers["teachers"][i]["surname"] + " " + teachers["teachers"][i]["name"] + " " + teachers["teachers"][i]["secondname"];
 		document.getElementById("teachers").appendChild(p);
 	}
 
@@ -47,30 +47,31 @@ function showTeachers(teachers_json)
 function getStats()
 {
 	var div = window.location.href.split("?")[1].split("=")[1];
-	var str = '{"stat" : {"pupils" : [{"nickname" : "aaa", "name" : "Nikita", "surname" : "Anisimov", "secondname" : "Nikolayevich", "results" : [{"id" : "123", "solved" : "6"}, {"id" : "321", "solved" : "5"}]}, {"nickname" : "bbb", "name" : "Natalya", "surname" : "Sobyanina", "secondname" : "Nikolayevna", "results" : [{"id" : "123", "solved" : "4"}, {"id" : "321", "solved" : "2"}]}], "contests" : [{"name" : "DO", "id" : "123", "count" : "10"}, {"name" : "DP", "id" : "321", "count" : "10"}]}}';
-	return showStats(str);
+	// var str = '{"stat" : {"pupils" : [{"nickname" : "aaa", "name" : "Nikita", "surname" : "Anisimov", "secondname" : "Nikolayevich", "results" : [{"id" : "123", "solved" : "6"}, {"id" : "321", "solved" : "5"}]}, {"nickname" : "bbb", "name" : "Natalya", "surname" : "Sobyanina", "secondname" : "Nikolayevna", "results" : [{"id" : "123", "solved" : "4"}, {"id" : "321", "solved" : "2"}]}], "contests" : [{"name" : "DO", "id" : "123", "count" : "10"}, {"name" : "DP", "id" : "321", "count" : "10"}]}}';
+	// return showStats(str);
 	var params = "name=" + div;
-	// var xhr_d = new XMLHttpRequest();
+	var xhr_d = new XMLHttpRequest();
 
-	// xhr_d.onload = function(){
-	// 	if (xhr_d.status != 200){
-	// 		alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-	// 	}
-	// 	else 
-	// 	{
-	// 		get_Json = xhr_d.responseText;
-	// 		showStats(get_Json);
-	// 	}
-	// }
-	// xhr_d.open("GET", 'http://127.0.0.1:8000/divisionStats?', true);
-	// xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	// xhr_d.send(params);
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			var get_Json = xhr_d.responseText;
+			console.log(get_Json);
+			showStats(get_Json);
+		}
+	}
+	xhr_d.open("POST", 'http://127.0.0.1:8000/divisionStats?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(params);
 }
 
 function showStats(stats_json)
 {
 	var stats = JSON.parse(stats_json)["stat"];
-	var table = document.querySelectorAll(".main-table")[0];
+	var table = document.querySelectorAll("table")[0];
 
 	var thead = document.createElement("thead");
 	var tr = document.createElement("tr");
@@ -81,11 +82,11 @@ function showStats(stats_json)
 	tr.appendChild(th);
 	console.log('dfrg');
 	console.log(stats);
-	for (var i = 0; i < stats["contests"].length; i++)
+	for (var i = 0; i < stats["contest"].length; i++)
 	{
 		var cur_th = document.createElement("th");
 		cur_th.setAttribute("class", "col");
-		cur_th.innerHTML = stats["contests"][i]["name"];
+		cur_th.innerHTML = stats["contest"][i]["name"];
 		tr.appendChild(cur_th);
 	}
 	thead.appendChild(tr);
@@ -95,7 +96,7 @@ function showStats(stats_json)
 	for (var i = 0; i < stats["pupils"].length; i++)
 	{
 		var cur_tr = document.createElement("tr");
-		var cur_th = document.createElement("th");
+		var cur_th = document.createElement("td");
 		cur_th.setAttribute("class", "fixed-side");
 		cur_th.innerHTML = stats["pupils"][i]["surname"] + " " + stats["pupils"][i]["name"] + " " + stats["pupils"][i]["secondname"];
 		cur_tr.appendChild(cur_th);
@@ -104,7 +105,7 @@ function showStats(stats_json)
 		{
 			console.log(j);
 			var cur_td = document.createElement("td");
-			cur_td.innerHTML = stats["pupils"][i]["results"][j]["solved"] + "/" + stats["contests"][j]["count"];
+			cur_td.innerHTML = stats["pupils"][i]["results"][j]["solved"] + "/" + stats["contest"][j]["count"];
 			cur_tr.appendChild(cur_td);
 			console.log(cur_td.innerHTML);
 		}
