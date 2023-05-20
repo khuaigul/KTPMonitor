@@ -43,13 +43,13 @@ def div_stats(division):
                     else:
                         people_cf.append(pupil_nick)
                         people[pupil_nick] = []
-                        people[pupil_nick].append({contest_link: info[0]})
+                        people[pupil_nick].append({'solved': info[0], 'id': contest_link})
 
             for item in people_cf:
                 info = dict()
                 info['name'] = people_name[item]
-                info['surname'] = people_surname[item]
-                info['secondname'] = people_secondname[item]
+                info['surname'] = people_secondname[item]
+                info['secondname'] = people_surname[item]
                 info['nickname'] = item
                 info['results'] = people[item]
                 pupils.append(info)
@@ -67,7 +67,6 @@ def div_stats(division):
             qwe['stat'] = result
             print(qwe)
             return qwe
-
     return {"status": False}
 
 
@@ -106,7 +105,7 @@ def contest_stats(link):
     return write_stat
 
 
-def pupil_statssss(nickname):
+def pupil_stats(nickname):
     result = dict()
     pupils = get_all_pupils()
     id_people = None

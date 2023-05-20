@@ -130,10 +130,7 @@ def sendProfileData(request):
 
 @csrf_exempt
 def currentProfileData(request):
-    print("SOME");
     if request.method == 'POST':
-        print("HERER")
-        print(current_profile_data(request))
         return JsonResponse(current_profile_data(request))
     return JsonResponse({"status": False})
 
@@ -159,7 +156,6 @@ def divisionsRe(request):
 @csrf_exempt
 def students_by_div(request):
     if request.method == 'POST':
-        print(request.POST['name'])
         return JsonResponse(people.people_write_div(request.POST['name']))
     else:
         return JsonResponse({"status": False})
@@ -193,7 +189,7 @@ def сhangeDiv(request):
 @csrf_exempt
 def pupilStats(request):
     if request.method == 'POST':
-        return JsonResponse(stats_s.pupil_statssss(request.POST['nickname']))
+        return JsonResponse(stats_s.pupil_stats(request.POST['nickname']))
     return JsonResponse({"status": False})
 
 
@@ -223,12 +219,6 @@ def contestsList(request):
     if request.method == 'POST':
         return JsonResponse(contest_server.write_contest_list(request.POST["div"]))
     return JsonResponse({"status": False})
-
-
-@csrf_exempt
-def testParams(request):
-    if (request.method == 'POST'):
-        print(request.POST["id"])
 
 
 @csrf_exempt
