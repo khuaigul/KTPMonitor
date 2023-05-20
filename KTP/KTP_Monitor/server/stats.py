@@ -136,3 +136,27 @@ def pupil_stats(nickname):
     return result
 
 
+def full_Stats(pupils, contest):
+    result = dict()
+    info = dict()
+    all_contest = []
+    all_pupils = []
+    set_pupils = set()
+    name_pupils = dict()
+
+    for item in pupils:
+        set_pupils.add(item)
+        name_pupils[item] =[]
+
+    for item in contest:
+        result_c = get_statistic_contest(item)
+
+        for task in result_c:
+            if result_c[task].CF in set_pupils:
+               
+
+    info['contest'] = all_contest
+    info['pupils'] = all_pupils
+    result['stat'] = [info]
+    return result
+
