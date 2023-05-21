@@ -147,6 +147,7 @@ body{
 	border-radius: 30px;
 	padding: 5px;
 	font-size: 12px;
+	margin: 5px
 }
 
 
@@ -425,6 +426,7 @@ h2{
 table{
 	border: 1px solid black;
 	border-collapse: collapse;
+	width: 700px;
 }
 
 th{

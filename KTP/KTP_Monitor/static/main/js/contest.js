@@ -70,5 +70,33 @@ function showStats(json_stats)
 		tbody.appendChild(cur_tr);
 	}
 	table.appendChild(tbody);
-	
+
+	var bt = document.createElement("button");
+	bt.setAttribute("class", "extra_button");
+	bt.innerHTML = "Удалить контест";
+	bt.setAttribute("onclick", "deleteContest()");
+
+	document.querySelectorAll(".block")[0].appendChild(bt);
+}
+
+function deleteContest()
+{
+	var link = encodeURIComponent(window.location.href.split("?")[1].split("&")[0].split("=")[1]);
+	if (confirm("Вы действительно хотите удалить контест?"))
+	{
+		var params = "link=" + link;  
+		var xhr_d = new XMLHttpRequest();
+		xhr_d.open("POST", 'http://127.0.0.1:8000/deleteContest?', true);
+		xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr_d.send(params);
+		xhr_d.onload = function(){
+			if (xhr_d.status != 200){
+				alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+			}
+			else 
+			{
+				document.location = "contests";
+			}
+		}	
+	}
 }
