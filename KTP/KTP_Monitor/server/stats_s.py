@@ -73,6 +73,8 @@ def contest_stats(link):
     all_problem = []
     all_people = []
     people = dict()
+    people_cnt = dict()
+    people_cnt_2 = dict()
     write_stat = dict()
     write_stat["status"] = True
     name = set()
@@ -87,8 +89,10 @@ def contest_stats(link):
                 if info[1] == "OK":
                     if info[0] == 1:
                         problem.append({'name': task.letter, "status": "+"})
+                        all_people[people[pupil.CF]]['summ_task'] += 1
                     else:
                         problem.append({'name': task.letter, "status": "+"+str(info[0]-1)})
+                        all_people[people[pupil.CF]]['summ_task'] += 1
                 else:
                     if info[0] == 0:
                         problem.append({'name': task.letter, "status": ""})
@@ -102,10 +106,13 @@ def contest_stats(link):
                 info_people['secondname'] = pupil.secondname
                 info_people['surname'] = pupil.lastname
                 info_people['nickname'] = pupil.CF
+                info_people['summ_task'] = 0
                 if info[1] == "OK":
                     if info[0] == 1:
+                        info_people['summ_task'] += 1
                         problem.append({'name': task.letter, "status": "+"})
                     else:
+                        info_people['summ_task'] += 1
                         problem.append({'name': task.letter, "status": "+"+str(int(info[0])-1)})
                 else:
                     if info[0] == 0:
@@ -117,8 +124,9 @@ def contest_stats(link):
                 people[pupil.CF] = ch
                 ch = ch + 1
                 name.add(pupil.CF)
-    write_stat["pupils"] = all_people
+    write_stat["pupils"] = sorted(all_people, key=lambda x: x['summ_task'])
     write_stat["problems"] = all_problem
+    print(write_stat)
     return write_stat
 
 
