@@ -18,6 +18,7 @@ from .server.signin import sign_in
 from .server.registrationRe import registration_Re
 from .server.currentProfileData import current_profile_data
 from .server.updateTeacherProfileData import update_teacher_profile_data
+from .server.updatePupilProfileData import update_pupil_profile_data
 
 
 def main(request):     
@@ -143,6 +144,12 @@ def updateTeacherProfileData(request):
         return JsonResponse(update_teacher_profile_data(request))
     return JsonResponse({'status': False})
 
+@csrf_exempt
+def updatePupilProfileData(request):
+    if request.method == 'POST':
+        return JsonResponse(update_pupil_profile_data(request))
+    return JsonResponse({'status': False})
+
 
 @csrf_exempt
 def logout(request):
@@ -227,7 +234,13 @@ def contestsList(request):
 @csrf_exempt
 def newContest(request):
     if request.method == 'POST':
-        return JsonResponse(contest_server.add_contestt(request.POST["link"], request.POST["division"]))
+        info = list(request.POST.items())
+        div_s = set()
+        for item in info:
+            if item[0][0] == 'd':
+                div_s.add(item[1])
+        div_s.add('A')
+        return JsonResponse(contest_server.add_contestt(request.POST["link"], div_s))
     return JsonResponse({"status": False})
 
 
