@@ -39,7 +39,7 @@ def div_stats(division):
                     info = r[contest_link][pupil_nick]
                     count_contest[contest_link] = info[1]
                     if pupil_nick in people:
-                        people[pupil_nick].append({contest_link: info[0]})
+                        people[pupil_nick].append({'id': contest_link, 'solved':info[0]})
                     else:
                         people_cf.append(pupil_nick)
                         people[pupil_nick] = []
