@@ -23,6 +23,7 @@ def div_stats(division):
             people_name = dict()
             people_surname = dict()
             people_secondname = dict()
+            people_task = dict()
             people_cf = []
             for c in all_people:
                 people_name[c.CF] = c.firstname
@@ -39,9 +40,11 @@ def div_stats(division):
                     info = r[contest_link][pupil_nick]
                     count_contest[contest_link] = info[1]
                     if pupil_nick in people:
-                        people[pupil_nick].append({'id': contest_link, 'solved':info[0]})
+                        people_task[pupil_nick] += int(info[0])
+                        people[pupil_nick].append({'id': contest_link, 'solved': info[0]})
                     else:
                         people_cf.append(pupil_nick)
+                        people_task[pupil_nick] = int(info[0])
                         people[pupil_nick] = []
                         people[pupil_nick].append({'solved': info[0], 'id': contest_link})
 
@@ -52,6 +55,7 @@ def div_stats(division):
                 info['secondname'] = people_surname[item]
                 info['nickname'] = item
                 info['results'] = people[item]
+                info['summ_task'] = people_task[item]
                 pupils.append(info)
 
             for item in all_contest:
@@ -62,9 +66,10 @@ def div_stats(division):
                 contest.append(info)
 
             result['contest'] = contest
-            result['pupils'] = pupils
+            result['pupils'] = sorted(pupils, key=lambda x: x['summ_task'])
             qwe = dict()
             qwe['stat'] = result
+            print(qwe)
             return qwe
     return {"status": False}
 
@@ -73,8 +78,6 @@ def contest_stats(link):
     all_problem = []
     all_people = []
     people = dict()
-    people_cnt = dict()
-    people_cnt_2 = dict()
     write_stat = dict()
     write_stat["status"] = True
     name = set()
