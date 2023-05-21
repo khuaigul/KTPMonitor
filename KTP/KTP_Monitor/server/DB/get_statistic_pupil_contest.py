@@ -11,7 +11,7 @@ def get_statistic_pupil_contest(pupils, links):
         tasks = list(Task_Info.objects.filter(contest = c))
         cnt_task = len(tasks)
         for p in pupils:
-            cnt_acsept = Pupil_Task.objects.filter(task__in = tasks, pupil = p, result = "AC").count()
+            cnt_acsept = Pupil_Task.objects.filter(task__in = tasks, pupil = p, result = "OK").count()
             result[c.link][p.CF] = (cnt_acsept, cnt_task)
 
     

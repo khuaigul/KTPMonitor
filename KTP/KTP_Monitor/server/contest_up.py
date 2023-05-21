@@ -9,11 +9,12 @@ pupils = set()
 
 
 def check_human(handle):  # проверка на наличие человека в Contest
+    global pupils
     if handle == "":
         return False
     if handle in pupils:
-        return False
-    return True
+        return True
+    return False
 
 
 def give_json(id_contest):  # получение json надо сь которым дальше будем работать
@@ -32,13 +33,15 @@ def up_contest(id_contest, last_submit):  # обновление данных в
     if give_json(id_contest):
         return False
     global info
-    last = last_submit
+    if last_submit == "":
+        last_submit = 0
+    last = int(last_submit)
     i = 1
     for item in info:  # ищем посылку, которая была последней раньше
-        if last < item[3]['creationTimeSeconds']:
-            last = item[3]['creationTimeSeconds']
-        if item[3]['creationTimeSeconds'] == last_submit:
+        if int(item[3]['creationTimeSeconds']) == int(last_submit):
             break
+        if last < int(item[3]['creationTimeSeconds']):
+            last = int(item[3]['creationTimeSeconds'])
         i = i + 1
     while i != 1:  # добавляем разницу между прошлой последней посылкой и текущей
         i = i - 1
@@ -49,11 +52,16 @@ def up_contest(id_contest, last_submit):  # обновление данных в
         if type(handle) == type([]):
             for handle_1 in handle:
                 if check_human(handle_1):
+                    print(handle)
+                    print(verdict)
                     add_new_send(id_contest, problem, handle_1, 1, verdict)
         else:
             if check_human(handle):
+                print(handle)
+                print(verdict)
                 add_new_send(id_contest, problem, handle, 1, verdict)
-        update_contest_time(id_contest, last)
+    print(int(info[0][3]['creationTimeSeconds']))
+    update_contest_time(id_contest, int(info[0][3]['creationTimeSeconds']))
     return True
 
 
@@ -90,12 +98,14 @@ def up_contest(id_contest, last_submit):  # обновление данных в
 #     return False
 
 def launch_all():
+    print('Hello')
     pupils_ = get_all_pupils()
     for item in pupils_:
         pupils.add(item.CF)
     contest = get_all_contests()
     for item in contest:
         cnt = 0
+        print(item.link)
         while cnt < 100 and (not up_contest(item.link, item.last_update)):
             cnt = cnt + 1
     return
