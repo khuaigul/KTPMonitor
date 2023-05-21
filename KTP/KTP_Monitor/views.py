@@ -234,7 +234,13 @@ def contestsList(request):
 @csrf_exempt
 def newContest(request):
     if request.method == 'POST':
-        return JsonResponse(contest_server.add_contestt(request.POST["link"], request.POST["division"]))
+        info = list(request.POST.items())
+        div_s = set()
+        for item in info:
+            if item[0][0] == 'd':
+                div_s.add(item[1])
+        div_s.add('A')
+        return JsonResponse(contest_server.add_contestt(request.POST["link"], div_s))
     return JsonResponse({"status": False})
 
 

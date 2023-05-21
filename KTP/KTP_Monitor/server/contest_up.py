@@ -64,15 +64,15 @@ def up_contest(id_contest, last_submit):  # обновление данных в
         if type(handle) == type([]):
             for handle_1 in handle:
                 if check_human(handle_1):
-                    print(handle)
-                    print(verdict)
+                    # print(handle)
+                    # print(verdict)
                     add_new_send(id_contest, problem, handle_1, 1, verdict)
         else:
             if check_human(handle):
-                print(handle)
-                print(verdict)
+                # print(handle)
+                # print(verdict)
                 add_new_send(id_contest, problem, handle, 1, verdict)
-    print(int(info[0][3]['creationTimeSeconds']))
+    # print(int(info[0][3]['creationTimeSeconds']))
     update_contest_time(id_contest, int(info[0][3]['creationTimeSeconds']))
     return True
 
@@ -110,7 +110,7 @@ def up_contest(id_contest, last_submit):  # обновление данных в
 #     return False
 
 def launch_all():
-    print('Hello')
+    # print('Hello')
     pupils_ = get_all_pupils()
     for item in pupils_:
         pupils.add(item.CF)
@@ -120,7 +120,7 @@ def launch_all():
         qwe = item.last_update
         if qwe == "":
             qwe = 0
-        print(item.link)
+        # print(item.link)
         while cnt < 100 and (not up_contest(item.link, qwe)):
             cnt = cnt + 1
     return

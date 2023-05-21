@@ -1,5 +1,4 @@
 from .DB.main_DB_modul import *
-from .chek import *
 
 
 def people_write_all():

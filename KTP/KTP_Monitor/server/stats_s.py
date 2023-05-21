@@ -65,7 +65,6 @@ def div_stats(division):
             result['pupils'] = pupils
             qwe = dict()
             qwe['stat'] = result
-            print(qwe)
             return qwe
     return {"status": False}
 
@@ -144,15 +143,11 @@ def pupil_stats(nickname):
         info = dict()
         info['name'] = it.name
         r = get_statistic_pupil_contest([id_people], [it.link])
-        # for contest_link in r:
-        #     for pupil_nick in r[contest_link]:
-        #         print(r[contest_link][pupil_nick])
         info['solved'] = r[it.link][id_people.CF][0]
         info['count'] = r[it.link][id_people.CF][1]
 
         contest_info.append(info)
     result['stats'] = contest_info
-    # print(result)
     return result
 
 
@@ -209,6 +204,5 @@ def full_Stats(pupils, contest):
     info['contest'] = all_contest
     info['pupils'] = all_pupils
     result['stat'] = info
-    print(result)
     return result
 
