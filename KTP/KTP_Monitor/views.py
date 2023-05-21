@@ -20,20 +20,6 @@ from .server.currentProfileData import current_profile_data
 from .server.updateTeacherProfileData import update_teacher_profile_data
 from .server.updatePupilProfileData import update_pupil_profile_data
 
-pupils = get_all_pupils()
-contests = get_all_contests()
-
-rc = get_statistic_contest(contests[0].link)
-for task in rc:
-    for pupil in rc[task]:
-        print("res[", task.letter, "][", pupil.CF, "] = ",  rc[task][pupil], sep= ' ')
-    print()
-
-rs = get_statistic_pupil_contest(pupils, [contests[0].link])
-print("con pip statistis done")
-for contest_link in rs:
-    for pupil_nick in rs[contest_link]:
-        print("rs[", contest_link, "][", pupil_nick, "]", rs[contest_link][pupil_nick])
 
 def main(request):     
     return render(request, 'main/main.html')

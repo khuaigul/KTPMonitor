@@ -4,7 +4,6 @@ from .DB.main_DB_modul import *
 
 
 STR_TYPE = type("qwe")
-info = {}
 pupils = set()
 
 
@@ -21,18 +20,31 @@ def give_json(id_contest):  # получение json надо сь которы
     request = [("contestId", str(id_contest))]
     request_for_cf = authorized_request("contest.status", request)  # делаем запрос на кф
     if request_for_cf is None:  # что-то пошло не так и запрос не удалось сделать
-        return True
+        return None
     request = {'result': [{'author': {'members': 'handle'}}, {'problem': 'index'},
                           'verdict', 'creationTimeSeconds']}
-    global info
     info = parsing_json_with_parameter(request_for_cf, request)
-    return False
+    return info
+
+
+def give_json_2(id_contest):  # получение json надо сь которым дальше будем работать
+    request = [("contestId", str(id_contest)), ("count", "10000")]
+    request_for_cf = authorized_request("contest.status", request)  # делаем запрос на кф
+    if request_for_cf == None:  # что-то пошло не так и запрос не удалось сделать
+        return None
+    request = {'result': [{'author': {'members': 'handle'}}, {'problem': 'index'},
+                          'verdict', 'creationTimeSeconds']}
+    info = parsing_json_with_parameter(request_for_cf, request)
+    return info
 
 
 def up_contest(id_contest, last_submit):  # обновление данных в Contest для бд
-    if give_json(id_contest):
+    if last_submit == 0:
+        info = give_json(id_contest)
+    else:
+        info = give_json_2(id_contest)
+    if info == None:
         return False
-    global info
     if last_submit == "":
         last_submit = 0
     last = int(last_submit)
@@ -105,8 +117,11 @@ def launch_all():
     contest = get_all_contests()
     for item in contest:
         cnt = 0
+        qwe = item.last_update
+        if qwe == "":
+            qwe = 0
         print(item.link)
-        while cnt < 100 and (not up_contest(item.link, item.last_update)):
+        while cnt < 100 and (not up_contest(item.link, qwe)):
             cnt = cnt + 1
     return
 
