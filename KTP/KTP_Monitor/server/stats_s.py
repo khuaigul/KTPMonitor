@@ -66,10 +66,9 @@ def div_stats(division):
                 contest.append(info)
 
             result['contest'] = contest
-            result['pupils'] = sorted(pupils, key=lambda x: x['summ_task'])
+            result['pupils'] = sorted(pupils, key=lambda x: x['summ_task'], reverse=True)
             qwe = dict()
             qwe['stat'] = result
-            print(qwe)
             return qwe
     return {"status": False}
 
@@ -127,9 +126,8 @@ def contest_stats(link):
                 people[pupil.CF] = ch
                 ch = ch + 1
                 name.add(pupil.CF)
-    write_stat["pupils"] = sorted(all_people, key=lambda x: x['summ_task'])
+    write_stat["pupils"] = sorted(all_people, key=lambda x: x['summ_task'], reverse=True)
     write_stat["problems"] = all_problem
-    print(write_stat)
     return write_stat
 
 
