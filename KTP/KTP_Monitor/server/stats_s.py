@@ -196,6 +196,7 @@ def full_Stats(pupils, contest):
             info_human['surname'] = item.lastname
             info_human['nickname'] = item.CF
             info_human['results'] = []
+            info_human['summ_task'] = 0
             all_pupils.append(info_human)
             name_pupils[item.CF] = ch
             ch = ch + 1
@@ -205,13 +206,15 @@ def full_Stats(pupils, contest):
             info = dict()
             info['id'] = contest_link
             info['solved'] = r[contest_link][pupil_nick][0]
+            all_pupils[name_pupils[pupil_nick]]['summ_task'] += r[contest_link][pupil_nick][0]
             all_pupils[name_pupils[pupil_nick]]['results'].append(info)
             all_contest[name_contest[contest_link]]['count'] = r[contest_link][pupil_nick][1]
 
     result = dict()
     info = dict()
     info['contest'] = all_contest
-    info['pupils'] = all_pupils
+    info['pupils'] = sorted(all_pupils, key=lambda x: x['summ_task'], reverse=True)
     result['stat'] = info
+    print(result)
     return result
 
