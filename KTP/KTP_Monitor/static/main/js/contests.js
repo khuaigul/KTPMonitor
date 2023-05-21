@@ -216,6 +216,7 @@ function addNewContest()
 		if (divs[i].checked == false)
 			continue;
 		params = params + "&division" + cnt + "=" + encodeURIComponent(divs[i]["name"]); 
+		cnt = cnt + 1;
 		// console.log(params);
 	}
 	var xhr_d = new XMLHttpRequest();
