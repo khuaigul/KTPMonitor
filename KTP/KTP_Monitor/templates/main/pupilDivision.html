@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'main/css/ktpmonitor.css' %}" >
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title> KTPMonitor 
+	</title>
+	<script type="text/javascript" src="{% static 'main/js/pupilDivision.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/menuPupil.js' %}"></script>
+</head>
+<body>
+	<h1 class="name_header">
+		<script type="module">
+			setName();
+		</script>
+	</h1>
+	<div class="side_menu">
+		<p>
+			<button onclick="toProfile()">
+				Мой профиль
+			</button>
+		</p>
+		<p>
+			<button id="mydiv">
+				Мой дивизионы
+			</button>
+		</p>	
+		<p>
+			<button onclick="toExit()">
+				Выйти
+			</button>
+		</p>
+	</div>
+	<div class="block">
+		<p>
+			<div id="teachers">
+				<script type="module">
+					getTeachers();
+				</script>
+			</div>
+		</p>
+		<h2>
+			Статистика
+		</h2>
+		<p>
+			<div class="table-scroll">
+				<div class="table-wrap">
+					<table>
+						<script type="module">
+							getStats();
+						</script>
+					</table>
+				</div>
+			</div>
+		</p>
+	</div>
+</body>
+</html>

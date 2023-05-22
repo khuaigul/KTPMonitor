@@ -12,7 +12,7 @@ function showPupilProfileInfo()
 		else 
 		{
 			get_profile_Json = xhr_d.responseText;
-			return showProfile(get_profile_Json);
+			showProfile(get_profile_Json);
 		}
 	}
 	xhr_d.open("POST", 'http://127.0.0.1:8000/currentProfileData?', true);
@@ -22,7 +22,7 @@ function showPupilProfileInfo()
 
 function showProfile(profileJson)
 {
-	const data = JSON.parse(profileJson);
+	var data = JSON.parse(profileJson);
 	let name = document.getElementById("fullPupilName");
 	alert(name);
 	name.innerHTML = data["surname"] + " " + data["firstname"] + " "  + data["secondname"];
@@ -42,24 +42,32 @@ function showProfile(profileJson)
 	document.getElementById("school").innerHTML = "Школа: " + data["school"];
 	document.getElementById("grade").innerHTML = "Класс: " + data["grade"];
 
+
+	document.getElementById("mydiv").setAttribute("onclick", 'toDivision("' + data["division"] +'")');
+  console.log(document.getElementById("mydiv"));
+}
+
+function toDivision(division)
+{
+	document.location = "pupilDivision?division=" + encodeURIComponent(division);
 }
 
 
 function validatePhone(phone) {
   // проверяем, что телефон соответствует формату +7 (XXX) XXX-XXXX
-  // const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{4}$/;
+  // var phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{4}$/;
   // return phoneRegex.test(phone);
 	return true;
 }
 
 function validateBirthday(birthday) {
   // проверяем, что дата соответствует формату YYYY-MM-DD и является корректной датой
-  // const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  // var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
   // if (!dateRegex.test(birthday)) {
   //   return false;
   // }
-  const date = new Date(birthday);
-  const currentDate = new Date();
+  var date = new Date(birthday);
+  var currentDate = new Date();
   // alert(date);
   // alert(currentDate);
   if (date > currentDate) {
@@ -69,29 +77,30 @@ function validateBirthday(birthday) {
 }
 
 function validateForm() {
+	return true;
 	//alert("fgbfgb");
   var surname = document.getElementById("surname").value;
   //alert("1");
-  const name = document.getElementById("name").value;
+  var name = document.getElementById("name").value;
   //alert("1");
   
-  const patronymic = document.getElementById("patronymic").value;
+  var patronymic = document.getElementById("patronymic").value;
   //alert("1");
   
-  const phone = document.getElementById("phone").value;
+  var phone = document.getElementById("phone").value;
   //alert("1");
   
-  const school = document.getElementById("school").value;
+  var school = document.getElementById("school").value;
   //alert("1");
   
-  const classNumber = document.getElementById("class").value;
+  var classNumber = document.getElementById("class").value;
   //alert("1");
   
   //alert(document.getElementById("birthday").value);
-  const birthday = document.getElementById("birthday").value;
+  var birthday = document.getElementById("birthday").value;
   //alert("1");
   
-  const nickname = document.getElementById("nickname").value;
+  var nickname = document.getElementById("nickname").value;
   //alert("1");
 
   //alert(surname);
@@ -103,47 +112,105 @@ function validateForm() {
   }
   //alert("aa");
 
-  // проверяем, что телефон и дата рождения соответствуют формату
-  if (!validatePhone(phone)) {
-    alert("Пожалуйста, введите корректный номер телефона в формате +7 (XXX) XXX-XXXX");
-    return false;
-  }
-  if (!validateBirthday(birthday)) {
-    alert("Пожалуйста, введите корректную дату рождения в формате YYYY-MM-DD");
-    return false;
-  }
 
   return true;
 }
 
 function save() {
   // event.preventDefault();
-	//alert(validateForm());
+  alert("fgbfgb");
+	alert(validateForm());
 
   if (validateForm()) {
     // отправляем данные на сервер
-    //alert("AAA");
-    const surname = document.getElementById("surname").value;
-	const name = document.getElementById("name").value;
-	const patronymic = document.getElementById("patronymic").value;
-	const phone = document.getElementById("phone").value;
-	const school = document.getElementById("school").value;
-	const classNumber = document.getElementById("class").value;
-	const birthday = document.getElementById("birthday").value;
-	const nickname = document.getElementById("nickname").value;
+    alert("AAA");
+    var surname = document.getElementById("surname").value;
+	var name = document.getElementById("name").value;
+	var patronymic = document.getElementById("patronymic").value;
+	var phone = document.getElementById("phone").value;
+	var school = document.getElementById("school").value;
+	var classNumber = document.getElementById("class").value;
+	var nickname = document.getElementById("nickname").value;
+
+
+
+
+	
+  var xhr = new XMLHttpRequest();
+
+	var params = 'surname=' + encodeURIComponent(surname) +
+		'&firstname=' + encodeURIComponent(name) + 
+		'&secondname=' + encodeURIComponent(patronymic)+
+		'&nickname=' + encodeURIComponent(nickname)+
+		'&phone=' + encodeURIComponent(phone) + 
+		'&school=' + encodeURIComponent(school) +
+    '&grade=' + encodeURIComponent(classNumber);
+
+   alert(params);
 	
 
-	alert(surname);
-	alert(name);
-	alert(patronymic);
-	alert(phone);
-	alert(school);
-	alert(classNumber);
-	alert(birthday);
-	alert(nickname);
+	xhr.open("POST", 'http://127.0.0.1:8000/updatePupilProfileData?', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send(params);
 
-    alert("Данные отправлены на сервер");
+	xhr.onload = function(){
+		if (xhr.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else {
+			alert("fgbfg");
+			var getJson = xhr.responseText;
+			document.location = "pupilProfile";
+		}
+	}
+	
   }
 }
 
 // document.getElementById("save").addEventListener("click", handleSubmit);
+
+function editProfile()
+{
+  document.location = "edit_pupil_profile";
+}
+
+function fill_profile()
+{
+  var xhr_d = new XMLHttpRequest();
+
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			console.log(xhr_d.responseText);
+			get_profile_Json = xhr_d.responseText;
+			showInfo(get_profile_Json);
+		}
+	}
+	xhr_d.open("POST", 'http://127.0.0.1:8000/currentProfileData?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(null);
+}
+
+function showInfo(info)
+{
+  var data = JSON.parse(info);
+  console.log(data);
+  
+  var surname = document.getElementById("surname");
+  surname.value = data["surname"];
+	var name = document.getElementById("name");
+  name.value = data["firstname"];
+	var patronymic = document.getElementById("patronymic");
+  patronymic.value = data["secondname"];
+	var phone = document.getElementById("phone");
+  phone.value = data["phone"];
+	var school = document.getElementById("school");
+  school.value = data["school"];
+	var classNumber = document.getElementById("class");
+  classNumber.value = data["grade"];
+	var nickname = document.getElementById("nickname");
+  nickname.value = data["nickname"];
+}

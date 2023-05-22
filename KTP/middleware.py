@@ -9,16 +9,12 @@ class SimpleMiddleware:
         # the view (and later middleware) are called.
 
         response = self.get_response(request)
-        # print(request.path)
-        # if "registration" in request.path or "profileData" in request.path or "signin" in request.path or "ProfileData" in request.path:
-        #     return response        
-        # if request.user.has_perm('KTP_Monitor.' + request.path):        
-        #    return response
-        # else:   
-        #     print("cringe")        
-        #     return render(request, 'main/main.html')
-
-        # Code to be executed for each request/response after
-        # the view is called.
+        print(request.path)
+        if "registration" in request.path or "profileData" in request.path or "signin" in request.path or "ProfileData" in request.path:
+            return response           
+        if request.user.has_perm('KTP_Monitor.' + request.path):        
+           return response
+        else:             
+            return render(request, 'main/main.html')        
 
         return response

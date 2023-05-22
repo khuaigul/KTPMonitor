@@ -4,6 +4,46 @@ function setName()
 	document.querySelectorAll(".name_header")[0].innerHTML = "Дивизион " + paramValue;
 }
 
+function getTeachers()
+{
+	var div = window.location.href.split("?")[1].split("=")[1];		
+	var params = "name=" + div;
+	var xhr_d = new XMLHttpRequest();
+	
+	xhr_d.open("POST", 'http://127.0.0.1:8000/teachers_by_div?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(params);
+
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_teachers_Json = xhr_d.responseText;
+			showTeachers(get_teachers_Json);
+		}
+	}
+}
+
+function showTeachers(teachers_json)
+{
+	teachers = JSON.parse(teachers_json);
+	// console.log(teachers["teachers"]);
+
+	var title = document.createElement("p");
+	title.innerHTML = "Преподаватели:"
+	document.getElementById("teachers").appendChild(title);
+
+	for (var i = 0; i < teachers["teachers"].length; i++)
+	{
+		var p = document.createElement("p");
+		p.innerHTML = teachers["teachers"][i]["surname"] + " " + teachers["teachers"][i]["name"] + " " + teachers["teachers"][i]["secondname"];
+		document.getElementById("teachers").appendChild(p);
+	}
+
+}
+
 function getStats()
 {
 	var div = window.location.href.split("?")[1].split("=")[1];
@@ -18,7 +58,7 @@ function getStats()
 		}
 		else 
 		{
-			get_Json = xhr_d.responseText;
+			var get_Json = xhr_d.responseText;
 			console.log(get_Json);
 			showStats(get_Json);
 		}
@@ -31,7 +71,7 @@ function getStats()
 function showStats(stats_json)
 {
 	var stats = JSON.parse(stats_json)["stat"];
-	var table = document.querySelectorAll(".main-table")[0];
+	var table = document.querySelectorAll("table")[0];
 
 	var thead = document.createElement("thead");
 	var tr = document.createElement("tr");
@@ -56,7 +96,7 @@ function showStats(stats_json)
 	for (var i = 0; i < stats["pupils"].length; i++)
 	{
 		var cur_tr = document.createElement("tr");
-		var cur_th = document.createElement("th");
+		var cur_th = document.createElement("td");
 		cur_th.setAttribute("class", "fixed-side");
 		cur_th.innerHTML = stats["pupils"][i]["surname"] + " " + stats["pupils"][i]["name"] + " " + stats["pupils"][i]["secondname"];
 		cur_tr.appendChild(cur_th);
@@ -72,4 +112,4 @@ function showStats(stats_json)
 		tbody.appendChild(cur_tr);
 	}
 	table.appendChild(tbody);
-} 
+}

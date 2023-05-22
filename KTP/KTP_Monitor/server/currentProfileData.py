@@ -14,4 +14,4 @@ def current_profile_data(request):
         pupil = Pupil_Info.objects.get(user=user)   
         return {"firstname": pupil.firstname, "secondname": pupil.secondname,
             "surname": pupil.lastname, "nickname": pupil.CF, "email": user.email, "phone": pupil.phone, 
-            "school": pupil.school, "grade": pupil.grade, "datebirth": pupil.birthday, 'division': "None"}
+            "school": pupil.school, "grade": pupil.grade, "datebirth": pupil.birthday, 'division': pupil.div.name}

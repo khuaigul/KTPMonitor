@@ -167,7 +167,7 @@ function showContests(contests_json)
 
 function showStudent(student)
 {
-	document.location="pupil?nickname=" + student;
+	document.location="student_profile?nickname=" + student;
 }
 
 function showContest(contest)

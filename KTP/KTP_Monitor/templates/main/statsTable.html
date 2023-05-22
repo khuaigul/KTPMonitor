@@ -3,16 +3,15 @@
 <head>
 	{% load static %}
 	<link rel="stylesheet" href="{% static 'main/css/ktpmonitor.css' %}" >
-	<script type="text/javascript" src="{% static 'main/js/students.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/stats.js' %}"></script>
 	<script type="text/javascript" src="{% static 'main/js/menu.js' %}"></script>
-
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Профиль студента</title>
+	<title></title>
 </head>
 <body>
 	<h1 class="usual_header">
-		
+		Статистика
 	</h1>
 	<div class="side_menu">
 		<p>
@@ -57,11 +56,15 @@
 		</p>
 	</div>
 	<div class="block">
-		<table>
-			<script>
-				showPupilStats();
-			</script>
-		</table>
+		<div class="table-scroll">
+			<div class="table-wrap">
+				<table class="main-table">
+					<script type="module">
+						getTableStats();
+					</script>
+				</table>
+			</div>
+		</div>
 	</div>
 </body>
 </html> 

@@ -3,13 +3,8 @@
 
 from .parsing import parsing_json_with_parameter
 from .API_CF import authorized_request
-from .chek import *
 from .DB.main_DB_modul import *
-import time
-from django.db import IntegrityError
-from django.db import transaction
-from db_mutex import DBMutexError, DBMutexTimeoutError
-from db_mutex.db_mutex import db_mutex
+
 
 def write_contest_list(info):  # вывод конкретного Contest
     if info == "":
@@ -17,9 +12,7 @@ def write_contest_list(info):  # вывод конкретного Contest
     divs = get_all_divs()
     for item in divs:
         if item.name == info:
-            print("tyttyttyttyttyttyttyttyt")
             contests = get_all_contests([item])
-            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             write_contests = dict()
             write_contests["status"] = True
             name_contests = []
@@ -29,7 +22,6 @@ def write_contest_list(info):  # вывод конкретного Contest
                 info_contests["link"] = item2.link
                 name_contests.append(info_contests)
             write_contests["contests"] = name_contests
-            print(write_contests)
             return write_contests
     return {"status": False}
 
@@ -44,7 +36,6 @@ def add_problem(id_contest):
     for item in info:
         name = item[0]['name']
         index = item[1]['index']
-        print(index, name)
         add_task(id_contest, index, name)
     return True
 
@@ -60,29 +51,18 @@ def get_name_contest(lint):
 
 
 def add_contestt(link, divison):
-#    while(True):
-    with db_mutex('lock_id'):
-        if link == "" or divison == "":
-            return {"status": False}
-        divs = get_all_divs()
-        name = get_name_contest(link)
-        if type(name) == type(False):
-            return {"status": False}
-        print(name)
-        print(link)
-        for item in divs:
-            if item.name == divison:
-                if not add_contest(name, link, [item]):
-                    print("add contest")
-                    return {"status": True}
-
-                print("add task!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
-                while True:
-                    if add_problem(link):
-                        return {"status": True}
+    divs = get_all_divs()
+    name = get_name_contest(link)
+    if type(name) == type(False):
         return {"status": False}
-#            break
-    return {"status": True}
+    for item in divs:
+        if item.name in divison:
+            if not add_contest(name, link, [item]):
+                continue
+            while True:
+                if add_problem(link):
+                    break
+    return {"status": False}
 
 
 def remove_contest(id_contest):  # удаление конкретного Contest

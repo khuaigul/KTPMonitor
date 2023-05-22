@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from .server import contest_server
 from .server import div
 from .server import people
-from .server import stats
+from .server import stats_s
 from .server import new_functions
 from django.views.decorators.csrf import csrf_exempt
 from . import tokens
@@ -18,8 +18,7 @@ from .server.signin import sign_in
 from .server.registrationRe import registration_Re
 from .server.currentProfileData import current_profile_data
 from .server.updateTeacherProfileData import update_teacher_profile_data
-
-
+from .server.updatePupilProfileData import update_pupil_profile_data
 
 
 def main(request):     
@@ -88,6 +87,15 @@ def edit_pupil_profile(request):
 def studentStatsPage(request):
     return render(request, 'main/studentStatsPage.html')
 
+def pupilDivision(request):
+    return render(request, 'main/pupilDivision.html')
+
+def stats(request):
+    return render(request, 'main/stats.html')
+
+def statsTable(request):
+    return render(request, 'main/statsTable.html')
+
 @csrf_exempt 
 def signin(request):
     if request.method=='POST':
@@ -126,10 +134,7 @@ def sendProfileData(request):
 
 @csrf_exempt
 def currentProfileData(request):
-    print("SOME");
     if request.method == 'POST':
-        print("HERER")
-        print(current_profile_data(request))
         return JsonResponse(current_profile_data(request))
     return JsonResponse({"status": False})
 
@@ -137,6 +142,12 @@ def currentProfileData(request):
 def updateTeacherProfileData(request):
     if request.method == 'POST':
         return JsonResponse(update_teacher_profile_data(request))
+    return JsonResponse({'status': False})
+
+@csrf_exempt
+def updatePupilProfileData(request):
+    if request.method == 'POST':
+        return JsonResponse(update_pupil_profile_data(request))
     return JsonResponse({'status': False})
 
 
@@ -155,7 +166,6 @@ def divisionsRe(request):
 @csrf_exempt
 def students_by_div(request):
     if request.method == 'POST':
-        print(request.POST['name'])
         return JsonResponse(people.people_write_div(request.POST['name']))
     else:
         return JsonResponse({"status": False})
@@ -188,8 +198,8 @@ def сhangeDiv(request):
 
 @csrf_exempt
 def pupilStats(request):
-    if request.method == 'GET':
-        return JsonResponse({"status": False})
+    if request.method == 'POST':
+        return JsonResponse(stats_s.pupil_stats(request.POST['nickname']))
     return JsonResponse({"status": False})
 
 
@@ -199,37 +209,38 @@ def newDivisionRe(request):  #
         return JsonResponse(div.add_div(request.POST["name"]))
     return JsonResponse({"status": False})
 
+
 @csrf_exempt
 def divisionStats(request):
-    if request.method == 'GET':
-        return JsonResponse({"status": False})
+    if request.method == 'POST':
+        return JsonResponse(stats_s.div_stats(request.POST['name']))
     return JsonResponse({"status": False})
+
 
 @csrf_exempt
 def contestStats(request):
-    if request.method == 'GET':
-        return JsonResponse(stats.contest_stats)
+    if request.method == 'POST':
+        return JsonResponse(stats_s.contest_stats(request.POST['id']))
     return JsonResponse({"status": False})
 
 
 @csrf_exempt
 def contestsList(request):
     if request.method == 'POST':
-        print("запрос пришёл таким :", request.POST["div"])
         return JsonResponse(contest_server.write_contest_list(request.POST["div"]))
     return JsonResponse({"status": False})
 
 
 @csrf_exempt
-def testParams(request):
-    if (request.method == 'POST'):
-        print(request.POST["id"])
-
-
-@csrf_exempt
 def newContest(request):
     if request.method == 'POST':
-        return JsonResponse(contest_server.add_contestt(request.POST["link"], request.POST["division"]))
+        info = list(request.POST.items())
+        div_s = set()
+        for item in info:
+            if item[0][0] == 'd':
+                div_s.add(item[1])
+        div_s.add('A')
+        return JsonResponse(contest_server.add_contestt(request.POST["link"], div_s))
     return JsonResponse({"status": False})
 
 
@@ -243,7 +254,6 @@ def deleteContest(request):
 @csrf_exempt
 def updatePupilDivison(request):
     if request.method == 'POST':
-        print(request.POST["pupil1"])
         return JsonResponse(div.change_div_people(list(request.POST.items())))
     return JsonResponse({"status": False})
 
@@ -254,9 +264,33 @@ def divs_with_pupil(request):
         return JsonResponse(new_functions.all_people_and_div())
     return JsonResponse({"status": False})
 
+
+@csrf_exempt
 def divs_with_contests(request):
     if request.method == 'GET':
         return JsonResponse(new_functions.all_contest_and_div())
+    return JsonResponse({"status": False})
+
+
+@csrf_exempt
+def divs_full(request):
+    if request.method == 'GET':
+        return JsonResponse(new_functions.all_people_and_div_and_contest())
+    return JsonResponse({"status": False})
+
+
+@csrf_exempt
+def fullStats(request):
+    if request.method == 'POST':
+        info = list(request.POST.items())
+        pupils_info = []
+        contest_info = []
+        for item in info:
+            if item[0][0] == 'p':
+                pupils_info.append(item[1])
+            else:
+                contest_info.append(item[1])
+        return JsonResponse(stats_s.full_Stats(pupils_info, contest_info))
     return JsonResponse({"status": False})
 
 

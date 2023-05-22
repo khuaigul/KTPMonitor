@@ -1,31 +1,13 @@
 function toProfile()
 {
-	document.location="teacherProfile";
+	document.location="pupilProfile";
 }
+
 function toDivisions()
 {
-	document.location="divisions";
+	document.location="pupilDivision";
 }
-function toContests()
-{
-	document.location="contests";
-}
-function toStudents()
-{
-	document.location="students";
-}
-function toStats()
-{
-	document.location="stats";
-}
-function toController()
-{
-	document.location="controller";
-}
-function toNotifications()
-{
-	document.location="notifications";
-}
+
 function toExit()
 {
 	alert("Выйти из профиля?");

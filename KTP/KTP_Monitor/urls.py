@@ -40,6 +40,7 @@ urlpatterns = [
     path('deleteDivision', views.deleteDivision, name='deleteDivision'),
     path('newContest', views.newContest, name='newContest'),
     path('updateTeacherProfileData', views.updateTeacherProfileData, name='updateTeacherProfileData'),    
+    path('updatePupilProfileData', views.updatePupilProfileData, name='updatePupilProfileData'),    
     path('addContest', views.addContest, name='addContest'),
     path('edit_pupil_profile', views.edit_pupil_profile, name='edit_pupil_profile'),
     path('deleteContest', views.deleteContest, name='deleteContest'),
@@ -47,5 +48,11 @@ urlpatterns = [
     path('studentStatsPage', views.studentStatsPage, name='studentStatsPage'),
     path('divs_with_pupil', views.divs_with_pupil, name='divs_with_pupil'),
     path('divs_with_contests', views.divs_with_contests, name='divs_with_contests'),
+    path('pupilDivision', views.pupilDivision, name='pupilDivision'),
+    path('stats', views.stats, name='stats'),
+    path('fullStats', views.fullStats, name='fullStats'),
+    path('divs_full', views.divs_full, name='divs_full'),
+    path('statsTable', views.statsTable, name='statsTable'),
+
+
 ]
-  

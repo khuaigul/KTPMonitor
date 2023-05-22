@@ -1,36 +1,3 @@
-function toProfile()
-{
-	document.location="teacherProfile";
-}
-function toDivisions()
-{
-	document.location="divisions";
-}
-function toContests()
-{
-	document.location="contests";
-}
-function toStudents()
-{
-	document.location="students";
-}
-function toStats()
-{
-	document.location="statistics";
-}
-function toController()
-{
-	document.location="controller";
-}
-function toNotifications()
-{
-	document.location="notifications";
-}
-function toExit()
-{
-	alert("Выйти из профиля?");
-	document.location="main";
-}
 
 function getJson_divs()
 {
@@ -144,6 +111,7 @@ function show_contests(contests_json, block)
  //   alert("AAAA");
 	contests = JSON.parse(contests_json);
 	//alert(contests["contests"].length);
+	console.log(contests);
 	for (var i = 0; i < contests["contests"].length; i++)
 	{
 		var p = document.createElement("p");
@@ -151,7 +119,7 @@ function show_contests(contests_json, block)
 		p.setAttribute("class", "contestLink");
 		p.setAttribute("name", contests["contests"][i]);
 		a.innerHTML = contests["contests"][i]["name"];
-		a.setAttribute("name", contests["contests"][i]["id"]);
+		a.setAttribute("name", contests["contests"][i]["link"]);
 		a.setAttribute("onclick", "show_contest(this)");
 		p.appendChild(a);
 		block.appendChild(p);
@@ -238,31 +206,35 @@ function addNewContest()
 	var link = document.getElementById("link").value;
 	link = link.split('/');
 	link = link[link.length-1];
+	var cnt = 0;
 	//alert(link);
+	var params = "link=" + encodeURIComponent(link)
 
 	var divs = document.querySelectorAll(".movedCheckbox");
 	for (var i = 0; i < divs.length; i++)
 	{
 		if (divs[i].checked == false)
 			continue;
-		var params = "link=" + encodeURIComponent(link) + "&division=" + encodeURIComponent(divs[i]["name"]); 
-		console.log(params);
-		var xhr_d = new XMLHttpRequest();
-
-		xhr_d.onload = function(){
-			if (xhr_d.status != 200){
-				alert('Ошибка ${xhr.status} : ${xhr.statusText}');
-			}
-			else 
-			{
-				get_div_Json = xhr_d.responseText;
-				var ret = JSON.parse(get_div_Json);
-				if (ret["status"] == true)
-					alert("Контест успешно добавлен");
-			}
-		}
-		xhr_d.open("POST", 'http://127.0.0.1:8000/newContest?', true);
-		xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		xhr_d.send(params);
+		params = params + "&division" + cnt + "=" + encodeURIComponent(divs[i]["name"]); 
+		cnt = cnt + 1;
+		// console.log(params);
 	}
+	var xhr_d = new XMLHttpRequest();
+
+	xhr_d.onload = function(){
+		if (xhr_d.status != 200){
+			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
+		}
+		else 
+		{
+			get_div_Json = xhr_d.responseText;
+			var ret = JSON.parse(get_div_Json);
+			if (ret["status"] == true)
+				alert("Контест успешно добавлен");
+			document.location = "contests";
+		}
+	}
+	xhr_d.open("POST", 'http://127.0.0.1:8000/newContest?', true);
+	xhr_d.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr_d.send(params);
 }

@@ -2,20 +2,56 @@ from django.db import models
 from django.contrib.auth.models import User
 class Permissions(models.Model):
     class Meta:        
-        permissions = (
+        permissions = (            
+            ('/main', ''),
+            ('/registration', ''),
+            ('/continue_registration', ''),
+            ('/div_info', ''),
+            ('/divisions', ''),
             ('/menu', ''),
+            ('/new_division', ''),
+            ('/students', ''),
+            ('/student_profile', ''),
             ('/signin', ''),
+            ('/registrationRe', ''),
+            ('/profileData', ''),
+            ('/divisionsRe', ''),
+            ('/сhangeDiv', ''),
+            ('/newDivisionRe', ''),
+            ('/profileData/<slug:uidb64>/<slug:token>/', ''),                
             ('/sendProfileData', ''),
             ('/teacherProfile', ''),
-            ('/viewProfileData', ''),
-            ('/editTeacherProfile', ''), 
-            ('/pupilProfile', ''), 
-            ('/divisions', ''),   
-            ('/div_info', ''),  
-            ('/pupil', ''),   
-            ('/contest', ''), 
+            ('/editTeacherProfile', ''),
             ('/contests', ''),
+            ('/contest', ''),
+            ('/currentProfileData', ''),
+            ('/pupilProfile', ''),
+            ('/logout', ''),
+            ('/pupil', ''),
+            ('/students_by_div', ''),
+            ('/teachers_by_div', ''),
+            ('/pupilInfo', ''),
+            ('/pupilStats', ''),
+            ('/division_stats', ''),
             ('/divisionStats', ''),
+            ('/contestStats', ''),
+            ('/contestsList', ''),
+            ('/deleteDivision', ''),
+            ('/newContest', ''),
+            ('/updateTeacherProfileData', ''),
+            ('/addContest', ''),
+            ('/edit_pupil_profile', ''),
+            ('/deleteContest', ''),
+            ('/updatePupilDivison', ''),
+            ('/studentStatsPage', ''),
+            ('/divs_with_pupil' , ''),
+            ('/divs_with_contests', ''),
+            ('/updatePupilProfileData', ''),
+            ('/statsTable', ''),
+            ('/divs_full', ''),
+            ('/fullStats', ''),
+            ('/stats', ''),
+            ('/pupilDivision', ''),
         )
 
 class MyUser(models.Model):
@@ -60,7 +96,7 @@ class Teacher_Info(models.Model):
 class Contest_Info(models.Model):
     name = models.CharField(max_length=100)
     link = models.CharField(max_length=100)
-    # last_update = models.CharField(max_length=100)
+    last_update = models.CharField(max_length=100, default='')
     divs = models.ManyToManyField(Div_Info, through="Contest_Div")
     
        
