@@ -23,6 +23,7 @@ def div_stats(division):
             people_name = dict()
             people_surname = dict()
             people_secondname = dict()
+            people_task = dict()
             people_cf = []
             for c in all_people:
                 people_name[c.CF] = c.firstname
@@ -39,9 +40,11 @@ def div_stats(division):
                     info = r[contest_link][pupil_nick]
                     count_contest[contest_link] = info[1]
                     if pupil_nick in people:
-                        people[pupil_nick].append({'id': contest_link, 'solved':info[0]})
+                        people_task[pupil_nick] += int(info[0])
+                        people[pupil_nick].append({'id': contest_link, 'solved': info[0]})
                     else:
                         people_cf.append(pupil_nick)
+                        people_task[pupil_nick] = int(info[0])
                         people[pupil_nick] = []
                         people[pupil_nick].append({'solved': info[0], 'id': contest_link})
 
@@ -52,6 +55,7 @@ def div_stats(division):
                 info['secondname'] = people_surname[item]
                 info['nickname'] = item
                 info['results'] = people[item]
+                info['summ_task'] = people_task[item]
                 pupils.append(info)
 
             for item in all_contest:
@@ -62,7 +66,7 @@ def div_stats(division):
                 contest.append(info)
 
             result['contest'] = contest
-            result['pupils'] = pupils
+            result['pupils'] = sorted(pupils, key=lambda x: x['summ_task'], reverse=True)
             qwe = dict()
             qwe['stat'] = result
             return qwe
@@ -87,8 +91,10 @@ def contest_stats(link):
                 if info[1] == "OK":
                     if info[0] == 1:
                         problem.append({'name': task.letter, "status": "+"})
+                        all_people[people[pupil.CF]]['summ_task'] += 1
                     else:
                         problem.append({'name': task.letter, "status": "+"+str(info[0]-1)})
+                        all_people[people[pupil.CF]]['summ_task'] += 1
                 else:
                     if info[0] == 0:
                         problem.append({'name': task.letter, "status": ""})
@@ -102,10 +108,13 @@ def contest_stats(link):
                 info_people['secondname'] = pupil.secondname
                 info_people['surname'] = pupil.lastname
                 info_people['nickname'] = pupil.CF
+                info_people['summ_task'] = 0
                 if info[1] == "OK":
                     if info[0] == 1:
+                        info_people['summ_task'] += 1
                         problem.append({'name': task.letter, "status": "+"})
                     else:
+                        info_people['summ_task'] += 1
                         problem.append({'name': task.letter, "status": "+"+str(int(info[0])-1)})
                 else:
                     if info[0] == 0:
@@ -117,7 +126,7 @@ def contest_stats(link):
                 people[pupil.CF] = ch
                 ch = ch + 1
                 name.add(pupil.CF)
-    write_stat["pupils"] = all_people
+    write_stat["pupils"] = sorted(all_people, key=lambda x: x['summ_task'], reverse=True)
     write_stat["problems"] = all_problem
     return write_stat
 
@@ -187,6 +196,7 @@ def full_Stats(pupils, contest):
             info_human['surname'] = item.lastname
             info_human['nickname'] = item.CF
             info_human['results'] = []
+            info_human['summ_task'] = 0
             all_pupils.append(info_human)
             name_pupils[item.CF] = ch
             ch = ch + 1
@@ -196,13 +206,15 @@ def full_Stats(pupils, contest):
             info = dict()
             info['id'] = contest_link
             info['solved'] = r[contest_link][pupil_nick][0]
+            all_pupils[name_pupils[pupil_nick]]['summ_task'] += r[contest_link][pupil_nick][0]
             all_pupils[name_pupils[pupil_nick]]['results'].append(info)
             all_contest[name_contest[contest_link]]['count'] = r[contest_link][pupil_nick][1]
 
     result = dict()
     info = dict()
     info['contest'] = all_contest
-    info['pupils'] = all_pupils
+    info['pupils'] = sorted(all_pupils, key=lambda x: x['summ_task'], reverse=True)
     result['stat'] = info
+    print(result)
     return result
 
