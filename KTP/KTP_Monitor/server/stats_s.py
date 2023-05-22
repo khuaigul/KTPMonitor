@@ -215,6 +215,5 @@ def full_Stats(pupils, contest):
     info['contest'] = all_contest
     info['pupils'] = sorted(all_pupils, key=lambda x: x['summ_task'], reverse=True)
     result['stat'] = info
-    print(result)
     return result
 
