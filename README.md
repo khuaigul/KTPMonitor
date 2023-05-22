@@ -75,22 +75,21 @@ sudo mysql_secure_installation
 1. [Скачать](https://git-scm.com/download/win)
 2. Добавить в PATH
 3. Развернуть репозиторий по инструкции [ниже](https://github.com/khuaigul/KTPMonitor/blob/develop/README.md#%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D1%80%D0%B5%D0%BF%D0%BE%D0%B7%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F)
-## Установка и настройка локальной базы данных
-
-1. Для загрузки и установки MySQL Server следуйте инструкциям по [ссылке](https://wiki.merionet.ru/servernye-resheniya/12/ustanovka-mysql-servera-na-windows-10/?ysclid=lee4gqyolw814370891)
-2. При установке MySQL Server на этапе установки нужно поставить пароль ```DB_for_tppo123```
-3. Необходимо открыть MySQL Workbench и прописать команды (можно через консоль)
-    1. ```create database KTP_Monitor```
-4. После этого в консоли необходимо выполнить скрипт ```KTP/taskmanager/main/server/create_tables.py``` (возможно там нужно раскомментить вызов функции)
-5. Необходимо установить компилятор для языка Python по [ссылке](https://www.python.org/downloads/)
+## Установка Redis
+Установите redis с помощью вашего менеджера пакетов, если вы работаете с Linux, либо используя порт(https://github.com/microsoftarchive/redis/releases/tag/win-3.0.504)
 ## Установка и настройка сервера
 1. Для установки необходимых компонентов и библиотек выполните в консоли следующие команды
     1. ```pip install mysql-connector-python```
     2. ```pip install django```
+    3. ```pip install redis```
+    4. ```pip install huey```
+    5. ```pip install django-db-mutex```
 ## Запуск 
-  1. Чтобы запустить сервер необходимо перейти в каталог ```KTP\taskmanager```
-  2. В текущем каталоге выполнить команду: 
+  1. Чтобы запустить сервер необходимо перейти в каталог ```KTP```
+  2. В текущем каталоге выполнить команду:
       1. ```.\manage.py runserver```
+  3. В другой консоли выполнить команду:
+      1. ```.\manage.py run_huey 
       
   При успешных установке и запуске всех необходимых компонентов в консоли появится ссылка на Local-host, при переходе откроется разработанное приложение.
   ```
@@ -101,7 +100,7 @@ Quit the server with CTRL-BREAK.
 ```
 ## Superuser(администратор)
   1. Чтобы создать Superuser
-      1. Необходимо перейти в каталог ```KTP\taskmanager```
+      1. Необходимо перейти в каталог ```KTP```
       2. Выполнить команду ```python manage.py createsuperuser```
       3. Ввести нужные данные : 
   
