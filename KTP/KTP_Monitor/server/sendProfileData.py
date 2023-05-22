@@ -24,7 +24,8 @@ def send_profile_data(request):
         user.user_permissions.add(Permission.objects.get(codename='/signin'))
         user.user_permissions.add(Permission.objects.get(codename='/currentProfileData'))
         user.user_permissions.add(Permission.objects.get(codename='/divisionStats'))
-        user.user_permissions.add(Permission.objects.get(codename='/teachers_by_div'))                   
+        user.user_permissions.add(Permission.objects.get(codename='/teachers_by_div'))   
+        user.user_permissions.add(Permission.objects.get(codename='/pupilDivision'))                
         if add_new_pupil(user, request.POST['surname'], request.POST['firstname'], request.POST['secondname'], 
             request.POST['nickname'], request.POST['datebirth'], request.POST['school'], request.POST['grade'], request.POST['phone'], user.email) is False:
             return {'status': 'nicknameExists'}
@@ -66,6 +67,10 @@ def send_profile_data(request):
         user.user_permissions.add(Permission.objects.get(codename='/studentStatsPage'))
         user.user_permissions.add(Permission.objects.get(codename='/divs_with_pupil' ))
         user.user_permissions.add(Permission.objects.get(codename='/divs_with_contests'))
+        user.user_permissions.add(Permission.objects.get(codename='/stats'))
+        user.user_permissions.add(Permission.objects.get(codename='/fullStats'))
+        user.user_permissions.add(Permission.objects.get(codename='/divs_full'))
+        user.user_permissions.add(Permission.objects.get(codename='/statsTable'))
         if add_new_teacher(user, request.POST['surname'], request.POST['firstname'], request.POST['secondname'], 
            request.POST['nickname'], request.POST['phone']) is False:
             return {'status': 'nicknameExists'}

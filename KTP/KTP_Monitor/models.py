@@ -47,6 +47,11 @@ class Permissions(models.Model):
             ('/divs_with_pupil' , ''),
             ('/divs_with_contests', ''),
             ('/updatePupilProfileData', ''),
+            ('/statsTable', ''),
+            ('/divs_full', ''),
+            ('/fullStats', ''),
+            ('/stats', ''),
+            ('/pupilDivision', ''),
         )
 
 class MyUser(models.Model):

@@ -7,10 +7,8 @@ def update_pupil_profile_data(request):
     pupil.secondname = request.POST['secondname']
     pupil.lastname = request.POST['surname']
     pupil.CF = request.POST['nickname']
-    pupil.phone = request.POST['phone']
-    pupil.div = Div_Info.objects.get(name=request.POST['division'])
+    pupil.phone = request.POST['phone']    
     pupil.grade = request.POST['grade']
-    pupil.birthday = request.POST['datebirth']
     pupil.school = request.POST['school']
     pupil.save()
     return {'status': True}

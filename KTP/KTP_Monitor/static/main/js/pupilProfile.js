@@ -77,6 +77,7 @@ function validateBirthday(birthday) {
 }
 
 function validateForm() {
+	return true;
 	//alert("fgbfgb");
   var surname = document.getElementById("surname").value;
   //alert("1");
@@ -111,26 +112,18 @@ function validateForm() {
   }
   //alert("aa");
 
-  // проверяем, что телефон и дата рождения соответствуют формату
-  if (!validatePhone(phone)) {
-    alert("Пожалуйста, введите корректный номер телефона в формате +7 (XXX) XXX-XXXX");
-    return false;
-  }
-  if (!validateBirthday(birthday)) {
-    alert("Пожалуйста, введите корректную дату рождения в формате YYYY-MM-DD");
-    return false;
-  }
 
   return true;
 }
 
 function save() {
   // event.preventDefault();
-	//alert(validateForm());
+  alert("fgbfgb");
+	alert(validateForm());
 
   if (validateForm()) {
     // отправляем данные на сервер
-    //alert("AAA");
+    alert("AAA");
     var surname = document.getElementById("surname").value;
 	var name = document.getElementById("name").value;
 	var patronymic = document.getElementById("patronymic").value;
@@ -138,6 +131,10 @@ function save() {
 	var school = document.getElementById("school").value;
 	var classNumber = document.getElementById("class").value;
 	var nickname = document.getElementById("nickname").value;
+
+
+
+
 	
   var xhr = new XMLHttpRequest();
 
@@ -148,6 +145,8 @@ function save() {
 		'&phone=' + encodeURIComponent(phone) + 
 		'&school=' + encodeURIComponent(school) +
     '&grade=' + encodeURIComponent(classNumber);
+
+   alert(params);
 	
 
 	xhr.open("POST", 'http://127.0.0.1:8000/updatePupilProfileData?', true);
@@ -159,12 +158,9 @@ function save() {
 			alert('Ошибка ${xhr.status} : ${xhr.statusText}');
 		}
 		else {
-			getJson = xhr.responseText;
-			const obj = JSON.parse(getJson);
-			console.log(obj["status"]);
-			if (obj["status"] == true){
-				document.location = "pupilProfile";
-			}
+			alert("fgbfg");
+			var getJson = xhr.responseText;
+			document.location = "pupilProfile";
 		}
 	}
 	
